@@ -90,6 +90,8 @@ cd bench && npm run dry-run   replays recorded transcripts into runs/dry-run/
 
 These become runnable as the scaffold and fixture issues land. Each issue's `## Fitness metric` is the authority for that issue.
 
+**Check Composer before any baseline run.** Run `composer --version` first and stop if it fails. Never pipe `composer install` into `tail`, `head` or `grep`: a pipeline reports the last command's exit code, so a failed install looks like a success and the fitness baseline then fails for the wrong reason (the whole `wp wayfinder` command goes missing). Run it bare, or after `set -o pipefail`, and confirm `vendor/autoload.php` exists before you record a "fails before" result.
+
 Always call it by the scoped name: `npx @wordpress/env` runs the official package, using the local pin when installed.
 
 The plugin is mapped to `wp-content/plugins/voyager-wayfinder` in `.wp-env.json` rather than listed in `plugins`, because wp-env names a listed plugin after the checkout folder (the worktree's folder name in a worktree). An `afterStart` script activates it. Parallel worktrees need their own ports: `WP_ENV_PORT=8892 WP_ENV_TESTS_PORT=8893 npx @wordpress/env start`.
