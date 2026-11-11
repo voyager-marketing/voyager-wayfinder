@@ -1,0 +1,37 @@
+name: Feature request
+description: Suggest something Wayfinder should map or show.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Wayfinder is read-only: it maps how a site is built and where each thing is edited, and never changes the site.
+        Requests for write abilities, page-builder editing or a memory feature are out of scope and will be closed.
+        For a page builder, use the "Builder support" template instead.
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What can't you, a client or an agent find out today? Give a concrete example.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you'd like
+      description: What Wayfinder should report, and where (the Wayfinder page, the AI tiers, find, REST, CLI).
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What you do now
+      description: How you find this out today, and what it costs you.
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - label: This reads the site and changes nothing on it.
+          required: true
+        - label: I'd like to work on this myself.

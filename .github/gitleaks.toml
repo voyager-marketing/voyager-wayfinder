@@ -1,0 +1,27 @@
+# gitleaks settings for .github/workflows/secret-scan.yml: the default rules,
+# plus one allowlist. Locally: gitleaks git . --config .github/gitleaks.toml
+#
+# Keep every entry here narrow (one rule, one path, one shape of value) and say
+# why it is not a secret. An entry that hides a real key publishes it. The
+# workflow plants a generic-api-key value that this entry must not hide.
+
+[extend]
+useDefault = true
+
+# The benchmark reports print token counts per model, for example
+# "p90 input tokens per question: claude-haiku-4-5-20251001 adapter 65,388".
+# generic-api-key reads "tokens ...:" as a key and the model id after it as the
+# value. All 220 findings of the first full scan were this, in bench/reports/,
+# with the value claude-haiku-4-5-20251001.
+#
+# condition = "AND" makes all three tests apply: the rule, the path and the
+# value. The value must be a model family and version (claude-haiku-4-5-20251001,
+# claude-sonnet-5), so a token-shaped value such as claude-3f9a1c7e5b2d... is
+# still reported, in bench/reports/ or anywhere else.
+[[allowlists]]
+description = "Anthropic model ids after a token-count label in benchmark reports"
+targetRules = ["generic-api-key"]
+condition = "AND"
+paths = ['''^bench/reports/''']
+regexTarget = "secret"
+regexes = ['''^claude-(?:haiku|sonnet|opus)-\d+(?:-\d+)*$''']

@@ -1,0 +1,39 @@
+{
+  "synthetic": true,
+  "note": "Hand-written for the dry-run test suite. Not a recorded API run and not a measurement.",
+  "question": "ci-01",
+  "condition": "manual-preloaded",
+  "model": "claude-haiku-4-5-20251001",
+  "wall_ms": 1650,
+  "preload": "# wayfinder v1 brief h:9f2c41\nsite: Riverbend Plumbing | theme vwf-fixture (child of twentytwentyfive)\nedit:\n  CTA banner (3 pages) -> pat:cta-banner, synced: one edit changes all\n\n# wayfinder v1 index h:9f2c41\npat:cta-banner | CTA banner | synced, 3 usages | post.php?post=90003&action=edit | page:about, page:home, tpl:single-service",
+  "turns": [
+    {
+      "response": {
+        "id": "msg_dry_ci01_1",
+        "type": "message",
+        "role": "assistant",
+        "model": "claude-haiku-4-5-20251001",
+        "content": [{ "type": "text", "text": "Editing the CTA banner changes the Home and About pages.\nANSWER: Home, About" }],
+        "stop_reason": "end_turn",
+        "stop_sequence": null,
+        "usage": { "input_tokens": 52, "cache_creation_input_tokens": 0, "cache_read_input_tokens": 4630, "output_tokens": 24 }
+      },
+      "tool_results": []
+    }
+  ],
+  "judge": {
+    "id": "msg_dry_ci01_judge",
+    "type": "message",
+    "role": "assistant",
+    "model": "claude-haiku-4-5-20251001",
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"correct\": false, \"reason\": \"Misses the single-service template, so it leaves out every service page.\"}"
+      }
+    ],
+    "stop_reason": "end_turn",
+    "stop_sequence": null,
+    "usage": { "input_tokens": 455, "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0, "output_tokens": 27 }
+  }
+}

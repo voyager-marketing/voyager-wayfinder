@@ -1,0 +1,45 @@
+{
+  "synthetic": true,
+  "note": "Hand-written for the dry-run test suite. Not a recorded API run and not a measurement.",
+  "question": "si-01",
+  "condition": "raw",
+  "model": "claude-haiku-4-5-20251001",
+  "wall_ms": 2140,
+  "turns": [
+    {
+      "response": {
+        "id": "msg_dry_si01_1",
+        "type": "message",
+        "role": "assistant",
+        "model": "claude-haiku-4-5-20251001",
+        "content": [
+          { "type": "text", "text": "I'll read the site index from the REST API." },
+          { "type": "tool_use", "id": "toolu_dry_si01_1", "name": "rest_get", "input": { "path": "/" } }
+        ],
+        "stop_reason": "tool_use",
+        "stop_sequence": null,
+        "usage": { "input_tokens": 812, "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0, "output_tokens": 52 }
+      },
+      "tool_results": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_dry_si01_1",
+          "content": "HTTP 200\n{\"name\":\"Riverbend Plumbing\",\"description\":\"\",\"url\":\"http://localhost:8888\",\"namespaces\":[\"oembed/1.0\",\"wayfinder/v1\",\"wp/v2\"]}"
+        }
+      ]
+    },
+    {
+      "response": {
+        "id": "msg_dry_si01_2",
+        "type": "message",
+        "role": "assistant",
+        "model": "claude-haiku-4-5-20251001",
+        "content": [{ "type": "text", "text": "The REST index names the site Riverbend Plumbing.\nANSWER: Riverbend Plumbing" }],
+        "stop_reason": "end_turn",
+        "stop_sequence": null,
+        "usage": { "input_tokens": 958, "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0, "output_tokens": 21 }
+      },
+      "tool_results": []
+    }
+  ]
+}

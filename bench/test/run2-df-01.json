@@ -1,0 +1,76 @@
+{
+  "note": "The final reply of each of run 2's ten df-01 rows, copied from the bench-run2-transcripts release (runs/2026-10-03T00-37-04-688Z). run2_correct is the verdict in reports/fixture-2026-10-03-run2.json.",
+  "question": "df-01",
+  "rows": [
+    {
+      "condition": "raw",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "run2_correct": false,
+      "reply": "Based on my investigation, the phone number in the footer comes from a **custom block binding** defined in the theme. The footer template part uses a binding to the `vwf-fixture/business-info` source with the key `phone`. This is a custom data source implemented by the \"Wayfinder Fixture\" theme (the active child theme).\n\nTo edit the phone number, you would need to:\n1. Access the theme's business information settings (likely in the Customizer or a theme options panel)\n2. Or edit the footer template part directly in the block editor\n\nThe phone number is not hardcoded in the footer template itself, but rather pulled dynamically from a custom theme data source.\n\nANSWER: The phone number in the footer comes from a custom block binding source called `vwf-fixture/business-info` with the key `phone`, which is defined by the Wayfinder Fixture theme. To edit it, access the theme's business information settings or edit the footer template part at wp-admin/site-editor.php?path=/wp_template_part/vwf-fixture//footer"
+    },
+    {
+      "condition": "raw",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "run2_correct": true,
+      "reply": "This confirms it clearly: the phone number isn't typed directly into the footer — it's inserted via a block binding.\n\nIn the **Footer** template part (`vwf-fixture//footer`), the paragraph block's content is bound to the custom block binding source `vwf-fixture/business-info` (key `phone`). That binding source is registered in `mu-plugins/vwf-fixture-core.php` and reads it from the WordPress option **`vwf_phone`**, which is edited on a dedicated settings screen: **Settings → Business Info** (`options-general.php?page=vwf-business-info`).\n\nSo to change the footer phone number, you'd go to that settings page, not edit the footer template/pattern directly (the address paragraph next to it works the same way, bound to the `vwf_address` option).\n\nANSWER: The footer phone number isn't hard-coded in the template — it's inserted via a block binding. The footer template part's paragraph block binds its content to the custom source vwf-fixture/business-info (key \"phone\"), registered in mu-plugins/vwf-fixture-core.php, which reads the value from the option vwf_phone. Edit it at options-general.php?page=vwf-business-info (Settings → Business Info)."
+    },
+    {
+      "condition": "raw",
+      "model": "claude-sonnet-5",
+      "rep": 2,
+      "run2_correct": true,
+      "reply": "This confirms the source clearly.\n\nThe phone number in the footer isn't typed directly into the footer template. It's a block-bound value: the footer template part (`wp_template_part` \"footer\") contains a paragraph block bound to a custom source `vwf-fixture/business-info` (key: `phone`). That source pulls from a \"Business info\" settings page registered by the theme, found at **Settings → Business info** (`options-general.php?page=vwf-business-info`). Changing it there updates the phone number everywhere the footer part is used, since the footer template part is shared across all page templates.\n\nANSWER: It comes from a block binding in the Footer template part (wp_template_part \"footer\") pointing to the custom \"vwf-fixture/business-info\" source (key: phone), which is set on the Business info settings page — edit at options-general.php?page=vwf-business-info (the footer part itself is edited at site-editor.php?p=/wp_template_part/vwf-fixture//footer&canvas=edit)."
+    },
+    {
+      "condition": "raw",
+      "model": "claude-sonnet-5",
+      "rep": 3,
+      "run2_correct": false,
+      "reply": "This confirms it precisely.\n\nThe phone number in the footer is not hard-coded text in the template — it's a block binding. The footer template part (`wp_template_part` \"footer\") contains a paragraph whose content is bound to a custom block-binding source called `vwf-fixture/business-info` (key: `phone`). That source reads from the site's \"Business info\" settings page, which is where the actual value is stored/edited.\n\nSo to change the phone number, you'd edit Settings → Business info (`options-general.php?page=vwf-business-info`), not the footer template part itself (which only defines where the bound value is displayed).\n\nANSWER: It's pulled via a block binding (source `vwf-fixture/business-info`, key `phone`) in the Footer template part, which reads its value from the \"Business info\" settings page — edit it at options-general.php?page=vwf-business-info (the footer template part itself, editable at site-editor.php?p=/wp_template_part/vwf-fixture//footer&canvas=edit, only displays that bound value)."
+    },
+    {
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "run2_correct": false,
+      "reply": "Perfect! I have the answer. The phone number in the footer comes from a binding that reads from a WordPress option.\n\nANSWER: The phone number in the footer comes from the \"Business info: phone\" binding, which reads from the WordPress option `vwf_phone`. This is edited at options-general.php?page=vwf-business-info"
+    },
+    {
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "run2_correct": false,
+      "reply": "The footer phone number is bound to a custom field/setting — it's pulled from the site's \"Business info\" settings (a block binding `vwf-fixture/business-info.phone`) rather than being typed directly into the footer template part.\n\nANSWER: It comes from a block binding (vwf-fixture/business-info.phone) in the Footer template part, which pulls its value from the Business info settings page (options-general.php?page=vwf-business-info)"
+    },
+    {
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "run2_correct": true,
+      "reply": "The phone number in the footer comes from a **binding** that reads the `vwf_phone` option. Here's the chain:\n\n1. **Source**: The WordPress option `vwf_phone` (stored in the database)\n2. **Binding**: `bind:vwf-fixture/business-info.phone` connects that option to a paragraph block in the footer\n3. **Location**: The binding is used in `part:footer` (the Footer template part)\n4. **Edit location**: You can change the phone number at **options-general.php?page=vwf-business-info** (Settings > Business info)\n\nANSWER: The phone number comes from the WordPress option vwf_phone, which is managed through a binding at Settings > Business info (options-general.php?page=vwf-business-info)"
+    },
+    {
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 2,
+      "run2_correct": false,
+      "reply": "The phone number in the footer comes from a **binding** that reads the `vwf_phone` option. Here's the chain:\n\n1. **Source**: The WordPress option `vwf_phone` (stored in the database)\n2. **Binding**: `bind:vwf-fixture/business-info.phone` connects that option to a paragraph block's content\n3. **Location in footer**: Used in `part:footer` (the Footer template part)\n4. **Where to edit it**: Settings page at `options-general.php?page=vwf-business-info`\n\nANSWER: The phone number comes from the WordPress option vwf_phone, which is managed through a binding at options-general.php?page=vwf-business-info"
+    },
+    {
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 3,
+      "run2_correct": true,
+      "reply": "The phone number in the footer comes from a **binding** that reads the `vwf_phone` option. Here's the chain:\n\n1. **Source**: The WordPress option `vwf_phone` (stored in the database)\n2. **Binding**: `bind:vwf-fixture/business-info.phone` connects that option to a paragraph block in the footer\n3. **Location**: The binding is used in `part:footer` (the Footer template part)\n4. **Edit location**: You can change the phone number at **options-general.php?page=vwf-business-info** (Settings > Business info)\n\nANSWER: The phone number comes from the WordPress option vwf_phone, which is managed through a binding (bind:vwf-fixture/business-info.phone) and can be edited at options-general.php?page=vwf-business-info"
+    },
+    {
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "run2_correct": true,
+      "reply": "The footer phone number isn't hard-coded text — it's a block binding. The paragraph block in the Footer template part (`part:footer`) is bound via `bind:vwf-fixture/business-info.phone`, which reads the WordPress option `vwf_phone` (binding source registered in `mu-plugins/vwf-fixture-core.php`). You update the actual value on the \"Business Info\" settings page, not by editing the footer block directly.\n\nANSWER: It's pulled dynamically via a block binding (vwf-fixture/business-info.phone) in the Footer template part, which reads the `vwf_phone` option (set at options-general.php?page=vwf-business-info), rather than being typed directly into the footer."
+    }
+  ]
+}

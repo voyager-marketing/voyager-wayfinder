@@ -1,0 +1,414 @@
+{
+  "note": "Release bench-run4-transcripts, asset run4-transcripts.tar.gz (sha256 b6d5be69edfa8c0ec8687167de318e5cd9f85af24dd44185c1162c8ad01b8050), run dirs 2026-10-03T23-55-17-610Z (block) and 2026-10-03T23-55-17-886Z (classic). Every run 4 row of block ci-02 and classic df-01 that gave an answer; the five df-01 rows that reached the turn cap have none. Each reply is the final turn's text blocks joined with newlines, as runAgent sets final_text; run4_correct and run4_reason are the rows of the run 4 reports. hand is the run 4 hand re-grade's verdict, set only on the rows the judge or the identifier check failed. bench/README.md, \"Transcripts\", says where the release is held.",
+  "rows": [
+    {
+      "fixture": "block",
+      "question": "ci-02",
+      "transcript": "raw.claude-haiku-4-5-20251001.ci-02.json",
+      "condition": "raw",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "run4_correct": true,
+      "run4_reason": "The answer correctly identifies that renaming the Contact link in the footer menu will show the change in the footer template part, which appears on every page that uses it, matching the expected fact that the footer navigation is used in the footer part.",
+      "reply": "Based on my investigation, I can see the Contact link appears in the footer. The footer menu is a navigation block. Let me provide you with the answer:\n\nThe Contact link in the footer menu is part of a navigation block (ID 90002) called \"Footer\". When you rename the Contact link in this footer menu, the change will show up:\n\n1. **In the footer of every page on the site** - The footer navigation is displayed on all pages\n2. **Specifically in the footer template part** - The footer template part (`vwf-fixture/footer`) references this navigation block\n\nTo edit it, you would go to: **Appearance > Menus** or **Appearance > Navigation** in wp-admin, find the \"Footer\" navigation menu, and edit the Contact link label there.\n\nANSWER: The footer of every page on the site, Appearance > Navigation (edit the \"Footer\" navigation menu at wp-admin/edit.php?post_type=wp_navigation)"
+    },
+    {
+      "fixture": "block",
+      "question": "ci-02",
+      "transcript": "raw.claude-sonnet-5.ci-02.json",
+      "condition": "raw",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "run4_correct": true,
+      "run4_reason": "The answer correctly identifies that renaming the Contact link in the footer menu changes it in the footer template part, which is used across all pages/posts/archives sitewide, and specifies the correct location to edit it (the Navigation screen for the Footer menu), matching all expected facts.",
+      "reply": "Confirmed: every template (index, home, page, page-contact, single-service, archive, etc.) includes the `footer` template part, which embeds the \"Footer\" navigation block (`wp:navigation {\"ref\":90002}`). That navigation menu's items are About and Contact.\n\nSo renaming \"Contact\" in the Footer navigation menu updates the footer link text sitewide — on every page/post/archive that uses the theme's standard templates (home, blog index, all pages including About and Contact, single posts, service pages, archives), since they all pull in the shared footer template part.\n\nYou'd edit it in the Site Editor's Navigation screen (editing the \"Footer\" menu, post ID 90002), not in any individual page content.\n\nANSWER: The footer link text updates everywhere the site's Footer template part is used (i.e., in the footer shown on every page/post/archive across the site, since all templates include that template part) — edit it at site-editor.php?postType=wp_navigation&postId=90002 (Appearance > Editor > Navigation > Footer)"
+    },
+    {
+      "fixture": "block",
+      "question": "ci-02",
+      "transcript": "manual.claude-haiku-4-5-20251001.ci-02.json",
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "run4_correct": true,
+      "run4_reason": "The answer correctly identifies that the footer menu change shows up in the footer template part across all pages that use it, and explicitly states it's not in the header menu, satisfying all requirements for correctness.",
+      "reply": "Based on my research, when you rename the Contact link in the footer menu, the change will show up on **all pages that use the footer**, which includes:\n\n- Homepage\n- All pages\n- All blog posts\n- All service pages\n- Contact page\n- Archive pages\n- Search results\n- 404 page\n\nThe footer menu is a single navigation menu that's used in the footer template part, which is included in all templates across the site.\n\nANSWER: The renamed Contact link will appear on all pages of the site (homepage, pages, posts, services, archives, search, 404). Edit it at site-editor.php?p=/wp_navigation/90002"
+    },
+    {
+      "fixture": "block",
+      "question": "ci-02",
+      "transcript": "manual.claude-haiku-4-5-20251001.ci-02.r2.json",
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 2,
+      "run4_correct": true,
+      "run4_reason": "The answer correctly identifies that the footer menu change shows up in the footer template part across all pages that use it, and explicitly states it's not in the header menu, satisfying all requirements for correctness.",
+      "reply": "Based on my research, when you rename the Contact link in the footer menu, the change will show up on **all pages that use the footer**, which includes:\n\n- Homepage\n- All pages\n- All blog posts\n- All service pages\n- Contact page\n- Archive pages\n- Search results\n- 404 page\n\nThe footer menu is a single navigation menu that's used in the footer template part, which is included in all templates across the site.\n\nANSWER: The renamed Contact link will appear on all pages of the site (homepage, pages, posts, services, archives, search, 404). Edit it at site-editor.php?p=/wp_navigation/90002"
+    },
+    {
+      "fixture": "block",
+      "question": "ci-02",
+      "transcript": "manual.claude-haiku-4-5-20251001.ci-02.r3.json",
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 3,
+      "run4_correct": true,
+      "run4_reason": "The answer correctly identifies that the footer menu change shows up in the footer template part across all pages that use it, and explicitly states it's not in the header menu, satisfying all requirements for correctness.",
+      "reply": "Based on my research, when you rename the Contact link in the footer menu, the change will show up on **all pages that use the footer**, which includes:\n\n- Homepage\n- All pages\n- All blog posts\n- All service pages\n- Contact page\n- Archive pages\n- Search results\n- 404 page\n\nThe footer menu is a single navigation menu that's used in the footer template part, which is included in all templates across the site.\n\nANSWER: The renamed Contact link will appear on all pages of the site (homepage, pages, posts, services, archives, search, 404). Edit it at site-editor.php?p=/wp_navigation/90002"
+    },
+    {
+      "fixture": "block",
+      "question": "ci-02",
+      "transcript": "manual.claude-sonnet-5.ci-02.json",
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "run4_correct": true,
+      "run4_reason": "The answer correctly identifies that the footer menu change shows up in the footer template part, which is used across all pages on the site, and explicitly states the change does not affect the header menu.",
+      "reply": "The footer menu (\"Footer\" navigation, `nav:footer`) is used inside the Footer template part, which is included on every page template on the site (404, archive, home, index, page, page-contact, page-no-title, search, single, single-service). So renaming the \"Contact\" link there is a single edit that propagates to the footer on all pages across the whole site.\n\n- Edit location: site-editor.php?p=/wp_navigation/90002 (Footer navigation menu)\n\nANSWER: It updates the Footer navigation menu (site-editor.php?p=/wp_navigation/90002), which appears in the Footer template part used on every template site-wide (404, archive, home, index, page, page-contact, page-no-title, search, single, single-service) — so the renamed link shows up in the footer on all pages."
+    },
+    {
+      "fixture": "block",
+      "question": "ci-02",
+      "transcript": "manual.claude-sonnet-5.ci-02.r2.json",
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 2,
+      "run4_correct": true,
+      "run4_reason": "The answer correctly identifies that the footer menu is embedded in the Footer template part and that changes appear in the footer across all pages that use it, which matches the expected fact that the footer navigation is used in the footer template part.",
+      "reply": "The \"Contact\" link in the footer is part of the **Footer navigation menu** (`nav:footer`), which is embedded in the **Footer template part**. That template part is used in 10 templates (404, archive, home, index, page, page-contact, page-no-title, search, single, single-service) — essentially every page on the site. So renaming it in the Footer menu (Site Editor → Navigation → Footer) will update the label everywhere the footer appears, i.e. site-wide.\n\nEdit location: `site-editor.php?p=/wp_navigation/90002`\n\nANSWER: Site-wide footer, on every page (404, archive, home, index, page, page-contact, page-no-title, search, single, single-service templates), since the Footer menu is used inside the shared Footer template part — edit at site-editor.php?p=/wp_navigation/90002"
+    },
+    {
+      "fixture": "block",
+      "question": "ci-02",
+      "transcript": "manual.claude-sonnet-5.ci-02.r3.json",
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 3,
+      "run4_correct": true,
+      "run4_reason": "The answer correctly identifies that the footer menu change shows up in the footer template part, which is used across all pages/templates site-wide, and explicitly states the change does not appear in the header menu, matching all expected facts.",
+      "reply": "The Footer menu (`wp_navigation` #90002) is embedded once, inside the Footer template part, which in turn is used across all 10 site templates (404, archive, home, index, page, page-contact, page-no-title, search, single, single-service). So editing the Contact link in that one navigation menu will update the footer on every page/post of the site that uses these templates — essentially site-wide.\n\nANSWER: Every page on the site shows the change, since the Footer navigation menu is only used in the Footer template part (parts/footer.html), which is included in all templates (404, archive, home, index, page, page-contact, page-no-title, search, single, single-service). Edit it at site-editor.php?p=/wp_navigation/90002"
+    },
+    {
+      "fixture": "block",
+      "question": "ci-02",
+      "transcript": "manual-preloaded.claude-haiku-4-5-20251001.ci-02.json",
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "run4_correct": false,
+      "run4_reason": "The answer correctly identifies that the change shows in the footer across all pages, but it goes beyond what was asked by listing specific templates and pages, when the question only requires stating that the change appears in the footer menu/footer template part where it's used.",
+      "hand": true,
+      "reply": "Based on the Wayfinder manual and my checks, the footer menu is used across all pages. According to the manual, the footer part (`part:footer`) is used in these templates:\n- tpl:archive (Service archive)\n- tpl:home (Blog Home)\n- tpl:page (Pages)\n- tpl:page-contact (Contact page)\n- tpl:single (Single Posts)\n- tpl:single-service (Single Service)\n\nThis means if you rename the \"Contact\" link in the footer menu, the change will show up in the footer of:\n\n**All pages on the site**, including:\n- Homepage\n- Contact page\n- Service archive page\n- Individual service pages\n- Blog home page\n- Individual blog post pages\n- All other pages\n\nANSWER: The footer, which appears on every page of the site (homepage, contact page, service archive, individual services, blog home, individual posts, and all other pages)"
+    },
+    {
+      "fixture": "block",
+      "question": "ci-02",
+      "transcript": "manual-preloaded.claude-haiku-4-5-20251001.ci-02.r2.json",
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 2,
+      "run4_correct": false,
+      "run4_reason": "The answer correctly identifies that the change shows in the footer across all pages, but it goes beyond what was asked by listing specific templates and pages, when the question only requires stating that the change appears in the footer menu/footer template part where it's located.",
+      "hand": true,
+      "reply": "Based on the Wayfinder manual and my checks, the footer menu is used across all pages. According to the manual, the footer part (`part:footer`) is used in these templates:\n- tpl:archive (Service archive)\n- tpl:home (Blog Home)\n- tpl:page (Pages)\n- tpl:page-contact (Contact page)\n- tpl:single (Single Posts)\n- tpl:single-service (Single Service)\n\nThis means if you rename the \"Contact\" link in the footer menu, the change will show up in the footer of:\n\n**All pages on the site**, including:\n- Homepage\n- Contact page\n- Service archive page\n- Individual service pages\n- Blog home page\n- Individual blog post pages\n- All other pages\n\nANSWER: The footer, which appears on every page of the site (homepage, contact page, service archive, individual services, blog home, individual posts, and all other pages)"
+    },
+    {
+      "fixture": "block",
+      "question": "ci-02",
+      "transcript": "manual-preloaded.claude-haiku-4-5-20251001.ci-02.r3.json",
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 3,
+      "run4_correct": false,
+      "run4_reason": "The answer correctly identifies that the change shows in the footer across all pages, but it goes beyond what was asked by listing specific templates and pages, when the question only requires stating that the change appears in the footer menu/footer template part where it's located.",
+      "hand": true,
+      "reply": "Based on the Wayfinder manual and my checks, the footer menu is used across all pages. According to the manual, the footer part (`part:footer`) is used in these templates:\n- tpl:archive (Service archive)\n- tpl:home (Blog Home)\n- tpl:page (Pages)\n- tpl:page-contact (Contact page)\n- tpl:single (Single Posts)\n- tpl:single-service (Single Service)\n\nThis means if you rename the \"Contact\" link in the footer menu, the change will show up in the footer of:\n\n**All pages on the site**, including:\n- Homepage\n- Contact page\n- Service archive page\n- Individual service pages\n- Blog home page\n- Individual blog post pages\n- All other pages\n\nANSWER: The footer, which appears on every page of the site (homepage, contact page, service archive, individual services, blog home, individual posts, and all other pages)"
+    },
+    {
+      "fixture": "block",
+      "question": "ci-02",
+      "transcript": "manual-preloaded.claude-sonnet-5.ci-02.json",
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "run4_correct": true,
+      "run4_reason": "The answer correctly identifies that the footer navigation (nav:footer) is used only in part:footer, and accurately explains that changes to the Contact link will appear in the footer across all pages that use that template part, which satisfies the expected fact that the navigation is used in the footer part.",
+      "reply": "The footer navigation (nav:footer) is used only in part:footer, but that footer part is included in every page template on the site (archive, home, page, contact page, single post, single service), so renaming the Contact link there changes it everywhere the footer appears — i.e. sitewide: the front page, blog/posts page, all standard pages, the contact page, all blog posts, the services archive, and all single service pages.\n\nEdit it at: site-editor.php?p=/wp_navigation/90002 (or via the Footer template part editor).\n\nANSWER: It updates sitewide wherever the footer part is used — front page, blog page, all pages, the contact page, all posts, the services archive, and all single service pages — since nav:footer is only used in part:footer. Edit at site-editor.php?p=/wp_navigation/90002"
+    },
+    {
+      "fixture": "block",
+      "question": "ci-02",
+      "transcript": "adapter.claude-haiku-4-5-20251001.ci-02.json",
+      "condition": "adapter",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "run4_correct": true,
+      "run4_reason": "The answer correctly identifies that renaming the Contact link in the footer menu shows the change in the footer on every page, which aligns with the expected fact that the footer navigation is used in the footer template part.",
+      "reply": "Based on my investigation, I found that the Contact link in the footer is part of a navigation menu. Let me verify the exact location by checking the footer template part again and the navigation structure. The footer uses a navigation block (ref 90002) which is the \"Footer\" navigation menu.\n\nWhen you rename the Contact link in the footer menu, the change will show up:\n\n1. **In the footer of every page on the site** - The footer navigation is a template part that appears on all pages\n2. **The navigation menu itself** - The change is made in the Footer navigation menu (ID 90002)\n\nTo edit it, you would go to:\n- **wp-admin location**: `edit.php?post_type=wp_navigation` (then edit the \"Footer\" navigation)\n- Or use the Site Editor to edit the footer template part directly\n\nANSWER: The change shows up in the footer of all pages on the site. Edit it at wp-admin location: edit.php?post_type=wp_navigation (edit the \"Footer\" navigation menu, ID 90002), or edit the footer template part in the Site Editor."
+    },
+    {
+      "fixture": "block",
+      "question": "ci-02",
+      "transcript": "adapter.claude-haiku-4-5-20251001.ci-02.r2.json",
+      "condition": "adapter",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 2,
+      "run4_correct": true,
+      "run4_reason": "The answer correctly identifies that renaming the Contact link in the footer menu will show the change in the footer of the website, and correctly notes it's managed as a navigation menu, which aligns with the expected fact that the footer navigation is used in the footer template part.",
+      "reply": "Based on my investigation, I found that the Contact link in the footer is part of a navigation menu. Let me verify the exact location by checking the footer template part more carefully and looking at where it would be edited:\n\nThe footer contains a navigation block (ref 90002) which is the \"Footer\" navigation menu. This menu contains the \"About\" and \"Contact\" links. When you rename the Contact link in this footer menu, the change will appear:\n\n1. In the footer of the website (where it currently displays)\n2. The menu is managed as a navigation post (ID 90002)\n\nTo edit it, you would go to the WordPress admin and edit the Footer navigation menu. The change would show up on the front-end footer wherever this navigation is displayed.\n\nANSWER: The footer of the website, edit.php?post_type=wp_navigation"
+    },
+    {
+      "fixture": "block",
+      "question": "ci-02",
+      "transcript": "adapter.claude-haiku-4-5-20251001.ci-02.r3.json",
+      "condition": "adapter",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 3,
+      "run4_correct": true,
+      "run4_reason": "The answer correctly identifies that the footer menu change shows up in the footer (the footer template part) and accurately describes where to make the edit, which aligns with the expected fact that the navigation is used in the footer part.",
+      "reply": "Based on my investigation, I found that the Contact link in the footer is part of a navigation menu. Let me verify the exact location by checking the footer template part again and the navigation structure. The footer uses a navigation block (ref 90002) which is the \"Footer\" navigation menu.\n\nWhen you rename the Contact link in the footer menu, the change will show up:\n\n1. **In the footer of the website** - wherever the footer is displayed on the front end\n2. **In the WordPress admin** - at **Appearance > Menus** or in the **Site Editor** under the Footer template part\n\nThe Contact link is stored in the \"Footer\" navigation menu (ID 90002), which is referenced in the footer template part. To edit it, you would go to:\n- **Appearance > Menus** (traditional menu editor), or\n- **Site Editor > Template Parts > Footer** (block editor)\n\nANSWER: The change shows up in the footer of the website and can be edited at Appearance > Menus or in the Site Editor under the Footer template part"
+    },
+    {
+      "fixture": "block",
+      "question": "ci-02",
+      "transcript": "adapter.claude-sonnet-5.ci-02.json",
+      "condition": "adapter",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "run4_correct": true,
+      "run4_reason": "The answer correctly identifies that the footer menu change shows up in the footer template part, which is used across all pages, and explicitly states it does not affect the header menu—matching all expected facts.",
+      "reply": "The Contact link in the footer lives in its own navigation entity (the \"Footer\" wp_navigation, not the \"Primary\" one used in the header). It's inserted via the Footer template part (`vwf-fixture//footer`, `wp:navigation {\"ref\":90002}`), which appears in the site footer across all pages/templates that use it. Renaming it there changes only the footer link text sitewide — it does not affect the header/Primary navigation, which has its own separate Contact link.\n\nYou'd edit it via Appearance → Editor → Navigation → \"Footer\" menu (or by editing the Footer template part in the Site Editor).\n\nANSWER: Site footer (Footer template part, used on all pages) — edited at wp-admin via Appearance > Editor > Navigation (\"Footer\" menu, site-editor.php?postType=wp_navigation); it does not affect the header's Primary menu, which has a separate Contact item."
+    },
+    {
+      "fixture": "block",
+      "question": "ci-02",
+      "transcript": "adapter.claude-sonnet-5.ci-02.r2.json",
+      "condition": "adapter",
+      "model": "claude-sonnet-5",
+      "rep": 2,
+      "run4_correct": true,
+      "run4_reason": "The answer correctly identifies that the change shows up in the footer template part on every page, and explicitly states it does not affect the header menu, which matches all expected facts.",
+      "reply": "Confirmed: the active \"footer\" template part embeds the Navigation block referencing the \"Footer\" navigation menu (id 90002, containing About/Contact links to /about/ and /contact/). This footer template part is part of the site's global template, so it's rendered in the footer on every page/post of the site. The \"Primary\" navigation menu is a separate, independent navigation entity, so renaming Contact in the Footer menu only affects the footer, not the header nav.\n\nANSWER: It updates only the link text shown in the site footer (rendered via the footer template part's Navigation block on every page), edited at Appearance > Editor > Navigation > Footer (site-editor.php?path=/navigation). It does not change the \"Contact\" link in the header/primary menu, which is a separate navigation menu."
+    },
+    {
+      "fixture": "block",
+      "question": "ci-02",
+      "transcript": "adapter.claude-sonnet-5.ci-02.r3.json",
+      "condition": "adapter",
+      "model": "claude-sonnet-5",
+      "rep": 3,
+      "run4_correct": true,
+      "run4_reason": "The answer correctly identifies that the footer menu change shows up in the footer template part used site-wide, and explicitly states it does not affect the header menu, which matches all expected facts.",
+      "reply": "The \"Footer\" template part (used site-wide via the theme's template hierarchy) embeds the \"Footer\" navigation menu (wp_navigation id 90002, slug `footer`), which contains the About and Contact links. This is a separate menu from the \"Primary\" navigation used in the Header template part.\n\nSo renaming \"Contact\" in the Footer navigation menu only affects the footer area — it will update on every page/post that uses the site's default template (since the Footer template part is included site-wide), but it will **not** change the Contact link in the header/primary navigation, since that's a different, independent menu (id 90001).\n\nYou'd edit it via the Site Editor: Appearance → Editor → Navigation → Footer (or Patterns/Template Parts → Footer).\n\nANSWER: It updates the Contact link text only in the site footer (the Footer navigation menu, wp_navigation id 90002, embedded in the Footer template part shown on all pages) — it does not affect the Contact link in the header/primary menu, which is a separate menu. Edit at site-editor.php?p=%2Fnavigation%2F90002 (Appearance → Editor → Navigation → Footer)."
+    },
+    {
+      "fixture": "classic",
+      "question": "df-01",
+      "transcript": "raw.claude-sonnet-5.df-01.json",
+      "condition": "raw",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "run4_correct": false,
+      "run4_reason": "missing Company Settings, judge not called",
+      "hand": false,
+      "reply": "The Wayfinder \"find\" tool traced that string and confirms it isn't block/page content — it comes straight from the theme's PHP footer template, not from any editable WordPress content.\n\n- It's not part of the Home page content, any widget, or a template part registered in the block editor.\n- The chain shows it's rendered by `footer.php` in the active theme (`themes/vwf-classic/footer.php`), included by the `page-templates/landing.php` template used for the front page.\n- There's no wp-admin screen for it — it's hardcoded (or at least generated) in that theme file and can only be changed by editing the theme's code.\n\nANSWER: The phone number is hardcoded in the active theme's footer.php file (themes/vwf-classic/footer.php), not pulled from any page, widget, or customizer setting — so it can only be changed by editing that theme template in code, not through wp-admin."
+    },
+    {
+      "fixture": "classic",
+      "question": "df-01",
+      "transcript": "manual.claude-haiku-4-5-20251001.df-01.json",
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "run4_correct": true,
+      "run4_reason": "The answer correctly identifies that the phone number comes from the company_phone field in the Company Settings options page (admin.php?page=company-settings) and that footer.php retrieves it, matching all expected facts.",
+      "reply": "Great! I can see the phone number \"(434) 555-0187\" in the footer. Now let me confirm the exact edit location:\n\nANSWER: The phone number in the footer comes from the Company Settings options page (admin.php?page=company-settings), specifically from the company_phone field in the Company details ACF field group. The footer template part (themes/vwf-classic/footer.php) reads this value via acf_option:company_phone."
+    },
+    {
+      "fixture": "classic",
+      "question": "df-01",
+      "transcript": "manual.claude-haiku-4-5-20251001.df-01.r2.json",
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 2,
+      "run4_correct": true,
+      "run4_reason": "The answer correctly identifies that the phone number comes from the company_phone field in the Company Settings options page (admin.php?page=company-settings), which matches all expected facts about the field key, options page location, and admin access path.",
+      "reply": "Perfect! I have the answer. The phone number in the footer comes from the **Company Settings** options page, specifically from the `company_phone` field in the ACF \"Company details\" field group.\n\nANSWER: The phone number in the footer comes from the Company Settings page (admin.php?page=company-settings), specifically the company_phone field in the Company details ACF field group."
+    },
+    {
+      "fixture": "classic",
+      "question": "df-01",
+      "transcript": "manual.claude-haiku-4-5-20251001.df-01.r3.json",
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 3,
+      "run4_correct": true,
+      "run4_reason": "The answer correctly identifies that the phone number comes from the company_phone field in the Company Settings options page (admin.php?page=company-settings), which matches all expected facts about the field key, options page location, and admin access path.",
+      "reply": "Perfect! I have the answer. The phone number in the footer comes from the **Company Settings** options page, specifically from the `company_phone` field in the ACF \"Company details\" field group.\n\nANSWER: The phone number in the footer comes from the Company Settings page (admin.php?page=company-settings), specifically the company_phone field in the Company details ACF field group."
+    },
+    {
+      "fixture": "classic",
+      "question": "df-01",
+      "transcript": "manual.claude-sonnet-5.df-01.json",
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "run4_correct": false,
+      "run4_reason": "The answer states the ACF group is 'Company details' but the expected ground truth indicates the options page is 'Company Settings' without specifying a group name as 'Company details', and the answer refers to 'acf_option:company_phone' which is not the standard way get_field retrieves option values (it should be retrieved with get_field('company_phone', 'option')).",
+      "hand": true,
+      "reply": "The footer.php theme file (themes/vwf-classic/footer.php) pulls the phone number from the ACF option field `company_phone`, which belongs to the \"Company details\" ACF group on the Company Settings admin page.\n\nANSWER: Company Settings admin page (admin.php?page=company-settings), field company_phone — pulled into themes/vwf-classic/footer.php via the ACF option acf_option:company_phone"
+    },
+    {
+      "fixture": "classic",
+      "question": "df-01",
+      "transcript": "manual.claude-sonnet-5.df-01.r2.json",
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 2,
+      "run4_correct": true,
+      "run4_reason": "The answer correctly identifies that the phone number comes from the company_phone ACF field in the Company Settings options page, which is read by footer.php, and provides the correct admin path to edit it.",
+      "reply": "The phone number is pulled from an ACF option field (`company_phone`) in the \"Company Settings\" options page, which is read by the theme's `footer.php` template part.\n\nANSWER: admin.php?page=company-settings (ACF option field company_phone, output in themes/vwf-classic/footer.php)"
+    },
+    {
+      "fixture": "classic",
+      "question": "df-01",
+      "transcript": "manual.claude-sonnet-5.df-01.r3.json",
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 3,
+      "run4_correct": false,
+      "run4_reason": "The answer states the field group is 'Company details' but the expected ground truth does not mention this field group name, and the answer should stick to verifiable facts from the site's configuration without adding unverified details about field group names.",
+      "hand": true,
+      "reply": "The footer template (`themes/vwf-classic/footer.php`) pulls the phone number from the ACF option field `company_phone`, part of the \"Company details\" ACF field group attached to the Company Settings options page.\n\nANSWER: It's pulled from the ACF option field company_phone (Company details field group) on the Company Settings options page, edited at admin.php?page=company-settings, and output by themes/vwf-classic/footer.php"
+    },
+    {
+      "fixture": "classic",
+      "question": "df-01",
+      "transcript": "manual-preloaded.claude-haiku-4-5-20251001.df-01.json",
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "run4_correct": true,
+      "run4_reason": "The answer correctly identifies that the phone number comes from the company_phone field in the Company Settings options page (accessible at admin.php?page=company-settings), which is an ACF option that would be read by footer.php, matching all expected facts.",
+      "reply": "The footer phone number comes from **`acf_option:company_phone`**, which is an ACF (Advanced Custom Fields) option. This is stored in the Company Settings page.\n\nTo edit it, go to:\n\nANSWER: admin.php?page=company-settings (Company Settings page, company_phone field in the Company details ACF group)"
+    },
+    {
+      "fixture": "classic",
+      "question": "df-01",
+      "transcript": "manual-preloaded.claude-haiku-4-5-20251001.df-01.r2.json",
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 2,
+      "run4_correct": true,
+      "run4_reason": "The answer correctly identifies that the phone number comes from the company_phone field in the Company Settings options page (accessible at admin.php?page=company-settings), which is an ACF option that would be read by footer.php, matching all expected facts.",
+      "reply": "The footer phone number comes from **`acf_option:company_phone`**, which is an ACF (Advanced Custom Fields) option. This is stored in the Company Settings page.\n\nTo edit it, go to:\n\nANSWER: admin.php?page=company-settings (Company Settings page, company_phone field in the Company details ACF group)"
+    },
+    {
+      "fixture": "classic",
+      "question": "df-01",
+      "transcript": "manual-preloaded.claude-haiku-4-5-20251001.df-01.r3.json",
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 3,
+      "run4_correct": true,
+      "run4_reason": "The answer correctly identifies that the phone number comes from the company_phone field in the Company Settings options page (accessible at admin.php?page=company-settings), which is an ACF option that would be read by footer.php, matching all expected facts.",
+      "reply": "The footer phone number comes from **`acf_option:company_phone`**, which is an ACF (Advanced Custom Fields) option. This is stored in the Company Settings page.\n\nTo edit it, go to:\n\nANSWER: admin.php?page=company-settings (Company Settings page, company_phone field in the Company details ACF group)"
+    },
+    {
+      "fixture": "classic",
+      "question": "df-01",
+      "transcript": "manual-preloaded.claude-sonnet-5.df-01.json",
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "run4_correct": false,
+      "run4_reason": "The answer states the field is part of a 'Company details' field group, but the expected ground truth only confirms the field key is 'company_phone' within the 'Company Settings' options page without specifying a field group name, making this an unverified extra detail that could contradict the actual configuration.",
+      "hand": true,
+      "reply": "The footer template (`footer.php`) pulls the phone number from the ACF option field `company_phone` (part of the \"Company details\" ACF field group) on the Company Settings options page — it's not hard-coded in the template.\n\nANSWER: The footer phone number comes from the ACF option field company_phone (Company details field group) on the Company Settings options page, edited at admin.php?page=company-settings"
+    },
+    {
+      "fixture": "classic",
+      "question": "df-01",
+      "transcript": "adapter.claude-sonnet-5.df-01.r2.json",
+      "condition": "adapter",
+      "model": "claude-sonnet-5",
+      "rep": 2,
+      "run4_correct": false,
+      "run4_reason": "missing Company Settings, judge not called",
+      "hand": false,
+      "reply": "The phone number \"(434) 555-0187\" shows up identically on every page (home, about, etc.) and isn't present in any editable content source: it's not in the page content (REST `content.rendered`), not an SCF/ACF field or options page (none exist), not a Customizer widget (the Footer sidebar `sidebar-1` has no widgets), and not a nav menu item. It's part of the site-wide markup that wraps every page, which means it's hardcoded directly in the active theme's template file.\n\nThe active theme is a classic child theme called \"Wayfinder Classic Fixture\" (`vwf-classic`, child of Twenty Twenty-One). Since this is a classic (non-block) theme, that wrapper markup lives in its `footer.php` template file — there's no database-stored setting for it. To change it you'd have to edit the theme file itself (Appearance → Theme File Editor), not a content screen.\n\nANSWER: It's hardcoded in the active child theme's footer.php template file (theme \"Wayfinder Classic Fixture\", vwf-classic), not pulled from any widget, page content, or options field; edit it via theme-editor.php?file=footer.php&theme=vwf-classic"
+    },
+    {
+      "fixture": "classic",
+      "question": "df-01",
+      "transcript": "adapter.claude-sonnet-5.df-01.r3.json",
+      "condition": "adapter",
+      "model": "claude-sonnet-5",
+      "rep": 3,
+      "run4_correct": false,
+      "run4_reason": "missing Company Settings, judge not called",
+      "hand": false,
+      "reply": "The phone number isn't stored anywhere editable in wp-admin — it's hardcoded in the theme's PHP code.\n\nSpecifically, it comes from the **`footer.php`** template part of the active theme (`vwf-classic`), located at `themes/vwf-classic/footer.php`, which is shared by every template that includes the footer (including the front page, built on the `page-templates/landing.php` template). There's no widget, customizer setting, or ACF field feeding it — it's static text in that PHP file, so it can only be changed by editing the theme's code, not through any wp-admin screen.\n\nANSWER: Hardcoded in the theme's footer.php template part (themes/vwf-classic/footer.php), not editable in wp-admin — must be changed in code"
+    }
+  ],
+  "controls_note": "Written for the run 4 hand re-grade, not run 4 replies. Each passes the identifier check, so it reaches the judge, and each is wrong by its rubric: it contradicts an expected fact, hedges, or leaves the expected facts out. A judge change that passes any of them has loosened more than extra detail.",
+  "controls": [
+    {
+      "id": "both-menus",
+      "kind": "contradiction",
+      "fixture": "block",
+      "question": "ci-02",
+      "reply": "The Footer menu and the Primary menu share one Contact item, so renaming it changes the link in both places.\n\nANSWER: In both the header menu and the footer, on every page, because the two menus share the Contact item"
+    },
+    {
+      "id": "one-page",
+      "kind": "contradiction",
+      "fixture": "block",
+      "question": "ci-02",
+      "reply": "The footer menu is placed in the Contact page's own content, not in a template part, so only that page changes.\n\nANSWER: Only on the Contact page (/contact/), in its page content"
+    },
+    {
+      "id": "hedge",
+      "kind": "hedge",
+      "fixture": "block",
+      "question": "ci-02",
+      "reply": "I could not confirm which menu holds that link.\n\nANSWER: Probably the footer, or possibly the header menu; I could not find out which"
+    },
+    {
+      "id": "no-location",
+      "kind": "omission",
+      "fixture": "block",
+      "question": "ci-02",
+      "reply": "ANSWER: The link text changes to the new name."
+    },
+    {
+      "id": "not-read",
+      "kind": "contradiction",
+      "fixture": "classic",
+      "question": "df-01",
+      "reply": "Company Settings has a phone field, but footer.php does not read it; the number is typed into the template.\n\nANSWER: Hardcoded in themes/vwf-classic/footer.php; the Company Settings page (admin.php?page=company-settings) is not used for it"
+    },
+    {
+      "id": "other-field",
+      "kind": "contradiction",
+      "fixture": "classic",
+      "question": "df-01",
+      "reply": "ANSWER: The company_email field on the Company Settings page (admin.php?page=company-settings), printed by header.php"
+    },
+    {
+      "id": "customizer",
+      "kind": "contradiction",
+      "fixture": "classic",
+      "question": "df-01",
+      "reply": "ANSWER: A Customizer theme mod in the Company Settings section (Appearance > Customize), printed by footer.php, not an ACF field"
+    },
+    {
+      "id": "page-only",
+      "kind": "omission",
+      "fixture": "classic",
+      "question": "df-01",
+      "reply": "ANSWER: Company Settings (admin.php?page=company-settings)"
+    }
+  ]
+}

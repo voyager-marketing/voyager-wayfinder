@@ -1,0 +1,107 @@
+{
+  "synthetic": true,
+  "note": "Hand-written for the dry-run test suite. Not a recorded API run and not a measurement.",
+  "question": "el-10",
+  "condition": "cli-manual",
+  "model": "claude-sonnet-5",
+  "wall_ms": 5120,
+  "turns": [
+    {
+      "response": {
+        "id": "msg_dry_el10_1",
+        "type": "message",
+        "role": "assistant",
+        "model": "claude-sonnet-5",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "",
+            "signature": "sig_dry_el10_1"
+          },
+          {
+            "type": "tool_use",
+            "id": "toolu_dry_el10_1",
+            "name": "manual_index",
+            "input": {}
+          }
+        ],
+        "stop_reason": "tool_use",
+        "stop_sequence": null,
+        "usage": {
+          "input_tokens": 2310,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 74
+        }
+      },
+      "tool_results": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_dry_el10_1",
+          "content": "HTTP 200\n# wayfinder v1 index h:9f2c41\npt:service | Services | post type, 6 published | edit.php?post_type=service | tpl:single-service\ntpl:single-service | Single service | template, vwf-fixture | site-editor.php?p=/wp_template/vwf-fixture//single-service&canvas=edit | part:header, part:footer, pat:cta-banner"
+        }
+      ]
+    },
+    {
+      "response": {
+        "id": "msg_dry_el10_2",
+        "type": "message",
+        "role": "assistant",
+        "model": "claude-sonnet-5",
+        "content": [
+          {
+            "type": "thinking",
+            "thinking": "",
+            "signature": "sig_dry_el10_2"
+          },
+          {
+            "type": "tool_use",
+            "id": "toolu_dry_el10_2",
+            "name": "read_file",
+            "input": {
+              "path": "themes/vwf-fixture/templates/single-service.html"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "stop_sequence": null,
+        "usage": {
+          "input_tokens": 2486,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 69
+        }
+      },
+      "tool_results": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_dry_el10_2",
+          "content": "<!-- wp:template-part {\"slug\":\"header\"} /-->\n\n<!-- wp:group {\"tagName\":\"main\",\"style\":{\"spacing\":{\"margin\":{\"top\":\"var:preset|spacing|60\"}}},\"layout\":{\"type\":\"constrained\"}} -->\n<main class=\"wp-block-group\" style=\"margin-top:var(--wp--preset--spacing--60)\">\n\t<!-- wp:post-title {\"level\":1} /-->\n\t<!-- wp:post-terms {\"term\":\"service_area\",\"prefix\":\"Service areas: \"} /-->\n\t<!-- wp:post-content {\"layout\":{\"type\":\"constrained\"}} /-->\n\t<!-- wp:block {\"ref\":90003} /-->\n</main>\n<!-- /wp:group -->\n\n<!-- wp:template-part {\"slug\":\"footer\"} /-->"
+        }
+      ]
+    },
+    {
+      "response": {
+        "id": "msg_dry_el10_3",
+        "type": "message",
+        "role": "assistant",
+        "model": "claude-sonnet-5",
+        "content": [
+          {
+            "type": "text",
+            "text": "Single service pages use the vwf-fixture theme's single-service template: header, title, service areas, the post content, the CTA banner and the footer.\nANSWER: themes/vwf-fixture/templates/single-service.html"
+          }
+        ],
+        "stop_reason": "end_turn",
+        "stop_sequence": null,
+        "usage": {
+          "input_tokens": 2795,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 58
+        }
+      },
+      "tool_results": []
+    }
+  ]
+}

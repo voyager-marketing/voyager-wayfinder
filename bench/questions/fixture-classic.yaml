@@ -1,0 +1,228 @@
+# Wayfinder benchmark questions for the seeded classic fixture site (Ashford Remodeling).
+#
+# Frozen before the first run. Do not edit a question to fit results.
+# Every expected value is a reference into fixtures/classic/truth.json, never a copied value.
+# Reference syntax is documented in src/truth.ts and bench/README.md.
+#
+# questions_sha256 is the sha256 of the canonical JSON of `questions` (keys sorted).
+# Any edit changes it, the bench refuses to run until the header is updated, and the
+# diff shows both. Print the new value with: node src/cli.ts --hash-questions --fixture classic
+site: fixture-classic
+questions_sha256: "4511d7c994aabf5bd16fe64a880ef7dd06bebc2202ced544d78a30bd3b02f9ce"
+questions:
+  # content_model (6)
+  - id: cm-01
+    category: content_model
+    prompt: Which custom post types does this site register? Give their slugs.
+    answer:
+      type: set
+      refs: ["post_types[*].slug"]
+  - id: cm-02
+    category: content_model
+    prompt: What custom fields does a project have? List the top-level field keys, not the sub fields inside a repeater.
+    answer:
+      type: set
+      refs: ["post_types[id=pt:project].fields[*].key"]
+  - id: cm-03
+    category: content_model
+    prompt: What kind of field holds a project's phases, and what does each row of it store? Give the field type and the sub field keys.
+    answer:
+      type: contains_all
+      refs:
+        - "post_types[id=pt:project].fields[key=project_phases].type"
+        - "post_types[id=pt:project].fields[key=project_phases].sub_fields[*].key"
+  - id: cm-04
+    category: content_model
+    prompt: Which taxonomy groups the projects? Give its slug.
+    answer:
+      type: exact
+      refs: ["taxonomies[id=tax:project_type].slug"]
+  - id: cm-05
+    category: content_model
+    prompt: How many projects are published?
+    answer:
+      type: exact
+      refs: ["counts.pt:project"]
+  - id: cm-06
+    category: content_model
+    prompt: Which custom field groups (ACF) does the site define? Give their titles.
+    answer:
+      type: set
+      refs: ["field_groups[*].title"]
+
+  # edit_location (7)
+  - id: el-01
+    category: edit_location
+    prompt: Where in wp-admin do I change the phone number shown in the footer?
+    answer:
+      type: contains_all
+      refs: ["options_pages[id=optpage:company-settings].edit_path"]
+  - id: el-02
+    category: edit_location
+    prompt: Where do I go in wp-admin to add or edit a project?
+    answer:
+      type: contains_all
+      refs: ["post_types[id=pt:project].edit_path"]
+  - id: el-03
+    category: edit_location
+    prompt: Where in wp-admin do I edit the links in the menu at the top of the site?
+    answer:
+      type: contains_all
+      refs: ["navigation[id=nav:main-navigation].edit_path"]
+  - id: el-04
+    category: edit_location
+    prompt: Where in wp-admin do I add a new project type?
+    answer:
+      type: contains_all
+      refs: ["taxonomies[id=tax:project_type].edit_path"]
+  - id: el-05
+    category: edit_location
+    prompt: Where do I change the text in the sidebar shown beside each project? Name the sidebar and the screen where it is edited.
+    answer:
+      type: contains_all
+      refs:
+        - "sidebars[id=sidebar:project-sidebar].name"
+        - "sidebars[id=sidebar:project-sidebar].edit_path"
+  - id: el-06
+    category: edit_location
+    prompt: Where do I change the big headline at the top of the Kitchen remodeling page?
+    answer:
+      type: judge
+      refs:
+        - "pages[slug=kitchen-remodeling].title"
+        - "pages[slug=kitchen-remodeling].edit_path"
+        - "pages[slug=kitchen-remodeling].sections"
+        - "field_groups[key=group_vwf_landing_page].fields[key=page_sections].type"
+      rubric: Correct if it says to edit the Kitchen remodeling page in wp-admin (post 90103, for example post.php?post=90103&action=edit) and change the Heading of the Hero section in its Page sections field (page_sections, an ACF flexible content field). Wrong if it says to edit the page's main content in the editor, which this page's template never shows.
+  - id: el-07
+    category: edit_location
+    prompt: The button in the call to action band on the home page always goes to the contact page. Where do I change where it links?
+    answer:
+      type: judge
+      refs:
+        - "templates[id=tpl:page-templates/landing].file"
+        - "templates[id=tpl:page-templates/landing].theme"
+        - "templates[id=tpl:page-templates/landing].links"
+      rubric: Correct if it says the link is hard coded in the vwf-classic theme's page-templates/landing.php (home_url('/contact/')), so changing it means editing that theme file. The Page sections field sets only the button's label. Wrong if it names a field or setting in wp-admin as the place to change the link.
+
+  # layout_routes (6)
+  - id: lr-01
+    category: layout_routes
+    prompt: Which theme file renders a single project page such as /projects/brennan-kitchen/? Give the file name.
+    answer:
+      type: contains_all
+      refs: ["templates[used_by_paths=/projects/brennan-kitchen/].file"]
+  - id: lr-02
+    category: layout_routes
+    prompt: Which page is the front page, and which page lists the blog posts? Give both page slugs.
+    answer:
+      type: set
+      refs: ["front_page.page", "posts_page.page"]
+  - id: lr-03
+    category: layout_routes
+    prompt: Which pages use the Landing page template? Give their paths.
+    answer:
+      type: set
+      refs: ["templates[id=tpl:page-templates/landing].used_by_paths"]
+  - id: lr-04
+    category: layout_routes
+    prompt: Which of the parent theme's template files does the active child theme replace with its own copy? Give the file names.
+    answer:
+      type: set
+      refs: ["template_parts[overrides=twentytwentyone].file"]
+  - id: lr-05
+    category: layout_routes
+    prompt: Which parent theme is the active theme built on? Give the theme slug.
+    answer:
+      type: exact
+      refs: ["site.parent_theme"]
+  - id: lr-06
+    category: layout_routes
+    prompt: Which theme file renders the About page, which theme does that file come from, and where do its header and footer come from?
+    answer:
+      type: judge
+      refs:
+        - "templates[used_by_paths=/about/].file"
+        - "templates[used_by_paths=/about/].theme"
+        - "templates[used_by_paths=/about/].refs"
+        - "template_parts[id=part:header].theme"
+        - "template_parts[id=part:footer].theme"
+      rubric: Correct if it says page.php from the parent theme Twenty Twenty-One (twentytwentyone) renders it, because the child theme vwf-classic has no page.php, and that its header and footer are the child theme's own header.php and footer.php.
+
+  # data_flow (5)
+  - id: df-01
+    category: data_flow
+    prompt: Where does the phone number in the footer actually come from?
+    answer:
+      type: judge
+      refs:
+        - "options_pages[id=optpage:company-settings].fields[key=company_phone].key"
+        - "options_pages[id=optpage:company-settings].menu_path"
+        - "template_parts[id=part:footer].file"
+      rubric: Correct if it says footer.php reads the company_phone field from the Company Settings options page (an ACF options page, read with get_field and 'option'), so the number is edited at Company Settings in wp-admin (admin.php?page=company-settings).
+  - id: df-02
+    category: data_flow
+    prompt: Which Company Settings field is set up but not shown anywhere on the site? Give its field key.
+    answer:
+      type: exact
+      refs: ["options_pages[id=optpage:company-settings].fields[on_front_end=false].key"]
+  - id: df-03
+    category: data_flow
+    prompt: Which Company Settings fields does the footer show? Give the field keys.
+    answer:
+      type: set
+      refs: ["options_pages[id=optpage:company-settings].fields[shown_in=part:footer].key"]
+  - id: df-04
+    category: data_flow
+    prompt: Which projects are featured on the home page? Give their slugs.
+    answer:
+      type: set
+      refs: ["pages[slug=home].featured_projects"]
+  - id: df-05
+    category: data_flow
+    prompt: Which field stores the list of featured projects on a landing page, and what type of field is it? Give the field key and its type.
+    answer:
+      type: contains_all
+      refs:
+        - "field_groups[key=group_vwf_landing_page].fields[key=featured_projects].key"
+        - "field_groups[key=group_vwf_landing_page].fields[key=featured_projects].type"
+
+  # settings_integrations (3)
+  - id: si-01
+    category: settings_integrations
+    prompt: What is the site title?
+    answer:
+      type: exact
+      refs: ["site.title"]
+  - id: si-02
+    category: settings_integrations
+    prompt: Which plugins are active? Give their slugs.
+    answer:
+      type: set
+      refs: ["plugins[*].slug"]
+  - id: si-03
+    category: settings_integrations
+    prompt: Which plugin provides the custom fields and the Company Settings options page? Give its slug.
+    answer:
+      type: exact
+      refs: ["plugins[role=fields].slug"]
+
+  # change_impact (3)
+  - id: ci-01
+    category: change_impact
+    prompt: If I edit template-parts/content-project.php in the theme, which templates are affected? Give their file names.
+    answer:
+      type: set
+      refs: ["templates[refs=part:template-parts/content-project].file"]
+  - id: ci-02
+    category: change_impact
+    prompt: If I change the title of the Brennan kitchen project, which pages show the new title in their featured projects? Give the page paths.
+    answer:
+      type: set
+      refs: ["projects[slug=brennan-kitchen].featured_on"]
+  - id: ci-03
+    category: change_impact
+    prompt: If I change the phone number on the Company Settings page, which theme file shows the new number? Give the file name.
+    answer:
+      type: contains_all
+      refs: ["template_parts[reads_options=company_phone].file"]

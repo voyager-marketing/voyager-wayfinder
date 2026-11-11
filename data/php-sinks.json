@@ -1,0 +1,29 @@
+{
+  "about": "What a call in traced theme or mu-plugin code does, keyed by the called function, or Class::method with its namespace and no leading backslash, all lower case. src/Scanners/PhpSinks.php reads it. A call this file does not list is not reported as an effect. Keep the keys sorted.",
+  "sinks": {
+    "gfapi::add_entry": {
+      "effect": "record",
+      "label": "a Gravity Forms entry"
+    },
+    "voyager\\orbit\\modules\\leads\\module::insertlead": {
+      "effect": "record",
+      "label": "an Orbit lead"
+    },
+    "wp_insert_post": {
+      "effect": "post",
+      "label": "a post"
+    },
+    "wp_mail": {
+      "effect": "mail",
+      "label": "mail"
+    },
+    "wp_redirect": {
+      "effect": "redirect",
+      "label": "a redirect"
+    },
+    "wp_safe_redirect": {
+      "effect": "redirect",
+      "label": "a redirect"
+    }
+  }
+}

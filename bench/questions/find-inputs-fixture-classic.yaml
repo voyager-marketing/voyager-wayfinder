@@ -1,0 +1,23 @@
+# Find inputs for the classic fixture's frozen question set (questions/fixture-classic.yaml), for the find eval
+# (bench/README.md, "Find eval").
+#
+# The set was frozen before any question carried find inputs, so they live here, outside its hash. Each is what
+# the person asking would have to hand: the page they saw the thing on and the text they saw. Written from
+# fixtures/classic/seed.php and fixtures/classic/truth.json. Every question whose answer names an edit screen is
+# listed. Much of this site is printed by PHP (the footer's options, the landing template's sections), which
+# find does not render, so several of these are expected to miss: that is what the eval measures.
+questions: questions/fixture-classic.yaml
+questions_sha256: "4511d7c994aabf5bd16fe64a880ef7dd06bebc2202ced544d78a30bd3b02f9ce"
+inputs:
+  - id: el-01
+    find: { url: /, text: (434) 555-0187 }
+  - id: el-02
+    find: { url: /projects/ }
+  - id: el-03
+    find: { url: /, text: Projects }
+  - id: el-04
+    find: { url: /projects/ }
+  - id: el-05
+    find: { url: /projects/brennan-kitchen/, text: Planning a remodel? Call for a free in-home estimate. }
+  - id: el-06
+    find: { url: /kitchen-remodeling/, text: Kitchens built around how you cook }

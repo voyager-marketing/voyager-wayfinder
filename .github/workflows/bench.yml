@@ -1,0 +1,74 @@
+name: Benchmark
+
+# Manual only: a full run calls the Anthropic API for every question, condition and model.
+on:
+  workflow_dispatch:
+    inputs:
+      args:
+        description: Extra bench CLI arguments, for example --condition raw --model claude-haiku-4-5-20251001
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+# The published fixtures only. A private fixture (bench/README.md, "Private fixtures") needs bench/private/,
+# which this workflow never has, so it runs on a maintainer's machine.
+jobs:
+  bench:
+    name: Run benchmark
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v7
+
+      # The plugin needs its Composer autoloader to load inside wp-env.
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer
+          coverage: none
+
+      - name: Install plugin autoloader
+        run: composer install --no-dev --no-interaction --no-progress
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            bench/package-lock.json
+
+      # Installs the pinned @wordpress/env. Always the scoped name, never the unscoped wp-env package.
+      - name: Install wp-env
+        run: npm ci
+
+      - name: Start the fixture site
+        run: npx @wordpress/env start
+
+      # Writes fixtures/truth.json and fixtures/.credentials.
+      - name: Seed the fixture
+        run: npx @wordpress/env run cli wp eval-file wp-content/plugins/voyager-wayfinder/fixtures/seed.php
+
+      - name: Install bench dependencies
+        working-directory: bench
+        run: npm ci
+
+      - name: Run the benchmark
+        working-directory: bench
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          BENCH_ARGS: ${{ inputs.args }}
+        run: node src/cli.ts $BENCH_ARGS
+
+      - name: Upload report and transcripts
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: bench-report
+          path: |
+            bench/reports/
+            bench/runs/
+          if-no-files-found: warn
+          retention-days: 30

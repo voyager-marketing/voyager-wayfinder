@@ -1,0 +1,37 @@
+# Dependencies
+/vendor/
+node_modules/
+
+# Local secrets
+.env
+bench/.env
+fixtures/.credentials
+
+# Private bench data: a real site's fixture, its snapshot and its reports. Never published (bench/README.md).
+bench/private/
+
+# Build output
+/build/
+*.zip
+
+# Bench run output (reports are committed, raw transcripts are not)
+bench/runs/
+
+# Tooling
+.claude/session-summary.md
+.claude/settings.local.json
+.phpunit.cache/
+.phpunit.result.cache
+.idea/
+.vscode/
+.DS_Store
+
+# A temporary local wp-env mapping (see AGENTS.md); never shared
+.wp-env.override.json
+
+# Worktrees created inside the repo, by hand or by claude -w
+.worktrees/
+.claude/worktrees/
+
+# Session scratch: findings and spikes live in git history, Discoveries and the issue, not the tree
+/scratchpad/

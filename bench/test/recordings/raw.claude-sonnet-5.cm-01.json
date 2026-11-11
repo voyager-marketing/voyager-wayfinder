@@ -1,0 +1,47 @@
+{
+  "synthetic": true,
+  "note": "Hand-written for the dry-run test suite. Not a recorded API run and not a measurement.",
+  "question": "cm-01",
+  "condition": "raw",
+  "model": "claude-sonnet-5",
+  "wall_ms": 3310,
+  "turns": [
+    {
+      "response": {
+        "id": "msg_dry_cm01_1",
+        "type": "message",
+        "role": "assistant",
+        "model": "claude-sonnet-5",
+        "content": [
+          { "type": "thinking", "thinking": "", "signature": "sig_dry_cm01_1" },
+          { "type": "tool_use", "id": "toolu_dry_cm01_1", "name": "rest_get", "input": { "path": "/wp/v2/types" } }
+        ],
+        "stop_reason": "tool_use",
+        "stop_sequence": null,
+        "usage": { "input_tokens": 760, "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0, "output_tokens": 88 }
+      },
+      "tool_results": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_dry_cm01_1",
+          "content": "HTTP 200\n{\"post\":{\"slug\":\"post\"},\"page\":{\"slug\":\"page\"},\"attachment\":{\"slug\":\"attachment\"},\"service\":{\"slug\":\"service\",\"rest_base\":\"services\"},\"team_member\":{\"slug\":\"team_member\",\"rest_base\":\"team_member\"},\"wp_block\":{\"slug\":\"wp_block\"},\"wp_template\":{\"slug\":\"wp_template\"},\"wp_template_part\":{\"slug\":\"wp_template_part\"},\"wp_navigation\":{\"slug\":\"wp_navigation\"}}"
+        }
+      ]
+    },
+    {
+      "response": {
+        "id": "msg_dry_cm01_2",
+        "type": "message",
+        "role": "assistant",
+        "model": "claude-sonnet-5",
+        "content": [
+          { "type": "text", "text": "Besides the built-in types, the site registers two custom post types.\nANSWER: service, team_member" }
+        ],
+        "stop_reason": "end_turn",
+        "stop_sequence": null,
+        "usage": { "input_tokens": 1102, "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0, "output_tokens": 27 }
+      },
+      "tool_results": []
+    }
+  ]
+}

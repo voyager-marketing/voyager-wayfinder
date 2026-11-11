@@ -1,0 +1,65 @@
+[
+  {
+    "index_path": "0",
+    "blockName": "core/cover",
+    "depth": 0,
+    "innerBlockCount": 1,
+    "bindings": false
+  },
+  {
+    "index_path": "0/0",
+    "blockName": "core/columns",
+    "depth": 1,
+    "innerBlockCount": 2,
+    "bindings": false
+  },
+  {
+    "index_path": "0/0/0",
+    "blockName": "core/column",
+    "depth": 2,
+    "innerBlockCount": 3,
+    "bindings": false
+  },
+  {
+    "index_path": "0/0/0/0",
+    "blockName": "core/heading",
+    "depth": 3,
+    "innerBlockCount": 0,
+    "bindings": false
+  },
+  {
+    "index_path": "0/0/0/1",
+    "blockName": "core/paragraph",
+    "depth": 3,
+    "innerBlockCount": 0,
+    "bindings": false
+  },
+  {
+    "index_path": "0/0/0/2",
+    "blockName": "core/buttons",
+    "depth": 3,
+    "innerBlockCount": 1,
+    "bindings": false
+  },
+  {
+    "index_path": "0/0/0/2/0",
+    "blockName": "core/button",
+    "depth": 4,
+    "innerBlockCount": 0,
+    "bindings": false
+  },
+  {
+    "index_path": "0/0/1",
+    "blockName": "core/column",
+    "depth": 2,
+    "innerBlockCount": 1,
+    "bindings": false
+  },
+  {
+    "index_path": "0/0/1/0",
+    "blockName": "core/image",
+    "depth": 3,
+    "innerBlockCount": 0,
+    "bindings": false
+  }
+]

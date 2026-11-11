@@ -1,0 +1,945 @@
+{
+    "counts": {
+        "pt:page": 5,
+        "pt:post": 3,
+        "pt:project": 5,
+        "tax:project_type": 4
+    },
+    "field_groups": [
+        {
+            "edit_path": "defined in code",
+            "fields": [
+                {
+                    "key": "company_phone",
+                    "label": "Phone",
+                    "type": "text"
+                },
+                {
+                    "key": "company_address",
+                    "label": "Address",
+                    "type": "textarea"
+                },
+                {
+                    "key": "company_email",
+                    "label": "Email",
+                    "type": "email"
+                },
+                {
+                    "key": "facebook_url",
+                    "label": "Facebook",
+                    "type": "url"
+                },
+                {
+                    "key": "instagram_url",
+                    "label": "Instagram",
+                    "type": "url"
+                }
+            ],
+            "key": "group_vwf_company_details",
+            "location": "options_page == company-settings",
+            "registered_by": "mu-plugin:vwf-classic-core.php",
+            "show_in_rest": false,
+            "title": "Company details"
+        },
+        {
+            "edit_path": "defined in code",
+            "fields": [
+                {
+                    "key": "page_sections",
+                    "label": "Page sections",
+                    "layouts": [
+                        {
+                            "label": "Hero",
+                            "name": "hero",
+                            "sub_fields": [
+                                {
+                                    "key": "heading",
+                                    "label": "Heading",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "intro",
+                                    "label": "Intro",
+                                    "type": "textarea"
+                                }
+                            ]
+                        },
+                        {
+                            "label": "Call to action band",
+                            "name": "cta_band",
+                            "sub_fields": [
+                                {
+                                    "key": "heading",
+                                    "label": "Heading",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "button_label",
+                                    "label": "Button label",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    ],
+                    "type": "flexible_content"
+                },
+                {
+                    "key": "featured_projects",
+                    "label": "Featured projects",
+                    "post_types": [
+                        "pt:project"
+                    ],
+                    "type": "relationship"
+                }
+            ],
+            "key": "group_vwf_landing_page",
+            "location": "page_template == page-templates/landing.php",
+            "registered_by": "mu-plugin:vwf-classic-core.php",
+            "show_in_rest": false,
+            "title": "Landing page"
+        },
+        {
+            "edit_path": "defined in code",
+            "fields": [
+                {
+                    "key": "client_name",
+                    "label": "Client",
+                    "type": "text"
+                },
+                {
+                    "key": "completion_year",
+                    "label": "Completion year",
+                    "type": "number"
+                },
+                {
+                    "key": "project_phases",
+                    "label": "Phases",
+                    "sub_fields": [
+                        {
+                            "key": "phase_name",
+                            "label": "Phase",
+                            "type": "text"
+                        },
+                        {
+                            "key": "phase_weeks",
+                            "label": "Weeks",
+                            "type": "number"
+                        }
+                    ],
+                    "type": "repeater"
+                },
+                {
+                    "key": "internal_job_code",
+                    "label": "Internal job code",
+                    "type": "text"
+                }
+            ],
+            "key": "group_vwf_project_details",
+            "location": "post_type == project",
+            "registered_by": "mu-plugin:vwf-classic-core.php",
+            "show_in_rest": true,
+            "title": "Project details"
+        }
+    ],
+    "fixture": "classic",
+    "format": "wayfinder-fixture-truth/1",
+    "front_page": {
+        "page": "home",
+        "path": "/"
+    },
+    "menu_locations": [
+        {
+            "edit_path": "nav-menus.php?action=locations",
+            "id": "loc:footer",
+            "label": "Secondary menu",
+            "menu": "nav:footer-links",
+            "menu_path": "Appearance > Menus > Manage Locations",
+            "registered_by": "theme:twentytwentyone",
+            "slug": "footer",
+            "used_in": [
+                "part:footer"
+            ]
+        },
+        {
+            "edit_path": "nav-menus.php?action=locations",
+            "id": "loc:main-menu",
+            "label": "Main menu",
+            "menu": "nav:main-navigation",
+            "menu_path": "Appearance > Menus > Manage Locations",
+            "registered_by": "theme:vwf-classic",
+            "slug": "main-menu",
+            "used_in": [
+                "part:header"
+            ]
+        },
+        {
+            "edit_path": "nav-menus.php?action=locations",
+            "id": "loc:primary",
+            "label": "Primary menu",
+            "menu": null,
+            "menu_path": "Appearance > Menus > Manage Locations",
+            "registered_by": "theme:twentytwentyone",
+            "slug": "primary",
+            "used_in": []
+        }
+    ],
+    "mu_plugins": [
+        {
+            "file": "vwf-classic-core.php",
+            "name": "Wayfinder classic fixture core",
+            "registers": [
+                "optpage:company-settings",
+                "pt:project",
+                "tax:project_type"
+            ]
+        }
+    ],
+    "navigation": [
+        {
+            "edit_path": "nav-menus.php?action=edit&menu=90191",
+            "id": "nav:footer-links",
+            "item_count": 2,
+            "items": [
+                {
+                    "label": "About",
+                    "path": "/about/"
+                },
+                {
+                    "label": "Contact",
+                    "path": "/contact/"
+                }
+            ],
+            "location": "loc:footer",
+            "menu_path": "Appearance > Menus",
+            "slug": "footer-links",
+            "title": "Footer links"
+        },
+        {
+            "edit_path": "nav-menus.php?action=edit&menu=90190",
+            "id": "nav:main-navigation",
+            "item_count": 6,
+            "items": [
+                {
+                    "label": "Home",
+                    "path": "/"
+                },
+                {
+                    "label": "About",
+                    "path": "/about/"
+                },
+                {
+                    "label": "Projects",
+                    "path": "/projects/"
+                },
+                {
+                    "label": "Kitchen remodeling",
+                    "path": "/kitchen-remodeling/"
+                },
+                {
+                    "label": "News",
+                    "path": "/news/"
+                },
+                {
+                    "label": "Contact",
+                    "path": "/contact/"
+                }
+            ],
+            "location": "loc:main-menu",
+            "menu_path": "Appearance > Menus",
+            "slug": "main-navigation",
+            "title": "Main navigation"
+        }
+    ],
+    "options": [
+        {
+            "id": "opt:blogname",
+            "value": "Ashford Remodeling"
+        },
+        {
+            "id": "opt:page_for_posts",
+            "value": "news"
+        },
+        {
+            "id": "opt:page_on_front",
+            "value": "home"
+        },
+        {
+            "id": "opt:permalink_structure",
+            "value": "/%postname%/"
+        },
+        {
+            "id": "opt:show_on_front",
+            "value": "page"
+        },
+        {
+            "id": "opt:stylesheet",
+            "value": "vwf-classic"
+        },
+        {
+            "id": "opt:template",
+            "value": "twentytwentyone"
+        }
+    ],
+    "options_pages": [
+        {
+            "edit_path": "admin.php?page=company-settings",
+            "field_groups": [
+                "Company details"
+            ],
+            "fields": [
+                {
+                    "key": "company_address",
+                    "label": "Address",
+                    "on_front_end": true,
+                    "option": "options_company_address",
+                    "shown_in": [
+                        "part:footer"
+                    ],
+                    "type": "textarea",
+                    "value": "410 Preston Ave, Charlottesville, VA"
+                },
+                {
+                    "key": "company_email",
+                    "label": "Email",
+                    "on_front_end": false,
+                    "option": "options_company_email",
+                    "shown_in": [],
+                    "type": "email",
+                    "value": "office@example.com"
+                },
+                {
+                    "key": "company_phone",
+                    "label": "Phone",
+                    "on_front_end": true,
+                    "option": "options_company_phone",
+                    "shown_in": [
+                        "part:footer"
+                    ],
+                    "type": "text",
+                    "value": "(434) 555-0187"
+                },
+                {
+                    "key": "facebook_url",
+                    "label": "Facebook",
+                    "on_front_end": true,
+                    "option": "options_facebook_url",
+                    "shown_in": [
+                        "part:footer"
+                    ],
+                    "type": "url",
+                    "value": "https://example.com/facebook/ashford-remodeling"
+                },
+                {
+                    "key": "instagram_url",
+                    "label": "Instagram",
+                    "on_front_end": true,
+                    "option": "options_instagram_url",
+                    "shown_in": [
+                        "part:footer"
+                    ],
+                    "type": "url",
+                    "value": "https://example.com/instagram/ashford-remodeling"
+                }
+            ],
+            "id": "optpage:company-settings",
+            "menu_path": "Company Settings",
+            "parent": null,
+            "registered_by": "mu-plugin:vwf-classic-core.php",
+            "slug": "company-settings",
+            "title": "Company Settings"
+        }
+    ],
+    "pages": [
+        {
+            "edit_path": "post.php?post=90101&action=edit",
+            "featured_projects": [],
+            "path": "/about/",
+            "sections": [],
+            "slug": "about",
+            "template": "default",
+            "title": "About"
+        },
+        {
+            "edit_path": "post.php?post=90102&action=edit",
+            "featured_projects": [],
+            "path": "/contact/",
+            "sections": [],
+            "slug": "contact",
+            "template": "default",
+            "title": "Contact"
+        },
+        {
+            "edit_path": "post.php?post=90100&action=edit",
+            "featured_projects": [
+                "maple-street-addition",
+                "farmhouse-kitchen-and-bath",
+                "brennan-kitchen"
+            ],
+            "path": "/",
+            "sections": [
+                "hero",
+                "cta_band"
+            ],
+            "slug": "home",
+            "template": "page-templates/landing",
+            "title": "Home"
+        },
+        {
+            "edit_path": "post.php?post=90103&action=edit",
+            "featured_projects": [
+                "brennan-kitchen",
+                "farmhouse-kitchen-and-bath"
+            ],
+            "path": "/kitchen-remodeling/",
+            "sections": [
+                "hero"
+            ],
+            "slug": "kitchen-remodeling",
+            "template": "page-templates/landing",
+            "title": "Kitchen remodeling"
+        },
+        {
+            "edit_path": "post.php?post=90104&action=edit",
+            "featured_projects": [],
+            "path": "/news/",
+            "sections": [],
+            "slug": "news",
+            "template": "default",
+            "title": "News"
+        }
+    ],
+    "plugins": [
+        {
+            "id": "plugin:mcp-adapter",
+            "name": "MCP Adapter",
+            "role": "ai",
+            "slug": "mcp-adapter"
+        },
+        {
+            "id": "plugin:secure-custom-fields",
+            "name": "Secure Custom Fields",
+            "role": "fields",
+            "slug": "secure-custom-fields"
+        },
+        {
+            "id": "plugin:voyager-wayfinder",
+            "name": "Voyager Wayfinder",
+            "role": "other",
+            "slug": "voyager-wayfinder"
+        }
+    ],
+    "post_types": [
+        {
+            "archive_path": "/projects/",
+            "archive_template": "tpl:archive-project",
+            "edit_path": "edit.php?post_type=project",
+            "fields": [
+                {
+                    "group": "Project details",
+                    "group_edit_path": "defined in code",
+                    "id": "field:project.client_name",
+                    "key": "client_name",
+                    "label": "Client",
+                    "on_front_end": true,
+                    "show_in_rest": true,
+                    "shown_in": [
+                        "part:template-parts/content-project"
+                    ],
+                    "source": "acf",
+                    "type": "text"
+                },
+                {
+                    "group": "Project details",
+                    "group_edit_path": "defined in code",
+                    "id": "field:project.completion_year",
+                    "key": "completion_year",
+                    "label": "Completion year",
+                    "on_front_end": true,
+                    "show_in_rest": true,
+                    "shown_in": [
+                        "part:template-parts/content-project"
+                    ],
+                    "source": "acf",
+                    "type": "number"
+                },
+                {
+                    "group": "Project details",
+                    "group_edit_path": "defined in code",
+                    "id": "field:project.internal_job_code",
+                    "key": "internal_job_code",
+                    "label": "Internal job code",
+                    "on_front_end": false,
+                    "show_in_rest": true,
+                    "shown_in": [],
+                    "source": "acf",
+                    "type": "text"
+                },
+                {
+                    "group": "Project details",
+                    "group_edit_path": "defined in code",
+                    "id": "field:project.project_phases",
+                    "key": "project_phases",
+                    "label": "Phases",
+                    "on_front_end": true,
+                    "show_in_rest": true,
+                    "shown_in": [
+                        "part:template-parts/content-project"
+                    ],
+                    "source": "acf",
+                    "sub_fields": [
+                        {
+                            "key": "phase_name",
+                            "label": "Phase",
+                            "type": "text"
+                        },
+                        {
+                            "key": "phase_weeks",
+                            "label": "Weeks",
+                            "type": "number"
+                        }
+                    ],
+                    "type": "repeater"
+                }
+            ],
+            "has_archive": true,
+            "has_public_url": true,
+            "id": "pt:project",
+            "label": "Projects",
+            "menu_name": "Projects",
+            "public": true,
+            "published": 5,
+            "rewrite_slug": "projects",
+            "show_in_rest": true,
+            "show_ui": true,
+            "single_template": "tpl:single-project",
+            "slug": "project",
+            "supports": [
+                "title",
+                "editor",
+                "thumbnail",
+                "excerpt"
+            ],
+            "taxonomies": [
+                "tax:project_type"
+            ]
+        }
+    ],
+    "posts": [
+        {
+            "date": "2026-09-08",
+            "path": "/choosing-tile-for-a-small-bathroom/",
+            "slug": "choosing-tile-for-a-small-bathroom",
+            "title": "Choosing tile for a small bathroom"
+        },
+        {
+            "date": "2026-05-12",
+            "path": "/how-long-does-a-kitchen-remodel-take/",
+            "slug": "how-long-does-a-kitchen-remodel-take",
+            "title": "How long does a kitchen remodel take?"
+        },
+        {
+            "date": "2026-07-21",
+            "path": "/planning-a-home-addition/",
+            "slug": "planning-a-home-addition",
+            "title": "Planning a home addition"
+        }
+    ],
+    "posts_page": {
+        "page": "news",
+        "path": "/news/"
+    },
+    "projects": [
+        {
+            "client_name": "Brennan family",
+            "completion_year": 2024,
+            "edit_path": "post.php?post=90110&action=edit",
+            "featured_on": [
+                "/",
+                "/kitchen-remodeling/"
+            ],
+            "internal_job_code": "AR-2401",
+            "path": "/projects/brennan-kitchen/",
+            "phase_count": 3,
+            "phases": [
+                {
+                    "name": "Design",
+                    "weeks": 3
+                },
+                {
+                    "name": "Demolition",
+                    "weeks": 1
+                },
+                {
+                    "name": "Cabinets and counters",
+                    "weeks": 4
+                }
+            ],
+            "project_types": [
+                "kitchens"
+            ],
+            "slug": "brennan-kitchen",
+            "template": "tpl:single-project",
+            "title": "Brennan kitchen"
+        },
+        {
+            "client_name": "Whitaker family",
+            "completion_year": 2025,
+            "edit_path": "post.php?post=90113&action=edit",
+            "featured_on": [
+                "/",
+                "/kitchen-remodeling/"
+            ],
+            "internal_job_code": "AR-2503",
+            "path": "/projects/farmhouse-kitchen-and-bath/",
+            "phase_count": 3,
+            "phases": [
+                {
+                    "name": "Design",
+                    "weeks": 3
+                },
+                {
+                    "name": "Kitchen build",
+                    "weeks": 5
+                },
+                {
+                    "name": "Bath build",
+                    "weeks": 3
+                }
+            ],
+            "project_types": [
+                "bathrooms",
+                "kitchens"
+            ],
+            "slug": "farmhouse-kitchen-and-bath",
+            "template": "tpl:single-project",
+            "title": "Farmhouse kitchen and bath"
+        },
+        {
+            "client_name": "Okafor family",
+            "completion_year": 2025,
+            "edit_path": "post.php?post=90111&action=edit",
+            "featured_on": [],
+            "internal_job_code": "AR-2507",
+            "path": "/projects/hillside-primary-bath/",
+            "phase_count": 2,
+            "phases": [
+                {
+                    "name": "Design",
+                    "weeks": 2
+                },
+                {
+                    "name": "Tile and fixtures",
+                    "weeks": 3
+                }
+            ],
+            "project_types": [
+                "bathrooms"
+            ],
+            "slug": "hillside-primary-bath",
+            "template": "tpl:single-project",
+            "title": "Hillside primary bath"
+        },
+        {
+            "client_name": "Delgado family",
+            "completion_year": 2023,
+            "edit_path": "post.php?post=90112&action=edit",
+            "featured_on": [
+                "/"
+            ],
+            "internal_job_code": "AR-2312",
+            "path": "/projects/maple-street-addition/",
+            "phase_count": 3,
+            "phases": [
+                {
+                    "name": "Permits",
+                    "weeks": 4
+                },
+                {
+                    "name": "Framing",
+                    "weeks": 6
+                },
+                {
+                    "name": "Finishes",
+                    "weeks": 5
+                }
+            ],
+            "project_types": [
+                "additions"
+            ],
+            "slug": "maple-street-addition",
+            "template": "tpl:single-project",
+            "title": "Maple Street addition"
+        },
+        {
+            "client_name": "Lindqvist family",
+            "completion_year": 2024,
+            "edit_path": "post.php?post=90114&action=edit",
+            "featured_on": [],
+            "internal_job_code": "AR-2409",
+            "path": "/projects/ridge-road-sunroom/",
+            "phase_count": 2,
+            "phases": [
+                {
+                    "name": "Permits",
+                    "weeks": 3
+                },
+                {
+                    "name": "Build",
+                    "weeks": 7
+                }
+            ],
+            "project_types": [
+                "additions"
+            ],
+            "slug": "ridge-road-sunroom",
+            "template": "tpl:single-project",
+            "title": "Ridge Road sunroom"
+        }
+    ],
+    "sidebars": [
+        {
+            "edit_path": "widgets.php",
+            "id": "sidebar:project-sidebar",
+            "menu_path": "Appearance > Widgets",
+            "name": "Project sidebar",
+            "registered_by": "theme:vwf-classic",
+            "slug": "project-sidebar",
+            "used_in": [
+                "tpl:single-project"
+            ],
+            "widget_count": 1,
+            "widgets": [
+                "Planning a remodel? Call for a free in-home estimate."
+            ]
+        },
+        {
+            "edit_path": "widgets.php",
+            "id": "sidebar:sidebar-1",
+            "menu_path": "Appearance > Widgets",
+            "name": "Footer",
+            "registered_by": "theme:twentytwentyone",
+            "slug": "sidebar-1",
+            "used_in": [],
+            "widget_count": 0,
+            "widgets": []
+        }
+    ],
+    "site": {
+        "parent_theme": "twentytwentyone",
+        "permalink_structure": "/%postname%/",
+        "theme": "vwf-classic",
+        "theme_type": "classic",
+        "title": "Ashford Remodeling"
+    },
+    "taxonomies": [
+        {
+            "edit_path": "edit-tags.php?taxonomy=project_type&post_type=project",
+            "hierarchical": true,
+            "id": "tax:project_type",
+            "label": "Project types",
+            "menu_path": "Projects > Project types",
+            "object_types": [
+                "pt:project"
+            ],
+            "public": true,
+            "show_in_rest": true,
+            "slug": "project_type",
+            "terms": [
+                {
+                    "name": "Additions",
+                    "project_count": 2,
+                    "projects": [
+                        "maple-street-addition",
+                        "ridge-road-sunroom"
+                    ],
+                    "slug": "additions"
+                },
+                {
+                    "name": "Basements",
+                    "project_count": 0,
+                    "projects": [],
+                    "slug": "basements"
+                },
+                {
+                    "name": "Bathrooms",
+                    "project_count": 2,
+                    "projects": [
+                        "hillside-primary-bath",
+                        "farmhouse-kitchen-and-bath"
+                    ],
+                    "slug": "bathrooms"
+                },
+                {
+                    "name": "Kitchens",
+                    "project_count": 2,
+                    "projects": [
+                        "brennan-kitchen",
+                        "farmhouse-kitchen-and-bath"
+                    ],
+                    "slug": "kitchens"
+                }
+            ]
+        }
+    ],
+    "template_parts": [
+        {
+            "area": "footer",
+            "file": "footer.php",
+            "id": "part:footer",
+            "links": [],
+            "overrides": "twentytwentyone",
+            "reads": [],
+            "reads_options": [
+                "company_address",
+                "company_phone",
+                "facebook_url",
+                "instagram_url"
+            ],
+            "refs": [
+                "loc:footer"
+            ],
+            "slug": "footer",
+            "theme": "vwf-classic",
+            "used_in": [
+                "tpl:archive-project",
+                "tpl:page",
+                "tpl:page-templates/landing",
+                "tpl:single-project"
+            ]
+        },
+        {
+            "area": "header",
+            "file": "header.php",
+            "id": "part:header",
+            "links": [
+                "/"
+            ],
+            "overrides": "twentytwentyone",
+            "reads": [],
+            "reads_options": [],
+            "refs": [
+                "loc:main-menu"
+            ],
+            "slug": "header",
+            "theme": "vwf-classic",
+            "used_in": [
+                "tpl:archive-project",
+                "tpl:page",
+                "tpl:page-templates/landing",
+                "tpl:single-project"
+            ]
+        },
+        {
+            "area": "uncategorized",
+            "file": "template-parts/content-project.php",
+            "id": "part:template-parts/content-project",
+            "links": [],
+            "overrides": null,
+            "reads": [
+                "client_name",
+                "completion_year",
+                "project_phases"
+            ],
+            "reads_options": [],
+            "refs": [],
+            "slug": "template-parts/content-project",
+            "theme": "vwf-classic",
+            "used_in": [
+                "tpl:archive-project",
+                "tpl:single-project"
+            ]
+        }
+    ],
+    "templates": [
+        {
+            "assigned_to": [],
+            "file": "archive-project.php",
+            "id": "tpl:archive-project",
+            "links": [],
+            "reads": [],
+            "refs": [
+                "part:footer",
+                "part:header",
+                "part:template-parts/content-project"
+            ],
+            "shows_post_content": true,
+            "slug": "archive-project",
+            "template_name": null,
+            "theme": "vwf-classic",
+            "used_by_paths": [
+                "/projects/"
+            ]
+        },
+        {
+            "assigned_to": [],
+            "file": "page.php",
+            "id": "tpl:page",
+            "links": [],
+            "reads": [],
+            "refs": [
+                "part:footer",
+                "part:header",
+                "part:template-parts/content/content-page"
+            ],
+            "shows_post_content": true,
+            "slug": "page",
+            "template_name": null,
+            "theme": "twentytwentyone",
+            "used_by_paths": [
+                "/about/",
+                "/contact/"
+            ]
+        },
+        {
+            "assigned_to": [
+                "page:home",
+                "page:kitchen-remodeling"
+            ],
+            "file": "page-templates/landing.php",
+            "id": "tpl:page-templates/landing",
+            "links": [
+                "/contact/"
+            ],
+            "reads": [
+                "featured_projects",
+                "page_sections"
+            ],
+            "refs": [
+                "part:footer",
+                "part:header"
+            ],
+            "shows_post_content": false,
+            "slug": "page-templates/landing",
+            "template_name": "Landing page",
+            "theme": "vwf-classic",
+            "used_by_paths": [
+                "/",
+                "/kitchen-remodeling/"
+            ]
+        },
+        {
+            "assigned_to": [],
+            "file": "single-project.php",
+            "id": "tpl:single-project",
+            "links": [],
+            "reads": [],
+            "refs": [
+                "part:footer",
+                "part:header",
+                "part:template-parts/content-project",
+                "sidebar:project-sidebar"
+            ],
+            "shows_post_content": true,
+            "slug": "single-project",
+            "template_name": null,
+            "theme": "vwf-classic",
+            "used_by_paths": [
+                "/projects/brennan-kitchen/",
+                "/projects/hillside-primary-bath/",
+                "/projects/maple-street-addition/",
+                "/projects/farmhouse-kitchen-and-bath/",
+                "/projects/ridge-road-sunroom/"
+            ]
+        }
+    ]
+}

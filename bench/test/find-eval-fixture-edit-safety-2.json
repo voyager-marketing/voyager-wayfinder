@@ -1,0 +1,626 @@
+{
+  "site": "fixture-edit-safety-2",
+  "question_set": {
+    "file": "questions/fixture-edit-safety-2.yaml",
+    "sha256": "79b1b58aef25744644e6dfc104550afb654338bd89897963d14f1a5aec73bcb7",
+    "count": 30,
+    "find_inputs": null
+  },
+  "responses": {
+    "/wp-json/wayfinder/v1/context?tier=section&id=pat%3Asame-day-service": {
+      "status": 200,
+      "body": {
+        "edit": "post.php?post=90071&action=edit"
+      }
+    },
+    "/wp-json/wayfinder/v1/find?url=%2Fcontact%2F&text=&class=": {
+      "status": 200,
+      "body": {
+        "route": "route:page-contact",
+        "matched": null,
+        "ambiguous": false,
+        "message": null,
+        "chain": [
+          {
+            "id": "pt:page",
+            "label": "Page content: Contact",
+            "edit": "post.php?post=90012&action=edit"
+          },
+          {
+            "id": "tpl:page-contact",
+            "label": "Contact page",
+            "edit": "site-editor.php?p=/wp_template/vwf-fixture//page-contact&canvas=edit"
+          },
+          {
+            "id": "part:footer",
+            "label": "Footer",
+            "edit": "site-editor.php?p=/wp_template_part/vwf-fixture//footer&canvas=edit"
+          },
+          {
+            "id": "part:header",
+            "label": "Header",
+            "edit": "site-editor.php?p=/wp_template_part/vwf-fixture//header&canvas=edit"
+          },
+          {
+            "id": "bind:vwf-fixture/business-info.address",
+            "label": "Business info: address",
+            "edit": "options-general.php?page=vwf-business-info"
+          },
+          {
+            "id": "bind:vwf-fixture/business-info.phone",
+            "label": "Business info: phone",
+            "edit": "options-general.php?page=vwf-business-info"
+          },
+          {
+            "id": "nav:footer",
+            "label": "Footer",
+            "edit": "site-editor.php?p=/wp_navigation/90002"
+          },
+          {
+            "id": "nav:primary",
+            "label": "Primary",
+            "edit": "site-editor.php?p=/wp_navigation/90001"
+          },
+          {
+            "id": "route:page-contact",
+            "label": "Contact page",
+            "edit": "post.php?post=90012&action=edit"
+          }
+        ],
+        "hits": [],
+        "verify": {
+          "changes_since": null
+        }
+      }
+    },
+    "/wp-json/wayfinder/v1/find?url=%2Femergencies%2F&text=&class=": {
+      "status": 200,
+      "body": {
+        "route": "route:single-page",
+        "matched": null,
+        "ambiguous": false,
+        "message": null,
+        "chain": [
+          {
+            "id": "pt:page",
+            "label": "Page content: Emergencies",
+            "edit": "post.php?post=90082&action=edit"
+          },
+          {
+            "id": "tpl:page",
+            "label": "Pages",
+            "edit": "site-editor.php?p=/wp_template/vwf-fixture//page&canvas=edit"
+          },
+          {
+            "id": "part:footer",
+            "label": "Footer",
+            "edit": "site-editor.php?p=/wp_template_part/vwf-fixture//footer&canvas=edit"
+          },
+          {
+            "id": "part:header",
+            "label": "Header",
+            "edit": "site-editor.php?p=/wp_template_part/vwf-fixture//header&canvas=edit"
+          },
+          {
+            "id": "bind:vwf-fixture/business-info.address",
+            "label": "Business info: address",
+            "edit": "options-general.php?page=vwf-business-info"
+          },
+          {
+            "id": "bind:vwf-fixture/business-info.phone",
+            "label": "Business info: phone",
+            "edit": "options-general.php?page=vwf-business-info"
+          },
+          {
+            "id": "nav:footer",
+            "label": "Footer",
+            "edit": "site-editor.php?p=/wp_navigation/90002"
+          },
+          {
+            "id": "nav:primary",
+            "label": "Primary",
+            "edit": "site-editor.php?p=/wp_navigation/90001"
+          },
+          {
+            "id": "route:single-page",
+            "label": "Single page",
+            "edit": null
+          }
+        ],
+        "hits": [],
+        "verify": {
+          "changes_since": null
+        }
+      }
+    },
+    "/wp-json/wayfinder/v1/find?url=%2Femergencies%2F&text=Our%20main%20valve%20is%20in%20the%20crawl%20space.&class=": {
+      "status": 200,
+      "body": {
+        "route": "route:single-page",
+        "matched": true,
+        "ambiguous": false,
+        "message": null,
+        "chain": [
+          {
+            "id": "pt:page",
+            "label": "Page content: Emergencies",
+            "edit": "post.php?post=90082&action=edit"
+          },
+          {
+            "id": "tpl:page",
+            "label": "Pages",
+            "edit": "site-editor.php?p=/wp_template/vwf-fixture//page&canvas=edit"
+          },
+          {
+            "id": "route:single-page",
+            "label": "Single page",
+            "edit": null
+          }
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "id": "pt:page",
+            "block_path": "1.1.0",
+            "snippet": "Our main valve is in the crawl space.",
+            "on_route": true,
+            "anchor": {
+              "entity": "pt:page",
+              "post": 90082,
+              "path": "1.1.0"
+            }
+          }
+        ],
+        "verify": {
+          "changes_since": null
+        }
+      }
+    },
+    "/wp-json/wayfinder/v1/find?url=%2Femergencies%2F&text=Same-day%20service%20on%20calls%20booked%20before%20noon.&class=": {
+      "status": 200,
+      "body": {
+        "route": "route:single-page",
+        "matched": true,
+        "ambiguous": false,
+        "message": null,
+        "chain": [
+          {
+            "id": "pt:page",
+            "label": "Page content: Emergencies",
+            "edit": "post.php?post=90082&action=edit"
+          },
+          {
+            "id": "tpl:page",
+            "label": "Pages",
+            "edit": "site-editor.php?p=/wp_template/vwf-fixture//page&canvas=edit"
+          },
+          {
+            "id": "route:single-page",
+            "label": "Single page",
+            "edit": null
+          }
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "id": "pt:page",
+            "block_path": "2",
+            "snippet": "Same-day service on calls booked before noon.",
+            "on_route": true,
+            "anchor": {
+              "entity": "pt:page",
+              "post": 90082,
+              "path": "2"
+            }
+          },
+          {
+            "rank": 2,
+            "id": "pat:same-day-service",
+            "block_path": "0.0",
+            "snippet": "Same-day service on calls booked before noon.",
+            "on_route": false,
+            "anchor": {
+              "entity": "pat:same-day-service",
+              "post": null,
+              "path": "0.0"
+            }
+          }
+        ],
+        "verify": {
+          "changes_since": null
+        }
+      }
+    },
+    "/wp-json/wayfinder/v1/find?url=%2Fguarantee%2F&text=&class=": {
+      "status": 200,
+      "body": {
+        "route": "route:single-page",
+        "matched": null,
+        "ambiguous": false,
+        "message": null,
+        "chain": [
+          {
+            "id": "pt:page",
+            "label": "Page content: Our guarantee",
+            "edit": "post.php?post=90081&action=edit"
+          },
+          {
+            "id": "tpl:page",
+            "label": "Pages",
+            "edit": "site-editor.php?p=/wp_template/vwf-fixture//page&canvas=edit"
+          },
+          {
+            "id": "part:footer",
+            "label": "Footer",
+            "edit": "site-editor.php?p=/wp_template_part/vwf-fixture//footer&canvas=edit"
+          },
+          {
+            "id": "part:header",
+            "label": "Header",
+            "edit": "site-editor.php?p=/wp_template_part/vwf-fixture//header&canvas=edit"
+          },
+          {
+            "id": "pat:same-day-service",
+            "label": "Same-day service",
+            "edit": "post.php?post=90071&action=edit"
+          },
+          {
+            "id": "bind:vwf-fixture/business-info.address",
+            "label": "Business info: address",
+            "edit": "options-general.php?page=vwf-business-info"
+          },
+          {
+            "id": "bind:vwf-fixture/business-info.phone",
+            "label": "Business info: phone",
+            "edit": "options-general.php?page=vwf-business-info"
+          },
+          {
+            "id": "nav:footer",
+            "label": "Footer",
+            "edit": "site-editor.php?p=/wp_navigation/90002"
+          },
+          {
+            "id": "nav:primary",
+            "label": "Primary",
+            "edit": "site-editor.php?p=/wp_navigation/90001"
+          },
+          {
+            "id": "route:single-page",
+            "label": "Single page",
+            "edit": null
+          }
+        ],
+        "hits": [],
+        "verify": {
+          "changes_since": null
+        }
+      }
+    },
+    "/wp-json/wayfinder/v1/find?url=%2Fguarantee%2F&text=&class=notice-bar": {
+      "status": 200,
+      "body": {
+        "route": "route:single-page",
+        "matched": true,
+        "ambiguous": false,
+        "message": null,
+        "chain": [
+          {
+            "id": "pat:same-day-service",
+            "label": "Same-day service",
+            "edit": "post.php?post=90071&action=edit"
+          },
+          {
+            "id": "pt:page",
+            "label": "Page content: Our guarantee",
+            "edit": "post.php?post=90081&action=edit"
+          },
+          {
+            "id": "tpl:page",
+            "label": "Pages",
+            "edit": "site-editor.php?p=/wp_template/vwf-fixture//page&canvas=edit"
+          },
+          {
+            "id": "route:single-page",
+            "label": "Single page",
+            "edit": null
+          }
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "id": "pat:same-day-service",
+            "block_path": "0",
+            "snippet": "",
+            "on_route": true,
+            "anchor": {
+              "entity": "pat:same-day-service",
+              "post": null,
+              "path": "0"
+            }
+          }
+        ],
+        "verify": {
+          "changes_since": null
+        }
+      }
+    },
+    "/wp-json/wayfinder/v1/find?url=%2Fguarantee%2F&text=licensed%20in%20Virginia&class=": {
+      "status": 200,
+      "body": {
+        "route": "route:single-page",
+        "matched": true,
+        "ambiguous": false,
+        "message": null,
+        "chain": [
+          {
+            "id": "pt:page",
+            "label": "Page content: Our guarantee",
+            "edit": "post.php?post=90081&action=edit"
+          },
+          {
+            "id": "tpl:page",
+            "label": "Pages",
+            "edit": "site-editor.php?p=/wp_template/vwf-fixture//page&canvas=edit"
+          },
+          {
+            "id": "route:single-page",
+            "label": "Single page",
+            "edit": null
+          }
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "id": "pt:page",
+            "block_path": "3",
+            "snippet": "All work is done by plumbers licensed in Virginia.",
+            "on_route": true,
+            "anchor": {
+              "entity": "pt:page",
+              "post": 90081,
+              "path": "3"
+            }
+          },
+          {
+            "rank": 2,
+            "id": "page:about",
+            "block_path": "1",
+            "snippet": "Every plumber on the team is licensed in Virginia, and every job comes with a w…",
+            "on_route": false,
+            "anchor": {
+              "entity": "pt:page",
+              "post": 90010,
+              "path": "1"
+            }
+          },
+          {
+            "rank": 3,
+            "id": "page:maintenance-plan",
+            "block_path": "4",
+            "snippet": "Every visit is done by a plumber licensed in Virginia.",
+            "on_route": false,
+            "anchor": {
+              "entity": "pt:page",
+              "post": 90062,
+              "path": "4"
+            }
+          }
+        ],
+        "verify": {
+          "changes_since": null
+        }
+      }
+    },
+    "/wp-json/wayfinder/v1/find?url=%2Fpricing%2F&text=&class=": {
+      "status": 200,
+      "body": {
+        "route": "route:single-page",
+        "matched": null,
+        "ambiguous": false,
+        "message": null,
+        "chain": [
+          {
+            "id": "pt:page",
+            "label": "Page content: Pricing",
+            "edit": "post.php?post=90080&action=edit"
+          },
+          {
+            "id": "tpl:page",
+            "label": "Pages",
+            "edit": "site-editor.php?p=/wp_template/vwf-fixture//page&canvas=edit"
+          },
+          {
+            "id": "part:footer",
+            "label": "Footer",
+            "edit": "site-editor.php?p=/wp_template_part/vwf-fixture//footer&canvas=edit"
+          },
+          {
+            "id": "part:header",
+            "label": "Header",
+            "edit": "site-editor.php?p=/wp_template_part/vwf-fixture//header&canvas=edit"
+          },
+          {
+            "id": "pat:same-day-service",
+            "label": "Same-day service",
+            "edit": "post.php?post=90071&action=edit"
+          },
+          {
+            "id": "bind:vwf-fixture/business-info.address",
+            "label": "Business info: address",
+            "edit": "options-general.php?page=vwf-business-info"
+          },
+          {
+            "id": "bind:vwf-fixture/business-info.phone",
+            "label": "Business info: phone",
+            "edit": "options-general.php?page=vwf-business-info"
+          },
+          {
+            "id": "nav:footer",
+            "label": "Footer",
+            "edit": "site-editor.php?p=/wp_navigation/90002"
+          },
+          {
+            "id": "nav:primary",
+            "label": "Primary",
+            "edit": "site-editor.php?p=/wp_navigation/90001"
+          },
+          {
+            "id": "route:single-page",
+            "label": "Single page",
+            "edit": null
+          }
+        ],
+        "hits": [],
+        "verify": {
+          "changes_since": null
+        }
+      }
+    },
+    "/wp-json/wayfinder/v1/find?url=%2Fpricing%2F&text=&class=rate-card": {
+      "status": 200,
+      "body": {
+        "route": "route:single-page",
+        "matched": true,
+        "ambiguous": false,
+        "message": null,
+        "chain": [
+          {
+            "id": "pt:page",
+            "label": "Page content: Pricing",
+            "edit": "post.php?post=90080&action=edit"
+          },
+          {
+            "id": "tpl:page",
+            "label": "Pages",
+            "edit": "site-editor.php?p=/wp_template/vwf-fixture//page&canvas=edit"
+          },
+          {
+            "id": "route:single-page",
+            "label": "Single page",
+            "edit": null
+          }
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "id": "pt:page",
+            "block_path": "2",
+            "snippet": "",
+            "on_route": true,
+            "anchor": {
+              "entity": "pt:page",
+              "post": 90080,
+              "path": "2"
+            }
+          }
+        ],
+        "verify": {
+          "changes_since": null
+        }
+      }
+    },
+    "/wp-json/wayfinder/v1/find?url=%2Fpricing%2F&text=Same-day%20service%20on%20calls%20booked%20before%20noon.&class=": {
+      "status": 200,
+      "body": {
+        "route": "route:single-page",
+        "matched": true,
+        "ambiguous": false,
+        "message": null,
+        "chain": [
+          {
+            "id": "pat:same-day-service",
+            "label": "Same-day service",
+            "edit": "post.php?post=90071&action=edit"
+          },
+          {
+            "id": "pt:page",
+            "label": "Page content: Pricing",
+            "edit": "post.php?post=90080&action=edit"
+          },
+          {
+            "id": "tpl:page",
+            "label": "Pages",
+            "edit": "site-editor.php?p=/wp_template/vwf-fixture//page&canvas=edit"
+          },
+          {
+            "id": "route:single-page",
+            "label": "Single page",
+            "edit": null
+          }
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "id": "pat:same-day-service",
+            "block_path": "0.0",
+            "snippet": "Same-day service on calls booked before noon.",
+            "on_route": true,
+            "anchor": {
+              "entity": "pat:same-day-service",
+              "post": null,
+              "path": "0.0"
+            }
+          },
+          {
+            "rank": 2,
+            "id": "page:emergencies",
+            "block_path": "2",
+            "snippet": "Same-day service on calls booked before noon.",
+            "on_route": false,
+            "anchor": {
+              "entity": "pt:page",
+              "post": 90082,
+              "path": "2"
+            }
+          }
+        ],
+        "verify": {
+          "changes_since": null
+        }
+      }
+    },
+    "/wp-json/wayfinder/v1/find?url=%2Fpricing%2F&text=The%20price%20we%20quote%20is%20the%20price%20you%20pay.&class=": {
+      "status": 200,
+      "body": {
+        "route": "route:single-page",
+        "matched": true,
+        "ambiguous": false,
+        "message": null,
+        "chain": [
+          {
+            "id": "pt:page",
+            "label": "Page content: Pricing",
+            "edit": "post.php?post=90080&action=edit"
+          },
+          {
+            "id": "tpl:page",
+            "label": "Pages",
+            "edit": "site-editor.php?p=/wp_template/vwf-fixture//page&canvas=edit"
+          },
+          {
+            "id": "route:single-page",
+            "label": "Single page",
+            "edit": null
+          }
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "id": "pt:page",
+            "block_path": "3",
+            "snippet": "The price we quote is the price you pay.",
+            "on_route": true,
+            "anchor": {
+              "entity": "pt:page",
+              "post": 90080,
+              "path": "3"
+            }
+          }
+        ],
+        "verify": {
+          "changes_since": null
+        }
+      }
+    }
+  }
+}

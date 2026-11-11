@@ -1,0 +1,12 @@
+includes:
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+
+parameters:
+    level: 6
+    paths:
+        - src/
+        - uninstall.php
+    scanFiles:
+        - tests/phpstan/wp-cli.php
+        - tests/phpstan/wp-cli-utils.php
+        - tests/phpstan/acf.php

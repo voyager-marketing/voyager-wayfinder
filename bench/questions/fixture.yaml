@@ -1,0 +1,291 @@
+# Wayfinder benchmark questions for the seeded fixture site (Riverbend Plumbing).
+#
+# Frozen before the first run. Do not edit a question to fit results.
+# Every expected value is a reference into fixtures/truth.json, never a copied value.
+# Reference syntax is documented in src/truth.ts and bench/README.md.
+#
+# questions_sha256 is the sha256 of the canonical JSON of `questions` (keys sorted).
+# Any edit changes it, the bench refuses to run until the header is updated, and the
+# diff shows both. Print the new value with: node src/cli.ts --hash-questions
+site: fixture
+questions_sha256: "e404e30f7180e638250227fe1f0ac7bb6ca7c5e755c1b0a06a3ff7265c0eb81b"
+questions:
+  # content_model (8)
+  - id: cm-01
+    category: content_model
+    prompt: Which custom post types does this site register? Give their slugs.
+    answer:
+      type: set
+      refs: ["post_types[*].slug"]
+  - id: cm-02
+    category: content_model
+    prompt: What fields does a service have? List the field keys.
+    answer:
+      type: set
+      refs: ["post_types[id=pt:service].fields[*].key"]
+  - id: cm-03
+    category: content_model
+    prompt: Which service field is left out of the REST API? Give its key.
+    answer:
+      type: exact
+      refs: ["post_types[id=pt:service].fields[show_in_rest=false].key"]
+  - id: cm-04
+    category: content_model
+    prompt: Can visitors open a team member's own page on the website?
+    answer:
+      type: judge
+      refs:
+        - "post_types[id=pt:team_member].has_public_url"
+        - "post_types[id=pt:team_member].public"
+        - "post_types[id=pt:team_member].show_ui"
+      rubric: Correct if it says no. Team members have no public URL and are managed only in wp-admin.
+  - id: cm-05
+    category: content_model
+    prompt: What details are stored for each team member, and what provides those fields?
+    answer:
+      type: judge
+      refs: ["post_types[id=pt:team_member].fields"]
+      rubric: Correct if it names role, photo and LinkedIn and says they are Advanced Custom Fields (ACF) fields.
+  - id: cm-06
+    category: content_model
+    prompt: Which taxonomy groups the services? Give its slug.
+    answer:
+      type: exact
+      refs: ["taxonomies[id=tax:service_area].slug"]
+  - id: cm-07
+    category: content_model
+    prompt: How many services are published?
+    answer:
+      type: exact
+      refs: ["counts.pt:service"]
+  - id: cm-08
+    category: content_model
+    prompt: How many service areas are there?
+    answer:
+      type: exact
+      refs: ["counts.tax:service_area"]
+
+  # edit_location (10)
+  - id: el-01
+    category: edit_location
+    prompt: Where in wp-admin do I change the phone number shown in the footer?
+    answer:
+      type: contains_all
+      refs: ["binding_sources[id=vwf-fixture/business-info].edit_path"]
+  - id: el-02
+    category: edit_location
+    prompt: Where do I go in wp-admin to add or edit a service?
+    answer:
+      type: contains_all
+      refs: ["post_types[id=pt:service].edit_path"]
+  - id: el-03
+    category: edit_location
+    prompt: Where do I edit the footer layout itself?
+    answer:
+      type: judge
+      refs:
+        - "template_parts[id=part:footer].edit_path"
+        - "template_parts[id=part:footer].theme"
+      rubric: Correct if it points to the footer template part of the vwf-fixture theme in the Site Editor (site-editor.php, postType wp_template_part). The URL need not match byte for byte.
+  - id: el-04
+    category: edit_location
+    prompt: The call-to-action banner appears on several pages. Where do I edit it once so every copy updates?
+    answer:
+      type: judge
+      refs:
+        - "patterns[id=pat:cta-banner].title"
+        - "patterns[id=pat:cta-banner].edit_path"
+        - "patterns[id=pat:cta-banner].synced"
+      rubric: Correct if it says to edit the synced CTA banner pattern (post 90003, for example post.php?post=90003&action=edit or the Patterns screen) and that one edit changes every copy.
+  - id: el-05
+    category: edit_location
+    prompt: Where do I change the business hours?
+    answer:
+      type: contains_all
+      refs: ["binding_sources[id=vwf-fixture/business-info].edit_path"]
+  - id: el-06
+    category: edit_location
+    prompt: Where do I edit the main menu in the header?
+    answer:
+      type: contains_all
+      refs: ["navigation[id=nav:primary].edit_path"]
+  - id: el-07
+    category: edit_location
+    prompt: Where do I update a team member's job title?
+    answer:
+      type: contains_all
+      refs: ["post_types[id=pt:team_member].edit_path"]
+  - id: el-08
+    category: edit_location
+    prompt: Where do I change the starting price shown for Drain cleaning?
+    answer:
+      type: judge
+      refs:
+        - "services[slug=drain-cleaning].title"
+        - "post_types[id=pt:service].edit_path"
+        - "post_types[id=pt:service].fields[key=price_from].key"
+      rubric: Correct if it says to edit the Drain cleaning service in wp-admin (Services) and change its price_from field.
+  - id: el-09
+    category: edit_location
+    prompt: Where do I add a new service area?
+    answer:
+      type: contains_all
+      refs: ["taxonomies[id=tax:service_area].edit_path"]
+  - id: el-10
+    category: edit_location
+    prompt: Which theme file controls the layout of a single service page?
+    answer:
+      type: contains_all
+      refs: ["templates[id=tpl:single-service].file"]
+
+  # layout_routes (8)
+  - id: lr-01
+    category: layout_routes
+    prompt: Which template renders /services/leak-detection/? Give the template slug.
+    answer:
+      type: contains_all
+      refs: ["templates[used_by_paths=/services/leak-detection/].slug"]
+  - id: lr-02
+    category: layout_routes
+    prompt: Which page is the front page, and which page lists the blog posts? Give both page slugs.
+    answer:
+      type: set
+      refs: ["front_page.page", "posts_page.page"]
+  - id: lr-03
+    category: layout_routes
+    prompt: Which page uses its own custom template? Give the page path and the template slug.
+    answer:
+      type: contains_all
+      refs:
+        - "templates[id=tpl:page-contact].used_by_paths"
+        - "templates[id=tpl:page-contact].slug"
+  - id: lr-04
+    category: layout_routes
+    prompt: Which template parts does the active theme override from its parent theme? Give their slugs.
+    answer:
+      type: set
+      refs: ["template_parts[*].slug"]
+  - id: lr-05
+    category: layout_routes
+    prompt: What is the path of the services archive page?
+    answer:
+      type: exact
+      refs: ["post_types[id=pt:service].archive_path"]
+  - id: lr-06
+    category: layout_routes
+    prompt: What links are in the footer menu? Give the link labels.
+    answer:
+      type: set
+      refs: ["navigation[id=nav:footer].items[*].label"]
+  - id: lr-07
+    category: layout_routes
+    prompt: Which parent theme is the active theme built on? Give the theme slug.
+    answer:
+      type: exact
+      refs: ["site.parent_theme"]
+  - id: lr-08
+    category: layout_routes
+    prompt: What does the single service template include besides the post content?
+    answer:
+      type: judge
+      refs: ["templates[id=tpl:single-service].refs"]
+      rubric: Correct if it names the header and footer template parts and the CTA banner synced pattern.
+
+  # data_flow (6)
+  - id: df-01
+    category: data_flow
+    prompt: Where does the phone number in the footer actually come from?
+    answer:
+      type: judge
+      refs:
+        - "binding_sources[id=vwf-fixture/business-info].id"
+        - "binding_sources[id=vwf-fixture/business-info].keys[key=phone].option"
+        - "binding_sources[id=vwf-fixture/business-info].settings_page.menu"
+      rubric: Correct if it says a block binding (source vwf-fixture/business-info, key phone) reads the vwf_phone option, which is edited on Settings > Business Info.
+  - id: df-02
+    category: data_flow
+    prompt: Which option stores the business address? Give the option name.
+    answer:
+      type: exact
+      refs: ["binding_sources[id=vwf-fixture/business-info].keys[key=address].option"]
+  - id: df-03
+    category: data_flow
+    prompt: Which business info values are bound into the footer? Give the binding keys.
+    answer:
+      type: set
+      refs: ["binding_sources[id=vwf-fixture/business-info].keys[used_in=part:footer].key"]
+  - id: df-04
+    category: data_flow
+    prompt: What registers the custom post types and the business info binding? Name the file.
+    answer:
+      type: contains_all
+      refs: ["mu_plugins[*].file"]
+  - id: df-05
+    category: data_flow
+    prompt: Which business info value is set up but not shown anywhere on the front end?
+    answer:
+      type: judge
+      refs: ["binding_sources[id=vwf-fixture/business-info].keys"]
+      rubric: Correct if it names hours (key hours, option vwf_hours) as the value that is not used anywhere.
+  - id: df-06
+    category: data_flow
+    prompt: Which service areas does Emergency plumbing cover? Give the area slugs.
+    answer:
+      type: set
+      refs: ["services[slug=emergency-plumbing].service_areas"]
+
+  # settings_integrations (4)
+  - id: si-01
+    category: settings_integrations
+    prompt: What is the site title?
+    answer:
+      type: exact
+      refs: ["site.title"]
+  - id: si-02
+    category: settings_integrations
+    prompt: Which plugins are active? Give their slugs.
+    answer:
+      type: set
+      refs: ["plugins[*].slug"]
+  - id: si-03
+    category: settings_integrations
+    prompt: What permalink structure does the site use?
+    answer:
+      type: exact
+      refs: ["options[id=opt:permalink_structure].value"]
+  - id: si-04
+    category: settings_integrations
+    prompt: Which plugin provides the custom fields on team members? Give its slug.
+    answer:
+      type: exact
+      refs: ["plugins[role=fields].slug"]
+
+  # change_impact (4)
+  - id: ci-01
+    category: change_impact
+    prompt: If I edit the CTA banner, which pages and templates change?
+    answer:
+      type: judge
+      refs:
+        - "patterns[id=pat:cta-banner].used_in"
+        - "templates[id=tpl:single-service].used_by_paths"
+      rubric: Correct if it names the Home and About pages and the single-service template, which covers every service page.
+  - id: ci-02
+    category: change_impact
+    prompt: If I rename the Contact link in the footer menu, where does the change show up?
+    answer:
+      type: judge
+      refs: ["navigation[id=nav:footer].used_in"]
+      rubric: Correct if it says the footer menu sits in the footer template part, so the change shows in the footer on every page that uses it and not in the header menu.
+  - id: ci-03
+    category: change_impact
+    prompt: If I change the vwf_phone option, which template part changes? Give its slug.
+    answer:
+      type: contains_all
+      refs: ["template_parts[refs=bind:vwf-fixture/business-info.phone].slug"]
+  - id: ci-04
+    category: change_impact
+    prompt: If I change the single service template, how many service pages does that affect?
+    answer:
+      type: exact
+      refs: ["counts.pt:service"]

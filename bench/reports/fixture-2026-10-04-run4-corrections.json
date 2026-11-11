@@ -1,0 +1,9 @@
+{
+  "issue": "VOY-1220",
+  "rule": "Re-graded by hand from the full replies in release bench-run4-transcripts, under ci-02's rubric and the judge's own instruction that extra correct detail never makes an answer wrong. A reply is correct when it says the change shows in the footer, because the footer menu sits in the footer template part, on every page that uses that part, and says nothing that puts the change in the header menu. The judge failed the three manual-preloaded Haiku replies only for listing the pages and templates, which that instruction excludes. The other 15 ci-02 replies were already graded correct, and none went to the turn cap. The questions, answer keys and graders are unchanged; the judge prompt changes from run 5.",
+  "corrections": [
+    { "question": "ci-02", "condition": "manual-preloaded", "model": "claude-haiku-4-5-20251001", "rep": 1, "why": "Names part:footer as the part the footer menu reaches pages through, and says the renamed link shows in the footer of every page (homepage, contact page, service archive, services, blog home, posts and all other pages). Nothing puts it in the header menu. The judge failed it for listing pages and templates, which is extra correct detail. Its body lists six of the part's templates, the brief's first five plus single-service without the brief's \"+5\", but the answer line still says every page" },
+    { "question": "ci-02", "condition": "manual-preloaded", "model": "claude-haiku-4-5-20251001", "rep": 2, "why": "The same reply as rep 1: part:footer, the footer of every page, nothing about the header menu. Failed only for listing pages and templates" },
+    { "question": "ci-02", "condition": "manual-preloaded", "model": "claude-haiku-4-5-20251001", "rep": 3, "why": "The same reply as rep 1: part:footer, the footer of every page, nothing about the header menu. Failed only for listing pages and templates" }
+  ]
+}

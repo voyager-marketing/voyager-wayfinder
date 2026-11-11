@@ -1,0 +1,167 @@
+# Wayfinder benchmark: the edit-safety question set, on the block fixture (Riverbend Plumbing).
+#
+# Frozen before run 4, before any run has seen it. Do not edit a question to fit results.
+# It asks what the manual gained after run 3: what a client role can and cannot change and why
+# (locks), text with more than one home (multi_home), a class or List View name to its block
+# (selectors), and whether an anchor taken before an edit still holds (stale_edit).
+#
+# Every expected value is a reference into fixtures/truth.json, never a copied value. The answers sit
+# under `edit_safety`, which fixtures/seed.php writes from its own constants (EDIT_SAFETY_PAGES,
+# OFFER_PATTERN, TRACKED_TEXTS, ANCHORS, CLIENT_ASKS), never from the scanner under test. The
+# fingerprints in the stale_edit prompts are the seed's own, and test/questions.edit-safety.test.ts
+# checks each one against truth.json.
+#
+# The client role is Editor: Wayfinder's default (option vwf_client_role unset), which the seed checks.
+#
+# questions_sha256 is the sha256 of the canonical JSON of `questions` (keys sorted). Print it with:
+# node src/cli.ts --hash-questions --question-set edit-safety
+site: fixture
+questions_sha256: "69eb2c8401ba4ff31666e968dce3cf8ac31c3c5153c4920a70dbadb9fe372cc9"
+questions:
+  # locks (5)
+  - id: lk-01
+    category: locks
+    prompt: Our office manager logs in with an Editor account. Can she change the phone number in the site footer herself? Answer yes or no.
+    answer:
+      type: exact
+      refs: ["edit_safety.client_can[key=footer-phone].answer"]
+  - id: lk-02
+    category: locks
+    prompt: The yearly price on /maintenance-plan/ is going up. Can our office manager, who has an Editor account, change the price text herself, or is it locked? Answer yes or no.
+    answer:
+      type: exact
+      refs: ["edit_safety.client_can[key=plan-price].answer"]
+  - id: lk-03
+    category: locks
+    prompt: Which blocks on /maintenance-plan/ can an Editor not delete? Give their List View names.
+    answer:
+      type: set
+      refs: ["edit_safety.pages[slug=maintenance-plan].cannot_remove"]
+  - id: lk-04
+    category: locks
+    prompt: The renewal terms on /maintenance-plan/ sit in a section that shows a padlock in the editor. Can an Editor still reword them? Answer yes or no.
+    answer:
+      type: exact
+      refs: ["edit_safety.client_can[key=renewal-terms].answer"]
+  - id: lk-05
+    category: locks
+    prompt: Our office manager has an Editor account and wants to add a column of links to the footer. Can she do it herself? If not, why not?
+    answer:
+      type: judge
+      refs:
+        - "edit_safety.client_can[key=footer-layout].answer"
+        - "edit_safety.client_can[key=footer-layout].role_lacks"
+        - "template_parts[id=part:footer].edit_path"
+      rubric: Correct if it says no, because the footer is a template part edited in the Site Editor, which needs the edit_theme_options capability that the Editor role does not have. Saying an administrator has to make the change is fine but not required.
+
+  # multi_home (5)
+  - id: mh-01
+    category: multi_home
+    prompt: We are ending the 0% financing offer. Which edit screens do I need to open so that line is gone from every page? Give the admin paths.
+    answer:
+      type: contains_all
+      refs: ["edit_safety.texts[key=financing-offer].edit_paths"]
+  - id: mh-02
+    category: multi_home
+    prompt: A customer says the financing line on /financing/ has the wrong terms. Where do I edit the copy that page shows? Give the admin path.
+    answer:
+      type: contains_all
+      refs: ["edit_safety.texts[key=financing-offer].shown_at[path=/financing/].edit_path"]
+  - id: mh-03
+    category: multi_home
+    prompt: If I edit the Financing offer pattern, does the financing line on /maintenance-plan/ change too? Answer yes or no.
+    answer:
+      type: exact
+      refs: ["edit_safety.texts[key=financing-offer].shown_at[path=/maintenance-plan/].follows_pattern"]
+  - id: mh-04
+    category: multi_home
+    prompt: We are changing "Book your annual tune-up" to "Book your yearly tune-up" on /maintenance-plan/. How many blocks on that page carry the old wording?
+    answer:
+      type: exact
+      refs: ["edit_safety.texts[key=book-tune-up].shown_at[path=/maintenance-plan/].blocks"]
+  - id: mh-05
+    category: multi_home
+    prompt: We were founded in 2008, not 2009. Which pages give the year we were founded? Give their paths.
+    answer:
+      type: set
+      refs: ["edit_safety.texts[key=founding-year].shown_at[*].path"]
+
+  # selectors (5)
+  - id: sl-01
+    category: selectors
+    prompt: Our developer says the box with the class plan-card needs new copy. Which edit screen holds it? Give the admin path.
+    answer:
+      type: contains_all
+      refs: ["edit_safety.classes[class=plan-card].edit_paths"]
+  - id: sl-02
+    category: selectors
+    prompt: Our stylesheet hides blocks with the class hide-mobile on phones, and phone visitors are missing information. Which pages have blocks with that class? Give their paths.
+    answer:
+      type: set
+      refs: ["edit_safety.classes[class=hide-mobile].shown_on"]
+  - id: sl-03
+    category: selectors
+    prompt: In the editor's List View there is a block called "Refund terms". Which page is it on? Give the page path.
+    answer:
+      type: exact
+      refs: ["edit_safety.blocks[name=Refund terms].page_path"]
+  - id: sl-04
+    category: selectors
+    prompt: The text in the .promo-strip banner is out of date. Where do I edit it once so every page that shows it updates? Give the admin path.
+    answer:
+      type: contains_all
+      refs: ["edit_safety.classes[class=promo-strip].edit_paths"]
+  - id: sl-05
+    category: selectors
+    prompt: We are restyling every button that uses the outline style (class is-style-outline). Which pages show one? Give their paths.
+    answer:
+      type: set
+      refs: ["edit_safety.classes[class=is-style-outline].shown_on"]
+
+  # stale_edit (5)
+  - id: se-01
+    category: stale_edit
+    prompt: >-
+      Last week our content agent anchored the paragraph "0% financing for 12 months on approved credit."
+      on /maintenance-plan/ before an edit: {"entity":"pt:page","post":90062,"path":"4","fp":"2096b11dc3de1788"}.
+      The page has been edited since. Where is that block now? Give its block path.
+    answer:
+      type: exact
+      refs: ["edit_safety.anchors[key=financing-line].paths_now"]
+  - id: se-02
+    category: stale_edit
+    prompt: >-
+      Before the weekend our agent anchored the plan price on /maintenance-plan/, which then read
+      "$179 a year, billed once.": {"entity":"pt:page","post":90062,"path":"2.1","fp":"e89fbf3ecf2e4890"}.
+      It wants to write a new price now. Is the anchored block unchanged, moved, changed or gone? Answer with one of those words.
+    answer:
+      type: exact
+      refs: ["edit_safety.anchors[key=plan-price].status"]
+  - id: se-03
+    category: stale_edit
+    prompt: >-
+      Our agent is about to reword the renewal terms on /maintenance-plan/ using this anchor from last month,
+      taken when they read "Plans renew each year unless you cancel in writing.":
+      {"entity":"pt:page","post":90062,"path":"3.0","fp":"18f1e6fd950a2a8e"}. Is the anchored block unchanged,
+      moved, changed or gone? Answer with one of those words.
+    answer:
+      type: exact
+      refs: ["edit_safety.anchors[key=renewal-terms].status"]
+  - id: se-04
+    category: stale_edit
+    prompt: >-
+      A queued edit on /maintenance-plan/ targets the paragraph "Plans include a free first-year inspection."
+      by this anchor: {"entity":"pt:page","post":90062,"path":"6","fp":"eb5f9b00ca0d3965"}. Before it runs:
+      is the anchored block unchanged, moved, changed or gone? Answer with one of those words.
+    answer:
+      type: exact
+      refs: ["edit_safety.anchors[key=inspection-offer].status"]
+  - id: se-05
+    category: stale_edit
+    prompt: >-
+      Our agent anchored the paragraph "Ask about after-hours service." on /commercial/:
+      {"entity":"pt:page","post":90060,"path":"3","fp":"efe040c1b98bfc5d"}. Which block paths on that page
+      carry that fingerprint now? Give every path.
+    answer:
+      type: set
+      refs: ["edit_safety.anchors[key=after-hours].paths_now"]

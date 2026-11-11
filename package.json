@@ -1,0 +1,12 @@
+{
+  "name": "voyager-wayfinder",
+  "private": true,
+  "description": "Local tooling for Voyager Wayfinder. The plugin itself has no Node runtime.",
+  "license": "GPL-2.0-or-later",
+  "scripts": {
+    "wp-env": "wp-env"
+  },
+  "devDependencies": {
+    "@wordpress/env": "^11.16.0"
+  }
+}

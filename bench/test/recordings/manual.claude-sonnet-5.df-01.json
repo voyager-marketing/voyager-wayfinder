@@ -1,0 +1,69 @@
+{
+  "synthetic": true,
+  "note": "Hand-written for the dry-run test suite. Not a recorded API run and not a measurement.",
+  "question": "df-01",
+  "condition": "manual",
+  "model": "claude-sonnet-5",
+  "wall_ms": 4410,
+  "turns": [
+    {
+      "response": {
+        "id": "msg_dry_df01_1",
+        "type": "message",
+        "role": "assistant",
+        "model": "claude-sonnet-5",
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "toolu_dry_df01_1",
+            "name": "manual_section",
+            "input": { "id": "bind:vwf-fixture/business-info.phone" }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "stop_sequence": null,
+        "usage": { "input_tokens": 1150, "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0, "output_tokens": 61 }
+      },
+      "tool_results": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_dry_df01_1",
+          "content": "HTTP 200\n{\"edit\":\"options-general.php?page=vwf-business-info\",\"facts\":{\"key\":\"phone\",\"option\":\"vwf_phone\",\"source\":\"vwf-fixture/business-info\"},\"id\":\"bind:vwf-fixture/business-info.phone\",\"refs\":[\"part:footer\"]}"
+        }
+      ]
+    },
+    {
+      "response": {
+        "id": "msg_dry_df01_2",
+        "type": "message",
+        "role": "assistant",
+        "model": "claude-sonnet-5",
+        "content": [
+          {
+            "type": "text",
+            "text": "The footer paragraph uses a block binding to the vwf-fixture/business-info source with key phone. That source reads the vwf_phone option, which you edit on Settings > Business Info.\nANSWER: block binding vwf-fixture/business-info.phone, from the vwf_phone option (Settings > Business Info)"
+          }
+        ],
+        "stop_reason": "end_turn",
+        "stop_sequence": null,
+        "usage": { "input_tokens": 1290, "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0, "output_tokens": 74 }
+      },
+      "tool_results": []
+    }
+  ],
+  "judge": {
+    "id": "msg_dry_df01_judge",
+    "type": "message",
+    "role": "assistant",
+    "model": "claude-haiku-4-5-20251001",
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"correct\": true, \"reason\": \"Names the binding source and key, the vwf_phone option and the Business Info settings page.\"}"
+      }
+    ],
+    "stop_reason": "end_turn",
+    "stop_sequence": null,
+    "usage": { "input_tokens": 412, "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0, "output_tokens": 31 }
+  }
+}

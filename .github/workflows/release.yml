@@ -1,0 +1,79 @@
+name: Release
+
+# A `v*` tag builds the plugin ZIP and publishes it as a GitHub Release. The
+# repo is private and there is no WordPress.org listing, so the release is how
+# a site gets a build that is not a CI artifact. The tag must match the three
+# places the version lives (AGENTS.md rule 10), or nothing is published.
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build and publish the ZIP
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Tag matches the plugin version
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          header=$(sed -n 's/^ \* Version:[[:space:]]*//p' voyager-wayfinder.php | head -n1 | tr -d '[:space:]')
+          const=$(sed -n "s/.*const VERSION = '\([^']*\)'.*/\1/p" src/Plugin.php | head -n1)
+          stable=$(sed -n 's/^Stable tag:[[:space:]]*//p' readme.txt | head -n1 | tr -d '[:space:]')
+          echo "tag=$tag header=$header Plugin::VERSION=$const Stable tag=$stable"
+          status=0
+          for found in "$header:Version header in voyager-wayfinder.php" "$const:Plugin::VERSION in src/Plugin.php" "$stable:Stable tag in readme.txt"; do
+            if [ "${found%%:*}" != "$tag" ]; then
+              echo "::error::The tag is $tag but the ${found#*:} is '${found%%:*}'."
+              status=1
+            fi
+          done
+          exit "$status"
+
+      # The same steps as the build-zip job in ci.yml.
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          tools: composer
+          coverage: none
+
+      # No runtime dependencies, so vendor/ is only the autoloader.
+      - name: Install runtime autoloader
+        run: composer install --no-dev --no-interaction --no-progress --optimize-autoloader
+
+      - name: Copy files honoring .distignore
+        run: |
+          mkdir -p build/voyager-wayfinder
+          rsync -a --exclude-from=.distignore ./ build/voyager-wayfinder/
+
+      - name: Check the build
+        run: |
+          cd build/voyager-wayfinder
+          test -f voyager-wayfinder.php
+          test -f vendor/autoload.php
+          test -f src/Plugin.php
+          test -f LICENSE
+          test -f readme.txt
+          for path in tests bench fixtures docs node_modules composer.json .github .wordpress-org; do
+            if [ -e "$path" ]; then echo "::error::$path must not ship"; exit 1; fi
+          done
+
+      - name: Create ZIP
+        run: |
+          cd build
+          zip -rq voyager-wayfinder.zip voyager-wayfinder
+          unzip -l voyager-wayfinder.zip
+
+      - name: Create the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" build/voyager-wayfinder.zip \
+            --verify-tag \
+            --title "Voyager Wayfinder ${GITHUB_REF_NAME#v}" \
+            --generate-notes

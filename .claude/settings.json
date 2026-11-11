@@ -1,0 +1,34 @@
+{
+  "$comment": [
+    "Permissions for the maintainers' mission sessions in this PUBLIC repo.",
+    "No mcp__* grant is tracked here: a public repo should not publish which connectors and tools",
+    "the team's missions use. Those grants live in the user-level ~/.claude/settings.json of",
+    "whichever machine or environment runs missions, which applies in every folder and worktree."
+  ],
+  "permissions": {
+    "allow": [
+      "Write",
+      "Edit",
+      "Bash(node scripts/*)",
+      "Bash(npm run *)",
+      "Bash(npm test *)",
+      "Bash(npm ci*)",
+      "Bash(npm install*)",
+      "Bash(npx @wordpress/env *)",
+      "Bash(composer test*)",
+      "Bash(composer phpstan*)",
+      "Bash(composer phpcs*)",
+      "Bash(composer install*)",
+      "Bash(php -l *)",
+      "Bash(git add *)",
+      "Bash(git commit -m *)",
+      "Bash(git push *)",
+      "Bash(git status *)",
+      "Bash(git fetch *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(gh pr *)",
+      "Bash(gh api *)"
+    ]
+  }
+}

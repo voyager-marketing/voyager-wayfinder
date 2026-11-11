@@ -1,0 +1,20 @@
+{
+  "issue": "VOY-1124",
+  "rule": "Re-graded by hand after the run, under the standard the judge rubric sets: an answer is correct when its ANSWER line states every expected value and contradicts none. Labels, qualifiers and extra correct detail are allowed. A hedge, a missing value or a different value is not, so ci-04 (\"6-20 service pages\"), si-02 (plugin basenames for slugs), el-10 (no templates/ directory) and the lr-08 answers that never name the CTA banner stay wrong. The graders and questions are unchanged.",
+  "corrections": [
+    { "question": "df-03", "condition": "manual", "model": "claude-haiku-4-5-20251001", "rep": 1, "why": "\"vwf-fixture/business-info.address, vwf-fixture/business-info.phone\": the keys address and phone, qualified with their source" },
+    { "question": "df-03", "condition": "manual", "model": "claude-sonnet-5", "rep": 1, "why": "\"business-info.address, business-info.phone\": the keys address and phone, qualified with their source" },
+    { "question": "df-03", "condition": "manual-preloaded", "model": "claude-haiku-4-5-20251001", "rep": 1, "why": "\"vwf-fixture/business-info.address, vwf-fixture/business-info.phone\": the keys address and phone, qualified with their source" },
+    { "question": "df-03", "condition": "manual-preloaded", "model": "claude-haiku-4-5-20251001", "rep": 2, "why": "\"vwf-fixture/business-info.address, vwf-fixture/business-info.phone\": the keys address and phone, qualified with their source" },
+    { "question": "df-03", "condition": "manual-preloaded", "model": "claude-haiku-4-5-20251001", "rep": 3, "why": "\"vwf-fixture/business-info.address, vwf-fixture/business-info.phone\": the keys address and phone, qualified with their source" },
+    { "question": "df-03", "condition": "manual-preloaded", "model": "claude-sonnet-5", "rep": 1, "why": "\"vwf-fixture/business-info.address, vwf-fixture/business-info.phone\": the keys address and phone, qualified with their source" },
+    { "question": "lr-02", "condition": "raw", "model": "claude-haiku-4-5-20251001", "rep": 1, "why": "Front page slug is \"home\", blog posts page slug is \"blog\": both slugs, each with a label" },
+    { "question": "lr-02", "condition": "manual", "model": "claude-haiku-4-5-20251001", "rep": 1, "why": "Front page slug is \"home\", blog posts page slug is \"blog\": both slugs, each with a label" },
+    { "question": "lr-02", "condition": "manual-preloaded", "model": "claude-haiku-4-5-20251001", "rep": 2, "why": "\"Front page: home, Blog posts page: blog\": both slugs, each with a label" },
+    { "question": "lr-02", "condition": "manual-preloaded", "model": "claude-haiku-4-5-20251001", "rep": 3, "why": "\"Front page: home, Blog posts page: blog\": both slugs, each with a label" },
+    { "question": "si-03", "condition": "raw", "model": "claude-sonnet-5", "rep": 1, "why": "\"Post name (/%postname%/), set at options-permalink.php\": the structure, with its label and settings screen" },
+    { "question": "si-03", "condition": "raw", "model": "claude-sonnet-5", "rep": 2, "why": "\"Post name (/%postname%/)\", then options-permalink.php: the structure, with its label and settings screen" },
+    { "question": "si-03", "condition": "raw", "model": "claude-sonnet-5", "rep": 3, "why": "\"Post name (/%postname%/), configured at options-permalink.php\": the structure, with its label and settings screen" },
+    { "question": "lr-08", "condition": "raw", "model": "claude-sonnet-5", "rep": 1, "why": "Names the header part, the footer part and the \"CTA banner\" reusable block. The judge failed it for also naming the post title and terms blocks, which its rubric allows" }
+  ]
+}

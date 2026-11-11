@@ -1,0 +1,32 @@
+# Find inputs for the block fixture's frozen question set (questions/fixture.yaml), for the find eval.
+#
+# The set was frozen before any question carried find inputs, so they live here, outside its hash. Each is what
+# the person asking would have to hand: the page they saw the thing on and the text they saw. Written from
+# fixtures/seed.php, the fixture theme and fixtures/truth.json. Every question whose answer names an edit screen
+# or a block path is listed, either with inputs or with `none` and why no page shows what it asks about.
+#
+# `location` replaces the answer's location references for one question: el-08's key names the Services list
+# screen, and the grader has accepted the service's own edit screen since run 4 (bench/README.md, "A field on a
+# post is also edited at that post's own edit screen").
+questions: questions/fixture.yaml
+questions_sha256: "e404e30f7180e638250227fe1f0ac7bb6ca7c5e755c1b0a06a3ff7265c0eb81b"
+inputs:
+  - id: el-01
+    find: { url: /, text: (540) 555-0142 }
+  - id: el-02
+    find: { url: /services/ }
+  - id: el-03
+    find: { url: / }
+  - id: el-04
+    find: { url: /, text: Need a plumber today? }
+  - id: el-05
+    none: the hours show on no page; no block binds the hours key (truth.json used_in is empty)
+  - id: el-06
+    find: { url: /, text: Services }
+  - id: el-07
+    none: team members show on no page; the post type is not public
+  - id: el-08
+    find: { url: /services/drain-cleaning/ }
+    location: ["services[slug=drain-cleaning].edit_path"]
+  - id: el-09
+    find: { url: /services/drain-cleaning/, text: "Service areas:" }

@@ -1,0 +1,47 @@
+{
+  "format": "wayfinder-cache-probe/1",
+  "date": "2026-10-03",
+  "condition": "manual-preloaded",
+  "site_url": "http://localhost:12254",
+  "manual": {
+    "source": "live http://localhost:12254",
+    "chars": 10308,
+    "sha256": "f43a816f42ccf08806f76d4332f2031b52f02c7c08eba8f0ff6a280b670b870c"
+  },
+  "probe_turn": "Hello",
+  "gap_ms": 5000,
+  "models": [
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "prefix_tokens": 4129,
+      "request_tokens": 4452,
+      "tail_tokens": 323,
+      "probe_turn_tokens": 8,
+      "minimum_documented": 4096,
+      "first_call_input_tokens": 323,
+      "first_call_cache_creation_tokens": 4129,
+      "first_call_cache_read_tokens": 0,
+      "second_call_input_tokens": 323,
+      "second_call_cache_creation_tokens": 0,
+      "second_call_cache_read_tokens": 4129,
+      "cached": true,
+      "finding": "Cached. The second call read 4129 tokens from the cache."
+    },
+    {
+      "model": "claude-sonnet-5",
+      "prefix_tokens": 5308,
+      "request_tokens": 5384,
+      "tail_tokens": 76,
+      "probe_turn_tokens": 9,
+      "minimum_documented": 1024,
+      "first_call_input_tokens": 76,
+      "first_call_cache_creation_tokens": 5308,
+      "first_call_cache_read_tokens": 0,
+      "second_call_input_tokens": 76,
+      "second_call_cache_creation_tokens": 0,
+      "second_call_cache_read_tokens": 5308,
+      "cached": true,
+      "finding": "Cached. The second call read 5308 tokens from the cache."
+    }
+  ]
+}

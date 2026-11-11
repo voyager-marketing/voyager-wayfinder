@@ -1,0 +1,249 @@
+# Wayfinder benchmark: edit-safety-2, a held-out edit-safety set on the block fixture (Riverbend Plumbing).
+#
+# Written from fixtures/seed.php and fixtures/truth.json only: no scan, no manual output, no run 3
+# or run 4 transcript was read. Frozen before any lock or find fix tuned on the first edit-safety set
+# (fixture-edit-safety.yaml), so run 5's claims rest on questions no fix was tuned on. Do not edit a
+# question to fit results.
+#
+# It asks about rows the first set never touches: three pages (Pricing, Our guarantee, Emergencies, ids
+# 90080 to 90082) and a synced pattern (Same-day service, 90071). Their layouts lock in ways the first set's
+# do not: a rate card under templateLock insert (lines can move, none can be added or removed), a line inside
+# it whose own lock lets it be removed, a block locked against moving and removal, claim steps under
+# templateLock all, and an unlocked group (templateLock false) inside a locked checklist. client_can asks
+# what the client role's capabilities allow, apart from any lock.
+#
+# Every expected value is a reference into fixtures/truth.json, never a copied value. The answers sit under
+# `edit_safety_2`, which fixtures/seed.php writes from its own constants (EDIT_SAFETY_2_PAGES,
+# NOTICE_PATTERN, TRACKED_TEXTS_2, ANCHORS_2, CLIENT_ASKS_2). The fingerprints in the stale_edit prompts
+# are the seed's own, and test/questions.edit-safety-2.test.ts checks each one against truth.json.
+#
+# The client role is Editor: Wayfinder's default (option vwf_client_role unset), which the seed checks.
+#
+# `find` is what the person asking has to hand for the find route (the page, the text they saw, a class
+# their developer named), on every question whose answer is an edit screen or a block path. The agent never
+# sees it; the find eval does.
+#
+# questions_sha256 is the sha256 of the canonical JSON of `questions` (keys sorted). Print it with:
+# node src/cli.ts --hash-questions --question-set edit-safety-2
+site: fixture
+questions_sha256: "79b1b58aef25744644e6dfc104550afb654338bd89897963d14f1a5aec73bcb7"
+questions:
+  # locks (6)
+  - id: lk-21
+    category: locks
+    prompt: Priya runs our website with an Editor account. The rate card on /pricing/ lists three charges, and she wants a fourth line inside that card for drain camera inspections. Can she add a block inside the rate card? Answer yes or no.
+    answer:
+      type: exact
+      refs: ["edit_safety_2.blocks[name=Rate card].can_insert"]
+  - id: lk-22
+    category: locks
+    prompt: On /pricing/, Priya (Editor account) wants the nights and Sundays line to come first in the rate card, above the call-out fee. Can she drag it up there without changing any lock settings? Answer yes or no.
+    answer:
+      type: exact
+      refs: ["edit_safety_2.blocks[name=Night rate].can_move"]
+  - id: lk-23
+    category: locks
+    prompt: Before Priya tidies up /pricing/, list every block on that page her Editor account is not allowed to delete, by List View name.
+    answer:
+      type: set
+      refs: ["edit_safety_2.pages[slug=pricing].cannot_remove"]
+  - id: lk-24
+    category: locks
+    prompt: We have stopped charging extra for nights and Sundays. As the page is set up now, can Priya, who has an Editor account, remove that line from the rate card on /pricing/? Answer yes or no.
+    answer:
+      type: exact
+      refs: ["edit_safety_2.blocks[name=Night rate].can_remove"]
+  - id: lk-25
+    category: locks
+    prompt: 'The claim steps on /guarantee/ are in the wrong order for us. Can Priya (Editor) move "We inspect the work at no charge." above "Call us within two years of the repair."? Answer yes or no.'
+    answer:
+      type: exact
+      refs: ["edit_safety_2.blocks[name=Step two].can_move"]
+  - id: lk-26
+    category: locks
+    prompt: 'Our emergencies page has a locked checklist. Under the line "Our main valve is in the crawl space." Priya wants one more line saying where the water heater shut-off is. Can she add a paragraph right there with her Editor account? Answer yes or no.'
+    answer:
+      type: exact
+      refs: ["edit_safety_2.blocks[name=Your own notes].can_insert"]
+
+  # client_can (6)
+  - id: cc-21
+    category: client_can
+    prompt: Priya has an Editor account. She wants our Financing page added to the main menu at the top of the site. Can she make that change herself? Answer yes or no.
+    answer:
+      type: exact
+      refs: ["edit_safety_2.client_can[key=main-menu].answer"]
+  - id: cc-22
+    category: client_can
+    prompt: Which WordPress capability would Priya's Editor account have to gain before she could edit the links in the main menu at the top of every page? Give the capability name.
+    answer:
+      type: exact
+      refs: ["edit_safety_2.client_can[key=main-menu].role_lacks"]
+  - id: cc-23
+    category: client_can
+    prompt: We are renaming the business to Riverbend Plumbing and Drain. Can Priya, logged in as an Editor, change the site title shown at the top of every page herself? Answer yes or no.
+    answer:
+      type: exact
+      refs: ["edit_safety_2.client_can[key=site-title].answer"]
+  - id: cc-24
+    category: client_can
+    prompt: 'The banner asking "Need a plumber today?" on our home and about pages needs new wording. Can Priya make that change with her Editor account? Answer yes or no.'
+    answer:
+      type: exact
+      refs: ["edit_safety_2.client_can[key=cta-banner].answer"]
+  - id: cc-25
+    category: client_can
+    prompt: Our night rate is moving from time and a half to double time. Can Priya (Editor) reword the nights and Sundays line on /pricing/ herself, even though the rate card is locked? Answer yes or no.
+    answer:
+      type: exact
+      refs: ["edit_safety_2.client_can[key=night-rate].answer"]
+  - id: cc-26
+    category: client_can
+    prompt: Priya wants our Contact page to show no site header, while every other page keeps it. Can she set that up with her Editor account? If not, why not?
+    answer:
+      type: judge
+      refs:
+        - "edit_safety_2.client_can[key=contact-layout].answer"
+        - "edit_safety_2.client_can[key=contact-layout].role_lacks"
+        - "templates[id=tpl:page-contact].edit_path"
+      rubric: Correct if it says no, because the Contact page is laid out by the page-contact template, which is edited in the Site Editor and needs the edit_theme_options capability that the Editor role does not have. Saying an administrator has to make the change is fine but not required. Saying she can still edit the words on the Contact page itself does not make the answer wrong.
+    find: { url: /contact/ }
+
+  # multi_home (6)
+  - id: mh-21
+    category: multi_home
+    prompt: We just got our Maryland license, so every place the site says we are licensed in Virginia has to mention Maryland too. Which edit screens hold that wording? Give the admin paths.
+    answer:
+      type: contains_all
+      refs: ["edit_safety_2.texts[key=licensed-in-virginia].edit_paths"]
+    find: { url: /guarantee/, text: licensed in Virginia }
+  - id: mh-22
+    category: multi_home
+    prompt: A customer asked whether our plumbers hold a Virginia license. Which pages of the site say we are licensed in Virginia? Give their paths.
+    answer:
+      type: set
+      refs: ["edit_safety_2.texts[key=licensed-in-virginia].shown_at[*].path"]
+  - id: mh-23
+    category: multi_home
+    prompt: Our same-day cut-off is moving from noon to 1pm. If I update the Same-day service pattern, will the line about calls booked before noon on /emergencies/ change with it? Answer yes or no.
+    answer:
+      type: exact
+      refs: ["edit_safety_2.texts[key=same-day-service].shown_at[path=/emergencies/].follows_pattern"]
+  - id: mh-24
+    category: multi_home
+    prompt: Someone on /pricing/ read the line about same-day service and says the cut-off time is wrong. Where is the text that page displays edited? Admin path, please.
+    answer:
+      type: contains_all
+      refs: ["edit_safety_2.texts[key=same-day-service].shown_at[path=/pricing/].edit_path"]
+    find: { url: /pricing/, text: Same-day service on calls booked before noon. }
+  - id: mh-25
+    category: multi_home
+    prompt: We are switching night pricing to double time. On /emergencies/, how many separate blocks use the words "time and a half"?
+    answer:
+      type: exact
+      refs: ["edit_safety_2.texts[key=time-and-a-half].shown_at[path=/emergencies/].blocks"]
+  - id: mh-26
+    category: multi_home
+    prompt: We are ending same-day service. Every copy of the line about calls booked before noon must come off the site. Which edit screens do I have to open? List the admin paths.
+    answer:
+      type: contains_all
+      refs: ["edit_safety_2.texts[key=same-day-service].edit_paths"]
+    find: { url: /emergencies/, text: Same-day service on calls booked before noon. }
+
+  # selectors (6)
+  - id: sl-21
+    category: selectors
+    prompt: Our developer says the wording inside the block with the class rate-card needs checking. On which edit screen is that block? Give the admin path.
+    answer:
+      type: contains_all
+      refs: ["edit_safety_2.classes[class=rate-card].edit_paths"]
+    find: { url: /pricing/, class: rate-card }
+  - id: sl-22
+    category: selectors
+    prompt: Our theme greys out anything with the class small-print, and a customer missed an important note. On which pages does a block with that class appear? Give the page paths.
+    answer:
+      type: set
+      refs: ["edit_safety_2.classes[class=small-print].shown_on"]
+  - id: sl-23
+    category: selectors
+    prompt: Priya sees a group named "Claim steps" in the List View. Which page is she editing? Give its path.
+    answer:
+      type: exact
+      refs: ["edit_safety_2.blocks[name=Claim steps].page_path"]
+  - id: sl-24
+    category: selectors
+    prompt: The strip with the class notice-bar needs a new cut-off time. Which single admin screen changes it on every page at once? Give the admin path.
+    answer:
+      type: contains_all
+      refs: ["edit_safety_2.classes[class=notice-bar].edit_paths"]
+    find: { url: /guarantee/, class: notice-bar }
+  - id: sl-25
+    category: selectors
+    prompt: Our developer wants to restyle .night-note. How many blocks on the site carry that class?
+    answer:
+      type: exact
+      refs: ["edit_safety_2.classes[class=night-note].count"]
+  - id: sl-26
+    category: selectors
+    prompt: A CSS rule in our theme targets .quote-cta. What is that block called in the editor's List View?
+    answer:
+      type: exact
+      refs: ["edit_safety_2.blocks[classes=quote-cta].name"]
+
+  # stale_edit (6)
+  - id: se-21
+    category: stale_edit
+    prompt: >-
+      Our agent saved this anchor on /pricing/ when the labor line read "Labor: $125 an hour after the first hour.":
+      {"entity":"pt:page","post":90080,"path":"2.1","fp":"efb7d39b50ccca73"}. Before it edits that line again, what is the state of that block now?
+      Reply with one word: unchanged, moved, changed or gone.
+    answer:
+      type: exact
+      refs: ["edit_safety_2.anchors[key=labor-rate].status"]
+  - id: se-22
+    category: stale_edit
+    prompt: >-
+      Two weeks ago our content agent anchored the nights and Sundays line on /pricing/, which then read
+      "Nights and Sundays are billed at time and a half.": {"entity":"pt:page","post":90080,"path":"2.2","fp":"ef6647e74f970269"}.
+      Since then our developer has locked parts of that page. Is the anchor still good? Reply with one word:
+      unchanged, moved, changed or gone.
+    answer:
+      type: exact
+      refs: ["edit_safety_2.anchors[key=night-rate].status"]
+  - id: se-23
+    category: stale_edit
+    prompt: >-
+      Our scheduled update for /emergencies/ will rewrite "Call our emergency line any time, day or night."
+      using this anchor: {"entity":"pt:page","post":90082,"path":"2","fp":"9e1c4112cdf0ed24"}. Check the block first. Reply with one word:
+      unchanged, moved, changed or gone.
+    answer:
+      type: exact
+      refs: ["edit_safety_2.anchors[key=emergency-line].status"]
+  - id: se-24
+    category: stale_edit
+    prompt: >-
+      Last month our agent anchored the line "The guarantee does not cover frozen pipes." on /guarantee/:
+      {"entity":"pt:page","post":90081,"path":"4","fp":"196e21f3b7aac669"}. Others have worked on that page since. Reply with one word for what
+      happened to that block: unchanged, moved, changed or gone.
+    answer:
+      type: exact
+      refs: ["edit_safety_2.anchors[key=frozen-pipes].status"]
+  - id: se-25
+    category: stale_edit
+    prompt: >-
+      Our agent's anchor for "The price we quote is the price you pay." on /pricing/ is
+      {"entity":"pt:page","post":90080,"path":"4","fp":"383d9cdc67cf7d49"}. Someone has rearranged the page since. At which block path
+      is that block now?
+    answer:
+      type: exact
+      refs: ["edit_safety_2.anchors[key=price-promise].paths_now"]
+    find: { url: /pricing/, text: The price we quote is the price you pay. }
+  - id: se-26
+    category: stale_edit
+    prompt: >-
+      On /emergencies/ our agent anchored "Our main valve is in the crawl space." before the checklist was
+      rebuilt: {"entity":"pt:page","post":90082,"path":"1.1","fp":"be27137e3ef777db"}. Which block path holds that block today?
+    answer:
+      type: exact
+      refs: ["edit_safety_2.anchors[key=valve-note].paths_now"]
+    find: { url: /emergencies/, text: Our main valve is in the crawl space. }

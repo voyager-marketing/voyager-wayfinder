@@ -1,0 +1,95 @@
+{
+  "synthetic": true,
+  "note": "Hand-written for the dry-run test suite. Not a recorded API run and not a measurement. mcp_tools and the tool results follow what MCP Adapter 0.7.0 returned on the seeded fixture.",
+  "question": "si-01",
+  "condition": "adapter",
+  "model": "claude-haiku-4-5-20251001",
+  "wall_ms": 3120,
+  "mcp_tools": [
+    {
+      "name": "mcp-adapter-discover-abilities",
+      "description": "Discover all available WordPress abilities in the system. Returns a list of all registered abilities with their basic information.",
+      "input_schema": { "type": "object", "properties": {} }
+    },
+    {
+      "name": "mcp-adapter-get-ability-info",
+      "description": "Get detailed information about a specific WordPress ability including its input/output schema, description, and usage examples.",
+      "input_schema": {
+        "type": "object",
+        "properties": { "ability_name": { "type": "string", "description": "The full name of the ability to get information about" } },
+        "required": ["ability_name"]
+      }
+    },
+    {
+      "name": "mcp-adapter-execute-ability",
+      "description": "Execute a WordPress ability with the provided parameters. This is the primary execution layer that can run any registered ability.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "ability_name": { "type": "string", "description": "The full name of the ability to execute" },
+          "parameters": { "type": "object", "description": "Parameters to pass to the ability" }
+        },
+        "required": ["ability_name", "parameters"]
+      }
+    }
+  ],
+  "turns": [
+    {
+      "response": {
+        "id": "msg_dry_ad_si01_1",
+        "type": "message",
+        "role": "assistant",
+        "model": "claude-haiku-4-5-20251001",
+        "content": [
+          { "type": "text", "text": "I'll list the abilities the site exposes." },
+          { "type": "tool_use", "id": "toolu_dry_ad_si01_1", "name": "mcp-adapter-discover-abilities", "input": {} }
+        ],
+        "stop_reason": "tool_use",
+        "stop_sequence": null,
+        "usage": { "input_tokens": 1310, "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0, "output_tokens": 48 }
+      },
+      "tool_results": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_dry_ad_si01_1",
+          "content": "{\"abilities\":[{\"name\":\"core\\/get-site-info\",\"label\":\"Get Site Information\",\"description\":\"Returns site information configured in WordPress. By default returns all fields, or optionally a filtered subset.\"},{\"name\":\"core\\/get-user-info\",\"label\":\"Get User Information\",\"description\":\"Returns profile details for the current authenticated user to support personalization, auditing, and access-aware behavior. By default returns all fields, or optionally a filtered subset.\"},{\"name\":\"core\\/get-environment-info\",\"label\":\"Get Environment Info\",\"description\":\"Returns core details about the site's runtime context for diagnostics and compatibility (environment, PHP runtime, database server info, WordPress version). By default returns all fields, or optionally a filtered subset.\"}]}"
+        }
+      ]
+    },
+    {
+      "response": {
+        "id": "msg_dry_ad_si01_2",
+        "type": "message",
+        "role": "assistant",
+        "model": "claude-haiku-4-5-20251001",
+        "content": [
+          { "type": "text", "text": "The site information ability should have the title." },
+          { "type": "tool_use", "id": "toolu_dry_ad_si01_2", "name": "mcp-adapter-execute-ability", "input": { "ability_name": "core/get-site-info", "parameters": { "fields": ["name"] } } }
+        ],
+        "stop_reason": "tool_use",
+        "stop_sequence": null,
+        "usage": { "input_tokens": 1540, "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0, "output_tokens": 71 }
+      },
+      "tool_results": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_dry_ad_si01_2",
+          "content": "{\"success\":true,\"data\":{\"name\":\"Riverbend Plumbing\"}}"
+        }
+      ]
+    },
+    {
+      "response": {
+        "id": "msg_dry_ad_si01_3",
+        "type": "message",
+        "role": "assistant",
+        "model": "claude-haiku-4-5-20251001",
+        "content": [{ "type": "text", "text": "core/get-site-info names the site Riverbend Plumbing.\nANSWER: Riverbend Plumbing" }],
+        "stop_reason": "end_turn",
+        "stop_sequence": null,
+        "usage": { "input_tokens": 1652, "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0, "output_tokens": 22 }
+      },
+      "tool_results": []
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "fixture": "pack",
+  "about": "Answer key for a site running only the voyager-open-blocks pack (no voyager-blocks). Written from the pack's inc/site-data.php at e569d3b, never from a Wayfinder scan. The site is not seeded yet: nothing in config.json points at this file, bench/test/questions.pack-site-data.test.ts reads it by path.",
+  "site_data": [
+    { "key": "phone", "option": "voyager_site_phone", "label": "Phone number", "edit_path": "options-general.php?page=voyager-site-data", "settings_page": { "menu": "Settings > Site Data" }, "shown_on": ["/"] }
+  ]
+}

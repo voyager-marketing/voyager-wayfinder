@@ -1,0 +1,73 @@
+{
+  "synthetic": true,
+  "note": "Hand-written for the dry-run test suite. Not a recorded API run and not a measurement.",
+  "question": "el-01",
+  "condition": "manual",
+  "model": "claude-haiku-4-5-20251001",
+  "wall_ms": 3920,
+  "turns": [
+    {
+      "response": {
+        "id": "msg_dry_el01_1",
+        "type": "message",
+        "role": "assistant",
+        "model": "claude-haiku-4-5-20251001",
+        "content": [{ "type": "tool_use", "id": "toolu_dry_el01_1", "name": "manual_brief", "input": {} }],
+        "stop_reason": "tool_use",
+        "stop_sequence": null,
+        "usage": { "input_tokens": 1180, "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0, "output_tokens": 35 }
+      },
+      "tool_results": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_dry_el01_1",
+          "content": "HTTP 200\n# wayfinder v1 brief h:9f2c41\nsite: Riverbend Plumbing | theme vwf-fixture (child of twentytwentyfive)\nedit:\n  phone number -> bind:vwf-fixture/business-info.phone -> Settings > Business Info\nmore: index | section <id> | find-edit-location <url> [text]"
+        }
+      ]
+    },
+    {
+      "response": {
+        "id": "msg_dry_el01_2",
+        "type": "message",
+        "role": "assistant",
+        "model": "claude-haiku-4-5-20251001",
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "toolu_dry_el01_2",
+            "name": "find_edit_location",
+            "input": { "url": "/", "text": "(540) 555-0142" }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "stop_sequence": null,
+        "usage": { "input_tokens": 1302, "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0, "output_tokens": 48 }
+      },
+      "tool_results": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_dry_el01_2",
+          "content": "HTTP 200\n{\"chain\":[\"part:footer\",\"bind:vwf-fixture/business-info.phone\",\"opt:vwf_phone\"],\"edit\":\"options-general.php?page=vwf-business-info\",\"text\":\"(540) 555-0142\",\"url\":\"/\"}"
+        }
+      ]
+    },
+    {
+      "response": {
+        "id": "msg_dry_el01_3",
+        "type": "message",
+        "role": "assistant",
+        "model": "claude-haiku-4-5-20251001",
+        "content": [
+          {
+            "type": "text",
+            "text": "The footer phone number is bound to the vwf_phone option, which is edited under Settings > Business Info.\nANSWER: options-general.php?page=vwf-business-info"
+          }
+        ],
+        "stop_reason": "end_turn",
+        "stop_sequence": null,
+        "usage": { "input_tokens": 1421, "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0, "output_tokens": 44 }
+      },
+      "tool_results": []
+    }
+  ]
+}

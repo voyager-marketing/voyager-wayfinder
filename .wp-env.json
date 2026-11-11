@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/wp-env.json",
+  "core": "WordPress/WordPress#7.1.2",
+  "phpVersion": "8.2",
+  "plugins": [
+    "https://downloads.wordpress.org/plugin/advanced-custom-fields.6.8.10.zip",
+    "https://downloads.wordpress.org/plugin/mcp-adapter.0.7.0.zip"
+  ],
+  "themes": [
+    "https://downloads.wordpress.org/theme/twentytwentyfive.1.5.zip",
+    "https://downloads.wordpress.org/theme/twentytwentyone.2.9.zip"
+  ],
+  "mappings": {
+    "wp-content/plugins/voyager-wayfinder": ".",
+    "wp-content/plugins/secure-custom-fields": "https://downloads.wordpress.org/plugin/secure-custom-fields.6.9.5.zip",
+    "wp-content/mu-plugins": "./fixtures/mu-plugins",
+    "wp-content/themes/vwf-fixture": "./fixtures/theme/vwf-fixture",
+    "wp-content/themes/vwf-classic": "./fixtures/classic/theme/vwf-classic"
+  },
+  "lifecycleScripts": {
+    "afterStart": "npx @wordpress/env run cli wp plugin activate voyager-wayfinder"
+  }
+}

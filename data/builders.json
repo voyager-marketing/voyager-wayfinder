@@ -1,0 +1,50 @@
+{
+  "about": "Page builders Wayfinder recognizes, keyed by builder slug. A builder is active when one of its plugins (folder slugs, as in plugin-roles.json) is active or the active theme or its parent is one of its themes. A post is a document of the builder when it carries the meta key, with the given value when one is set, else any value but '' and '0'. edit is the builder's edit URL: {id} is the post id, {path} the post's permalink relative to the site root (query string kept), {home} the home URL's path. Paths without a leading slash are relative to wp-admin. templates lists the post types the builder keeps its own templates in, and type_meta the meta key that names a template's type (header, footer, ...). Nothing here is ever loaded from the builder's code. src/Scanners/Builders.php reads this file.",
+  "builders": {
+    "beaver-builder": {
+      "label": "Beaver Builder",
+      "plugins": ["bb-plugin", "beaver-builder-lite-version"],
+      "themes": [],
+      "meta": {"key": "_fl_builder_enabled"},
+      "edit": "{path}?fl_builder",
+      "templates": [],
+      "type_meta": null
+    },
+    "breakdance": {
+      "label": "Breakdance",
+      "plugins": ["breakdance"],
+      "themes": [],
+      "meta": {"key": "_breakdance_data"},
+      "edit": "{home}?breakdance=builder&id={id}",
+      "templates": [],
+      "type_meta": null
+    },
+    "bricks": {
+      "label": "Bricks",
+      "plugins": [],
+      "themes": ["bricks"],
+      "meta": {"key": "_bricks_editor_mode", "value": "bricks"},
+      "edit": "{path}?bricks=run",
+      "templates": ["bricks_template"],
+      "type_meta": "_bricks_template_type"
+    },
+    "divi": {
+      "label": "Divi",
+      "plugins": ["divi-builder"],
+      "themes": ["Divi", "Extra"],
+      "meta": {"key": "_et_pb_use_builder", "value": "on"},
+      "edit": "{path}?et_fb=1",
+      "templates": ["et_pb_layout"],
+      "type_meta": null
+    },
+    "elementor": {
+      "label": "Elementor",
+      "plugins": ["elementor"],
+      "themes": [],
+      "meta": {"key": "_elementor_data"},
+      "edit": "post.php?post={id}&action=elementor",
+      "templates": ["elementor_library"],
+      "type_meta": "_elementor_template_type"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: Lint, test, analyse
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # 8.1 is the floor in the plugin header, so lint and test on it.
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          tools: composer
+          coverage: none
+
+      - name: PHP syntax
+        run: find src voyager-wayfinder.php -name '*.php' -print0 | xargs -0 -n1 php -l
+
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress
+
+      - name: Unit tests
+        run: composer test
+
+      - name: PHPStan
+        run: composer phpstan
+
+      - name: PHPCS
+        run: composer phpcs
+
+      # Each recorded version's fixture hash is fixed once it lands. A change
+      # in scanner output takes a new version (see VersionGuardTest), so a
+      # pull request may append to this file but never change or reorder a
+      # recorded entry. Compared as parsed JSON, not diff lines: a normal
+      # append moves the comma onto the line before it, which a line diff
+      # reads as an edit.
+      - name: Recorded versions are append-only
+        if: github.event_name == 'pull_request'
+        run: |
+          file=tests/fixtures/manifest-versions.json
+          git fetch --no-tags --depth=1 origin "$GITHUB_BASE_REF"
+          if ! git cat-file -e "FETCH_HEAD:$file" 2>/dev/null; then
+            echo "No recorded versions on the base branch yet."
+            exit 0
+          fi
+          git show "FETCH_HEAD:$file" > "$RUNNER_TEMP/base-versions.json"
+          if ! jq -e -n --slurpfile base "$RUNNER_TEMP/base-versions.json" --slurpfile head "$file" '
+            ($base[0] | keys_unsorted) as $old
+            | ($head[0] | keys_unsorted)[0:($old | length)] == $old
+              and all($old[]; $head[0][.] == $base[0][.])
+          ' > /dev/null; then
+            echo "::error::A recorded version in $file was changed, removed or reordered. Bump the version and append a new entry instead."
+            exit 1
+          fi
+
+  build-zip:
+    name: Build plugin ZIP
+    needs: checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          tools: composer
+          coverage: none
+
+      # No runtime dependencies, so vendor/ is only the autoloader.
+      - name: Install runtime autoloader
+        run: composer install --no-dev --no-interaction --no-progress --optimize-autoloader
+
+      - name: Copy files honoring .distignore
+        run: |
+          mkdir -p build/voyager-wayfinder
+          rsync -a --exclude-from=.distignore ./ build/voyager-wayfinder/
+
+      # A build that silently drops the autoloader, or ships the tests, is
+      # caught here rather than on a site.
+      - name: Check the build
+        run: |
+          cd build/voyager-wayfinder
+          test -f voyager-wayfinder.php
+          test -f vendor/autoload.php
+          test -f src/Plugin.php
+          test -f LICENSE
+          test -f readme.txt
+          for path in tests bench fixtures docs node_modules composer.json .github .wordpress-org assets/readme blueprint.json; do
+            if [ -e "$path" ]; then echo "::error::$path must not ship"; exit 1; fi
+          done
+
+      - name: Create ZIP
+        run: |
+          cd build
+          zip -rq voyager-wayfinder.zip voyager-wayfinder
+          unzip -l voyager-wayfinder.zip
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: voyager-wayfinder
+          path: build/voyager-wayfinder.zip
+          if-no-files-found: error
+          retention-days: 14
+
+  # The official Plugin Check, run on the ZIP that ships. WordPress.org turns
+  # away a submission with error-level findings, so any error fails this job.
+  # Warnings show as annotations on the run and do not fail it. There is no
+  # checkout on purpose: the action merges its settings into a .wp-env.json in
+  # the working directory, and the repo's own one would load the fixture site.
+  plugin-check:
+    name: Plugin Check
+    needs: build-zip
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: voyager-wayfinder
+
+      - name: Unzip the build
+        run: unzip -q voyager-wayfinder.zip -d build
+
+      - uses: WordPress/plugin-check-action@v1
+        with:
+          build-dir: build/voyager-wayfinder
+          # This workflow's token is read-only, so skip the PR comment. The
+          # findings are on the run and in the plugin-check-results artifact.
+          repo-token: ''
+
+  # npm test type checks and replays recorded transcripts, so this job needs
+  # no API key, no wp-env and no network beyond npm. bench.yml does live runs.
+  bench:
+    name: Bench tests (dry run)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: bench/package-lock.json
+
+      - name: Install dependencies
+        working-directory: bench
+        run: npm ci
+
+      - name: Type check and tests
+        working-directory: bench
+        run: npm test

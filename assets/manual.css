@@ -1,0 +1,265 @@
+/* Wayfinder page. Core admin colours and spacing; no branding. */
+
+.vwf-manual [hidden] {
+	display: none !important;
+}
+
+.vwf-header {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px 32px;
+	align-items: flex-start;
+	justify-content: space-between;
+	margin: 16px 0;
+	padding: 12px 16px;
+	background: #fff;
+	border: 1px solid #c3c4c7;
+}
+
+.vwf-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px 32px;
+	margin: 0;
+}
+
+.vwf-meta dt {
+	font-weight: 600;
+}
+
+.vwf-meta dd {
+	margin: 0;
+}
+
+.vwf-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	align-items: center;
+}
+
+.vwf-actions form {
+	margin: 0;
+}
+
+.vwf-export {
+	display: flex;
+	gap: 4px;
+	align-items: center;
+}
+
+.vwf-brief {
+	flex-basis: 100%;
+}
+
+.vwf-status:empty {
+	display: none;
+}
+
+.vwf-nav ul {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px 20px;
+	margin: 0 0 16px;
+}
+
+.vwf-nav li {
+	margin: 0;
+}
+
+.vwf-search {
+	margin: 0 0 8px;
+}
+
+.vwf-search p {
+	margin: 4px 0 0;
+}
+
+.vwf-section {
+	margin-top: 32px;
+}
+
+.vwf-section > h2 {
+	margin-bottom: 4px;
+}
+
+.vwf-cards {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+	gap: 16px;
+	margin-top: 12px;
+}
+
+.vwf-card {
+	min-width: 0;
+	padding: 12px 16px;
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	scroll-margin-top: 48px;
+}
+
+.vwf-card:target {
+	border-color: #2271b1;
+	box-shadow: 0 0 0 1px #2271b1;
+}
+
+.vwf-card-title {
+	margin: 0 0 4px;
+	font-size: 15px;
+}
+
+.vwf-card-id {
+	margin: 0 0 8px;
+	color: #50575e;
+}
+
+.vwf-kind {
+	margin-left: 4px;
+}
+
+.vwf-summary {
+	margin: 0 0 8px;
+}
+
+.vwf-facts {
+	display: grid;
+	grid-template-columns: max-content minmax(0, 1fr);
+	gap: 2px 12px;
+	margin: 8px 0;
+	font-size: 12px;
+}
+
+.vwf-facts dt {
+	color: #50575e;
+}
+
+.vwf-facts dd {
+	margin: 0;
+	overflow-wrap: anywhere;
+}
+
+.vwf-edit {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px 8px;
+	align-items: center;
+	margin: 8px 0;
+}
+
+.vwf-edit-path {
+	font-size: 11px;
+	overflow-wrap: anywhere;
+}
+
+.vwf-card h4 {
+	margin: 12px 0 4px;
+	font-size: 13px;
+}
+
+.vwf-links {
+	margin: 0;
+}
+
+.vwf-links li {
+	margin: 0 0 2px;
+}
+
+.vwf-badge {
+	display: inline-block;
+	padding: 0 8px;
+	border: 1px solid;
+	border-radius: 10px;
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 18px;
+	text-decoration: none;
+	vertical-align: baseline;
+}
+
+.vwf-badge--review {
+	color: #614200;
+	background: #fcf9e8;
+	border-color: #dba617;
+}
+
+.vwf-badge--orphaned {
+	color: #8a2424;
+	background: #fcf0f1;
+	border-color: #d63638;
+}
+
+.vwf-note-list {
+	margin: 0;
+}
+
+.vwf-note {
+	margin: 0 0 8px;
+	padding: 6px 10px;
+	background: #f6f7f7;
+	border-left: 4px solid #c3c4c7;
+}
+
+.vwf-note--needs_review {
+	border-left-color: #dba617;
+}
+
+.vwf-note--orphaned {
+	border-left-color: #d63638;
+}
+
+.vwf-note-meta {
+	margin: 0 0 4px;
+	color: #50575e;
+	font-size: 12px;
+}
+
+.vwf-note-body {
+	overflow-wrap: anywhere;
+}
+
+.vwf-note-actions {
+	margin: 4px 0 0;
+}
+
+.vwf-note-form label {
+	display: block;
+	margin: 8px 0 4px;
+}
+
+.vwf-note-form textarea {
+	margin-bottom: 8px;
+}
+
+.vwf-note-confirm p {
+	margin: 8px 0;
+}
+
+.vwf-note-add > summary,
+.vwf-details > summary,
+.vwf-folded > summary {
+	cursor: pointer;
+}
+
+.vwf-details > summary {
+	color: #2271b1;
+}
+
+.vwf-note-add > summary {
+	margin-top: 8px;
+	color: #2271b1;
+}
+
+.vwf-folded > summary {
+	margin: 16px 0 4px;
+	font-weight: 600;
+}
+
+.vwf-manual a:focus-visible,
+.vwf-manual button:focus-visible,
+.vwf-manual summary:focus-visible,
+.vwf-manual input:focus-visible,
+.vwf-manual textarea:focus-visible {
+	outline: 2px solid #2271b1;
+	outline-offset: 2px;
+	box-shadow: none;
+}

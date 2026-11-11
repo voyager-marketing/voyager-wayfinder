@@ -1,0 +1,22 @@
+# Wayfinder benchmark: pack-site-data, one edit-location question on a site that runs only the voyager-open-blocks
+# pack. The pack owns the voyager/site-data source there, with its own screen, Settings > Site Data
+# (page voyager-site-data). Before this set was written, Wayfinder named no screen for a voyager_site_* option on such a site.
+#
+# The expected value is a reference into fixtures/pack/truth.json, written from the pack's inc/site-data.php,
+# never from a Wayfinder scan. The pack-only site is not seeded yet and config.json has no fixture for it, so
+# the question is checked against its truth by bench/test/questions.pack-site-data.test.ts and a live run waits
+# on that fixture (bench/README.md, "The pack-site-data question").
+#
+# `find` is what the person asking has to hand for the find route. The agent never sees it.
+#
+# questions_sha256 is the sha256 of the canonical JSON of `questions` (keys sorted).
+site: fixture-pack
+questions_sha256: "3255359e9fb0d0b25f7911feac889179bfa4f65cf4b49c8c2b4b603512a9c5d3"
+questions:
+  - id: el-01
+    category: edit_location
+    prompt: Our phone number is changing. Where do I update it so the new number shows on the home page?
+    answer:
+      type: contains_all
+      refs: ["site_data[key=phone].edit_path"]
+    find: { url: "/", text: "(540) 555-0142" }

@@ -1,0 +1,2347 @@
+{
+  "format": "wayfinder-bench-report/1",
+  "site": "fixture-edit-safety",
+  "date": "2026-10-06",
+  "run_label": "run5-regression",
+  "fixture": "block",
+  "hypothesis_set": "run3",
+  "commit": "826cce2a66d29d1098b2b0c05ad0f6efa763641d",
+  "conversation_caching": true,
+  "max_turns": 24,
+  "dry_run": false,
+  "runner": {
+    "where": "github-actions",
+    "concurrency": 6
+  },
+  "question_set": {
+    "file": "questions/fixture-edit-safety.yaml",
+    "sha256": "69eb2c8401ba4ff31666e968dce3cf8ac31c3c5153c4920a70dbadb9fe372cc9",
+    "count": 20
+  },
+  "pricing": {
+    "source": "https://platform.claude.com/docs/en/about-claude/pricing",
+    "fetched": "2026-10-01"
+  },
+  "models": [
+    {
+      "id": "claude-haiku-4-5-20251001",
+      "params": {
+        "temperature": 0
+      },
+      "cache_min_tokens": 4096
+    },
+    {
+      "id": "claude-sonnet-5",
+      "params": {},
+      "cache_min_tokens": 1024
+    }
+  ],
+  "manual": {
+    "brief_chars": 2187,
+    "index_chars": 9974,
+    "brief_est_tokens": 547,
+    "index_est_tokens": 2494,
+    "index_dropped": 0
+  },
+  "hypotheses": [
+    {
+      "id": "R1",
+      "claim": "The manual condition reaches at least 90.0% accuracy on the block fixture, on both models",
+      "verdict": "pass",
+      "numbers": "manual: claude-haiku-4-5-20251001 100.0% (20/20); claude-sonnet-5 95.0% (19/20)"
+    },
+    {
+      "id": "R2",
+      "claim": "The manual condition beats adapter by at least 10 percentage points of accuracy, on both models",
+      "verdict": "not measured",
+      "numbers": "no results for adapter claude-haiku-4-5-20251001"
+    },
+    {
+      "id": "R3",
+      "claim": "claude-haiku-4-5-20251001 manual-preloaded matches or beats claude-sonnet-5 adapter on accuracy (mean over repetitions)",
+      "verdict": "not measured",
+      "numbers": "no results for adapter claude-sonnet-5"
+    },
+    {
+      "id": "R4",
+      "claim": "The brief is at most 600 and the index at most 4,000 estimated tokens",
+      "verdict": "pass",
+      "numbers": "brief 2,187 chars = 547 est. tokens; index 9,974 chars = 2,494 est. tokens (chars / 4, rounded up)"
+    },
+    {
+      "id": "R5",
+      "claim": "Total input tokens across all questions in the manual condition are at least 3x lower than adapter, on both models",
+      "verdict": "not measured",
+      "numbers": "no results for adapter claude-haiku-4-5-20251001"
+    },
+    {
+      "id": "R6",
+      "claim": "p90 input tokens per question in the manual condition are at least 3x lower than the adapter p90, on both models",
+      "verdict": "not measured",
+      "numbers": "no results for adapter claude-haiku-4-5-20251001"
+    },
+    {
+      "id": "R7",
+      "claim": "claude-haiku-4-5-20251001 manual-preloaded costs at least 10x less per correct answer than claude-sonnet-5 adapter",
+      "verdict": "not measured",
+      "numbers": "no results for adapter claude-sonnet-5"
+    }
+  ],
+  "metrics": [],
+  "losses": [],
+  "cache_by_cell": [
+    {
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "question_runs": 20,
+      "input_total": 349298,
+      "uncached_input_tokens": 69696,
+      "cache_creation_input_tokens": 119894,
+      "cache_read_input_tokens": 159708,
+      "runs_reading_cache": 7
+    },
+    {
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "question_runs": 20,
+      "input_total": 306619,
+      "uncached_input_tokens": 120,
+      "cache_creation_input_tokens": 132625,
+      "cache_read_input_tokens": 173874,
+      "runs_reading_cache": 20
+    },
+    {
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "question_runs": 20,
+      "input_total": 396792,
+      "uncached_input_tokens": 270,
+      "cache_creation_input_tokens": 64602,
+      "cache_read_input_tokens": 331920,
+      "runs_reading_cache": 20
+    },
+    {
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "question_runs": 20,
+      "input_total": 440712,
+      "uncached_input_tokens": 98,
+      "cache_creation_input_tokens": 72795,
+      "cache_read_input_tokens": 367819,
+      "runs_reading_cache": 20
+    }
+  ],
+  "caching": [
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "cache_min_tokens": 4096,
+      "question_runs": 20,
+      "first_call_input_tokens": {
+        "median": 5060.5,
+        "p90": 5110
+      },
+      "cache_creation_input_tokens": 64602,
+      "cache_read_input_tokens": 331920,
+      "runs_reading_cache": 20,
+      "engaged": true
+    },
+    {
+      "model": "claude-sonnet-5",
+      "cache_min_tokens": 1024,
+      "question_runs": 20,
+      "first_call_input_tokens": {
+        "median": 6221.5,
+        "p90": 6299
+      },
+      "cache_creation_input_tokens": 72795,
+      "cache_read_input_tokens": 367819,
+      "runs_reading_cache": 20,
+      "engaged": true
+    }
+  ],
+  "most_missed": [
+    {
+      "condition": "manual",
+      "question": "se-04",
+      "category": "stale_edit",
+      "missed": 1,
+      "runs": 2,
+      "reason": "claude-sonnet-5: expected \"gone\"; answered: changed"
+    },
+    {
+      "condition": "manual-preloaded",
+      "question": "mh-01",
+      "category": "multi_home",
+      "missed": 2,
+      "runs": 2,
+      "reason": "claude-haiku-4-5-20251001: missing post.php?post=90062&action=edit; answered: post.php?post=90070&action=edit"
+    },
+    {
+      "condition": "manual-preloaded",
+      "question": "se-01",
+      "category": "stale_edit",
+      "missed": 2,
+      "runs": 2,
+      "reason": "claude-haiku-4-5-20251001: expected \"5\"; answered: no ANSWER line"
+    },
+    {
+      "condition": "manual-preloaded",
+      "question": "lk-03",
+      "category": "locks",
+      "missed": 1,
+      "runs": 2,
+      "reason": "claude-haiku-4-5-20251001: expected {License notice, Plan inclusions, Plan name, Plan price, Refund terms, Renewal terms}; answered: Renewal terms, Refund terms, License notice"
+    }
+  ],
+  "runs": [
+    {
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "questions": 20,
+      "correct": 20,
+      "accuracy": 1,
+      "rep": 1,
+      "input_tokens": {
+        "median": 8409.5,
+        "p90": 44030
+      },
+      "output_tokens": {
+        "median": 371.5,
+        "p90": 779
+      },
+      "total_tokens": {
+        "median": 8804.5,
+        "p90": 44809
+      },
+      "tool_calls": {
+        "median": 3,
+        "p90": 8
+      },
+      "wall_ms": {
+        "median": 5156.5,
+        "p90": 10853
+      },
+      "cost_per_question_usd": 0.013871,
+      "cost_usd": 0.277419
+    },
+    {
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "questions": 20,
+      "correct": 19,
+      "accuracy": 0.95,
+      "rep": 1,
+      "input_tokens": {
+        "median": 4875.5,
+        "p90": 38807
+      },
+      "output_tokens": {
+        "median": 272,
+        "p90": 1204
+      },
+      "total_tokens": {
+        "median": 5151,
+        "p90": 40011
+      },
+      "tool_calls": {
+        "median": 1.5,
+        "p90": 7
+      },
+      "wall_ms": {
+        "median": 4753,
+        "p90": 15436
+      },
+      "cost_per_question_usd": 0.023297,
+      "cost_usd": 0.465937
+    },
+    {
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "questions": 20,
+      "correct": 17,
+      "accuracy": 0.85,
+      "rep": 1,
+      "input_tokens": {
+        "median": 15288.5,
+        "p90": 26916
+      },
+      "output_tokens": {
+        "median": 315,
+        "p90": 474
+      },
+      "total_tokens": {
+        "median": 15601.5,
+        "p90": 27390
+      },
+      "tool_calls": {
+        "median": 2,
+        "p90": 6
+      },
+      "wall_ms": {
+        "median": 4174.5,
+        "p90": 5470
+      },
+      "cost_per_question_usd": 0.007307,
+      "cost_usd": 0.14614
+    },
+    {
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "questions": 20,
+      "correct": 18,
+      "accuracy": 0.9,
+      "rep": 1,
+      "input_tokens": {
+        "median": 14418,
+        "p90": 30537
+      },
+      "output_tokens": {
+        "median": 246,
+        "p90": 713
+      },
+      "total_tokens": {
+        "median": 14653.5,
+        "p90": 31084
+      },
+      "tool_calls": {
+        "median": 1,
+        "p90": 5
+      },
+      "wall_ms": {
+        "median": 5114,
+        "p90": 11530
+      },
+      "cost_per_question_usd": 0.016855,
+      "cost_usd": 0.337107
+    }
+  ],
+  "by_category": [
+    {
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "questions": 5,
+      "correct": 5,
+      "accuracy": 1,
+      "category": "locks"
+    },
+    {
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "questions": 5,
+      "correct": 5,
+      "accuracy": 1,
+      "category": "multi_home"
+    },
+    {
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "questions": 5,
+      "correct": 5,
+      "accuracy": 1,
+      "category": "selectors"
+    },
+    {
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "questions": 5,
+      "correct": 5,
+      "accuracy": 1,
+      "category": "stale_edit"
+    },
+    {
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "questions": 5,
+      "correct": 5,
+      "accuracy": 1,
+      "category": "locks"
+    },
+    {
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "questions": 5,
+      "correct": 5,
+      "accuracy": 1,
+      "category": "multi_home"
+    },
+    {
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "questions": 5,
+      "correct": 5,
+      "accuracy": 1,
+      "category": "selectors"
+    },
+    {
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "questions": 5,
+      "correct": 4,
+      "accuracy": 0.8,
+      "category": "stale_edit"
+    },
+    {
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "questions": 5,
+      "correct": 4,
+      "accuracy": 0.8,
+      "category": "locks"
+    },
+    {
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "questions": 5,
+      "correct": 4,
+      "accuracy": 0.8,
+      "category": "multi_home"
+    },
+    {
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "questions": 5,
+      "correct": 5,
+      "accuracy": 1,
+      "category": "selectors"
+    },
+    {
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "questions": 5,
+      "correct": 4,
+      "accuracy": 0.8,
+      "category": "stale_edit"
+    },
+    {
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "questions": 5,
+      "correct": 5,
+      "accuracy": 1,
+      "category": "locks"
+    },
+    {
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "questions": 5,
+      "correct": 4,
+      "accuracy": 0.8,
+      "category": "multi_home"
+    },
+    {
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "questions": 5,
+      "correct": 5,
+      "accuracy": 1,
+      "category": "selectors"
+    },
+    {
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "questions": 5,
+      "correct": 4,
+      "accuracy": 0.8,
+      "category": "stale_edit"
+    }
+  ],
+  "totals": {
+    "question_runs": 80,
+    "correct": 74,
+    "cost_usd": 1.226603,
+    "judge_cost_usd": 0.004215
+  },
+  "results": [
+    {
+      "question": "lk-01",
+      "category": "locks",
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "No",
+      "usage": {
+        "input_tokens": 1300,
+        "cache_creation_input_tokens": 5341,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 209
+      },
+      "first_call_input_tokens": 1293,
+      "tool_calls": 2,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 3512,
+      "cost_usd": 0.00902125,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "lk-02",
+      "category": "locks",
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "Yes",
+      "usage": {
+        "input_tokens": 4571,
+        "cache_creation_input_tokens": 4375,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 446
+      },
+      "first_call_input_tokens": 1306,
+      "tool_calls": 3,
+      "turns": 3,
+      "hit_turn_cap": false,
+      "wall_ms": 5686,
+      "cost_usd": 0.01226975,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "lk-03",
+      "category": "locks",
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "same set",
+      "answer": "Plan name, Plan price, Plan inclusions, Renewal terms, Refund terms, License notice",
+      "usage": {
+        "input_tokens": 4470,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 378
+      },
+      "first_call_input_tokens": 1286,
+      "tool_calls": 2,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 4939,
+      "cost_usd": 0.00636,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "lk-04",
+      "category": "locks",
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "Yes",
+      "usage": {
+        "input_tokens": 4549,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 272
+      },
+      "first_call_input_tokens": 1301,
+      "tool_calls": 2,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 3786,
+      "cost_usd": 0.005909,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "lk-05",
+      "category": "locks",
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "The answer correctly states that the Editor cannot add a footer column because the footer is a template part requiring the edit_theme_options capability that the Editor role lacks, which matches all expected facts.",
+      "answer": "No, she cannot. The footer requires edit_theme_options capability, which only Administrators have. Editors lack this permission.",
+      "usage": {
+        "input_tokens": 1309,
+        "cache_creation_input_tokens": 5737,
+        "cache_read_input_tokens": 5323,
+        "output_tokens": 308
+      },
+      "first_call_input_tokens": 1297,
+      "tool_calls": 3,
+      "turns": 3,
+      "hit_turn_cap": false,
+      "wall_ms": 5062,
+      "cost_usd": 0.010552549999999999,
+      "judge_cost_usd": 0.00098
+    },
+    {
+      "question": "mh-01",
+      "category": "multi_home",
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "contains all",
+      "answer": "post.php?post=90070&action=edit, post.php?post=90062&action=edit",
+      "usage": {
+        "input_tokens": 1325,
+        "cache_creation_input_tokens": 17323,
+        "cache_read_input_tokens": 25382,
+        "output_tokens": 779
+      },
+      "first_call_input_tokens": 1298,
+      "tool_calls": 8,
+      "turns": 5,
+      "hit_turn_cap": false,
+      "wall_ms": 10853,
+      "cost_usd": 0.02941195,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "mh-02",
+      "category": "multi_home",
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "contains all",
+      "answer": "post.php?post=90070&action=edit (for the financing terms in the synced pattern), or post.php?post=90061&action=edit (for the main page content)",
+      "usage": {
+        "input_tokens": 4217,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 328
+      },
+      "first_call_input_tokens": 1296,
+      "tool_calls": 2,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 4190,
+      "cost_usd": 0.005857,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "mh-03",
+      "category": "multi_home",
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "No",
+      "usage": {
+        "input_tokens": 1300,
+        "cache_creation_input_tokens": 5776,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 346
+      },
+      "first_call_input_tokens": 1293,
+      "tool_calls": 2,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 4557,
+      "cost_usd": 0.01025,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "mh-04",
+      "category": "multi_home",
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "2",
+      "usage": {
+        "input_tokens": 3782,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 218
+      },
+      "first_call_input_tokens": 1305,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 2708,
+      "cost_usd": 0.004872,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "mh-05",
+      "category": "multi_home",
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "same set",
+      "answer": "/about/, /commercial/",
+      "usage": {
+        "input_tokens": 1306,
+        "cache_creation_input_tokens": 12916,
+        "cache_read_input_tokens": 5328,
+        "output_tokens": 397
+      },
+      "first_call_input_tokens": 1292,
+      "tool_calls": 6,
+      "turns": 3,
+      "hit_turn_cap": false,
+      "wall_ms": 5413,
+      "cost_usd": 0.0199688,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "sl-01",
+      "category": "selectors",
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "contains all",
+      "answer": "post.php?post=90062&action=edit",
+      "usage": {
+        "input_tokens": 5834,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 254
+      },
+      "first_call_input_tokens": 1292,
+      "tool_calls": 2,
+      "turns": 3,
+      "hit_turn_cap": false,
+      "wall_ms": 3492,
+      "cost_usd": 0.007104,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "sl-02",
+      "category": "selectors",
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "same set",
+      "answer": "/financing/, /maintenance-plan/",
+      "usage": {
+        "input_tokens": 1319,
+        "cache_creation_input_tokens": 11376,
+        "cache_read_input_tokens": 13933,
+        "output_tokens": 532
+      },
+      "first_call_input_tokens": 1299,
+      "tool_calls": 7,
+      "turns": 4,
+      "hit_turn_cap": false,
+      "wall_ms": 6076,
+      "cost_usd": 0.0195923,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "sl-03",
+      "category": "selectors",
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "/maintenance-plan/",
+      "usage": {
+        "input_tokens": 4066,
+        "cache_creation_input_tokens": 11444,
+        "cache_read_input_tokens": 9777,
+        "output_tokens": 367
+      },
+      "first_call_input_tokens": 1294,
+      "tool_calls": 3,
+      "turns": 4,
+      "hit_turn_cap": false,
+      "wall_ms": 5411,
+      "cost_usd": 0.0211837,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "sl-04",
+      "category": "selectors",
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "contains all",
+      "answer": "post.php?post=90070&action=edit",
+      "usage": {
+        "input_tokens": 1347,
+        "cache_creation_input_tokens": 11781,
+        "cache_read_input_tokens": 56062,
+        "output_tokens": 808
+      },
+      "first_call_input_tokens": 1300,
+      "tool_calls": 10,
+      "turns": 9,
+      "hit_turn_cap": false,
+      "wall_ms": 11365,
+      "cost_usd": 0.02571945,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "sl-05",
+      "category": "selectors",
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "same set",
+      "answer": "/commercial/, /maintenance-plan/",
+      "usage": {
+        "input_tokens": 1329,
+        "cache_creation_input_tokens": 24728,
+        "cache_read_input_tokens": 43903,
+        "output_tokens": 1022
+      },
+      "first_call_input_tokens": 1295,
+      "tool_calls": 13,
+      "turns": 6,
+      "hit_turn_cap": false,
+      "wall_ms": 12811,
+      "cost_usd": 0.0417393,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "se-01",
+      "category": "stale_edit",
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "5",
+      "usage": {
+        "input_tokens": 3925,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 159
+      },
+      "first_call_input_tokens": 1345,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 2087,
+      "cost_usd": 0.00472,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "se-02",
+      "category": "stale_edit",
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "changed",
+      "usage": {
+        "input_tokens": 4678,
+        "cache_creation_input_tokens": 4567,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 443
+      },
+      "first_call_input_tokens": 1358,
+      "tool_calls": 3,
+      "turns": 3,
+      "hit_turn_cap": false,
+      "wall_ms": 6171,
+      "cost_usd": 0.01260175,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "se-03",
+      "category": "stale_edit",
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "unchanged",
+      "usage": {
+        "input_tokens": 8129,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 414
+      },
+      "first_call_input_tokens": 1360,
+      "tool_calls": 3,
+      "turns": 3,
+      "hit_turn_cap": false,
+      "wall_ms": 5383,
+      "cost_usd": 0.010199,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "se-04",
+      "category": "stale_edit",
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "gone",
+      "usage": {
+        "input_tokens": 4160,
+        "cache_creation_input_tokens": 4530,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 376
+      },
+      "first_call_input_tokens": 1348,
+      "tool_calls": 3,
+      "turns": 3,
+      "hit_turn_cap": false,
+      "wall_ms": 5251,
+      "cost_usd": 0.0117025,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "se-05",
+      "category": "stale_edit",
+      "condition": "manual",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "same set",
+      "answer": "2, 4",
+      "usage": {
+        "input_tokens": 6780,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 321
+      },
+      "first_call_input_tokens": 1332,
+      "tool_calls": 2,
+      "turns": 3,
+      "hit_turn_cap": false,
+      "wall_ms": 4074,
+      "cost_usd": 0.008385,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "lk-01",
+      "category": "locks",
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "No",
+      "usage": {
+        "input_tokens": 6,
+        "cache_creation_input_tokens": 2436,
+        "cache_read_input_tokens": 3275,
+        "output_tokens": 389
+      },
+      "first_call_input_tokens": 1384,
+      "tool_calls": 2,
+      "turns": 3,
+      "hit_turn_cap": false,
+      "wall_ms": 6178,
+      "cost_usd": 0.010647,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "lk-02",
+      "category": "locks",
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "Yes",
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 2869,
+        "cache_read_input_tokens": 1399,
+        "output_tokens": 186
+      },
+      "first_call_input_tokens": 1401,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 3359,
+      "cost_usd": 0.0093203,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "lk-03",
+      "category": "locks",
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "same set",
+      "answer": "Plan name, Plan price, Plan inclusions, Renewal terms, Refund terms, License notice",
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 3555,
+        "cache_read_input_tokens": 1375,
+        "output_tokens": 415
+      },
+      "first_call_input_tokens": 1377,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 5092,
+      "cost_usd": 0.0133205,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "lk-04",
+      "category": "locks",
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "yes",
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 2859,
+        "cache_read_input_tokens": 1396,
+        "output_tokens": 210
+      },
+      "first_call_input_tokens": 1398,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 3584,
+      "cost_usd": 0.0095347,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "lk-05",
+      "category": "locks",
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "The answer correctly states that the Editor cannot add footer links because the footer is a template part requiring edit_theme_options capability that the Editor role lacks, and it accurately names the template part ID, the Site Editor path, and the missing capability.",
+      "answer": "No — the footer is a theme template part (part:footer) only editable via the Site Editor at site-editor.php?p=/wp_template_part/vwf-fixture//footer&canvas=edit, which requires the edit_theme_options capability that the Editor role lacks; an Administrator must make the change.",
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 2939,
+        "cache_read_input_tokens": 1382,
+        "output_tokens": 418
+      },
+      "first_call_input_tokens": 1384,
+      "tool_calls": 2,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 6021,
+      "cost_usd": 0.0118119,
+      "judge_cost_usd": 0.001096
+    },
+    {
+      "question": "mh-01",
+      "category": "multi_home",
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "contains all",
+      "answer": "post.php?post=90070&action=edit, post.php?post=90062&action=edit",
+      "usage": {
+        "input_tokens": 8,
+        "cache_creation_input_tokens": 4322,
+        "cache_read_input_tokens": 9041,
+        "output_tokens": 836
+      },
+      "first_call_input_tokens": 1387,
+      "tool_calls": 4,
+      "turns": 4,
+      "hit_turn_cap": false,
+      "wall_ms": 11767,
+      "cost_usd": 0.0209892,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "mh-02",
+      "category": "multi_home",
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "contains all",
+      "answer": "post.php?post=90070&action=edit",
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 3263,
+        "cache_read_input_tokens": 1386,
+        "output_tokens": 207
+      },
+      "first_call_input_tokens": 1388,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 4582,
+      "cost_usd": 0.010512700000000002,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "mh-03",
+      "category": "multi_home",
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "No",
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 2973,
+        "cache_read_input_tokens": 1384,
+        "output_tokens": 166
+      },
+      "first_call_input_tokens": 1386,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 4226,
+      "cost_usd": 0.0093773,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "mh-04",
+      "category": "multi_home",
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "2",
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 2953,
+        "cache_read_input_tokens": 1397,
+        "output_tokens": 166
+      },
+      "first_call_input_tokens": 1399,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 2646,
+      "cost_usd": 0.0093299,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "mh-05",
+      "category": "multi_home",
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "same set",
+      "answer": "/about/, /commercial/",
+      "usage": {
+        "input_tokens": 6,
+        "cache_creation_input_tokens": 9387,
+        "cache_read_input_tokens": 6937,
+        "output_tokens": 292
+      },
+      "first_call_input_tokens": 1377,
+      "tool_calls": 3,
+      "turns": 3,
+      "hit_turn_cap": false,
+      "wall_ms": 4924,
+      "cost_usd": 0.0277869,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "sl-01",
+      "category": "selectors",
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "contains all",
+      "answer": "post.php?post=90062&action=edit",
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 3433,
+        "cache_read_input_tokens": 1380,
+        "output_tokens": 136
+      },
+      "first_call_input_tokens": 1382,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 2424,
+      "cost_usd": 0.0102265,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "sl-02",
+      "category": "selectors",
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "same set",
+      "answer": "/financing/, /maintenance-plan/",
+      "usage": {
+        "input_tokens": 10,
+        "cache_creation_input_tokens": 14184,
+        "cache_read_input_tokens": 24613,
+        "output_tokens": 1204
+      },
+      "first_call_input_tokens": 1399,
+      "tool_calls": 7,
+      "turns": 5,
+      "hit_turn_cap": false,
+      "wall_ms": 21353,
+      "cost_usd": 0.0524426,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "sl-03",
+      "category": "selectors",
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "/maintenance-plan/",
+      "usage": {
+        "input_tokens": 12,
+        "cache_creation_input_tokens": 12364,
+        "cache_read_input_tokens": 31030,
+        "output_tokens": 951
+      },
+      "first_call_input_tokens": 1377,
+      "tool_calls": 7,
+      "turns": 6,
+      "hit_turn_cap": false,
+      "wall_ms": 13242,
+      "cost_usd": 0.04665,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "sl-04",
+      "category": "selectors",
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "contains all",
+      "answer": "post.php?post=90070&action=edit",
+      "usage": {
+        "input_tokens": 6,
+        "cache_creation_input_tokens": 3835,
+        "cache_read_input_tokens": 4854,
+        "output_tokens": 252
+      },
+      "first_call_input_tokens": 1387,
+      "tool_calls": 2,
+      "turns": 3,
+      "hit_turn_cap": false,
+      "wall_ms": 3887,
+      "cost_usd": 0.0130903,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "sl-05",
+      "category": "selectors",
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "same set",
+      "answer": "/maintenance-plan/, /commercial/",
+      "usage": {
+        "input_tokens": 16,
+        "cache_creation_input_tokens": 38912,
+        "cache_read_input_tokens": 68237,
+        "output_tokens": 1844
+      },
+      "first_call_input_tokens": 1381,
+      "tool_calls": 14,
+      "turns": 8,
+      "hit_turn_cap": false,
+      "wall_ms": 22367,
+      "cost_usd": 0.1293994,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "se-01",
+      "category": "stale_edit",
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "5",
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 3065,
+        "cache_read_input_tokens": 1450,
+        "output_tokens": 145
+      },
+      "first_call_input_tokens": 1452,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 2243,
+      "cost_usd": 0.0094105,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "se-02",
+      "category": "stale_edit",
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "changed",
+      "usage": {
+        "input_tokens": 6,
+        "cache_creation_input_tokens": 6931,
+        "cache_read_input_tokens": 5252,
+        "output_tokens": 429
+      },
+      "first_call_input_tokens": 1471,
+      "tool_calls": 2,
+      "turns": 3,
+      "hit_turn_cap": false,
+      "wall_ms": 5780,
+      "cost_usd": 0.022679900000000003,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "se-03",
+      "category": "stale_edit",
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "unchanged",
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 2974,
+        "cache_read_input_tokens": 1476,
+        "output_tokens": 180
+      },
+      "first_call_input_tokens": 1478,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 2911,
+      "cost_usd": 0.0095382,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "se-04",
+      "category": "stale_edit",
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": false,
+      "reason": "expected \"gone\"",
+      "answer": "changed",
+      "usage": {
+        "input_tokens": 6,
+        "cache_creation_input_tokens": 6796,
+        "cache_read_input_tokens": 5173,
+        "output_tokens": 1306
+      },
+      "first_call_input_tokens": 1465,
+      "tool_calls": 2,
+      "turns": 3,
+      "hit_turn_cap": false,
+      "wall_ms": 15436,
+      "cost_usd": 0.0310966,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "se-05",
+      "category": "stale_edit",
+      "condition": "manual",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "same set",
+      "answer": "2, 4",
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 2575,
+        "cache_read_input_tokens": 1437,
+        "output_tokens": 204
+      },
+      "first_call_input_tokens": 1439,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 2877,
+      "cost_usd": 0.0087729,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "lk-01",
+      "category": "locks",
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "No",
+      "usage": {
+        "input_tokens": 8,
+        "cache_creation_input_tokens": 664,
+        "cache_read_input_tokens": 9758,
+        "output_tokens": 143
+      },
+      "first_call_input_tokens": 5055,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 2473,
+      "cost_usd": 0.0025288000000000003,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "lk-02",
+      "category": "locks",
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "Yes",
+      "usage": {
+        "input_tokens": 10,
+        "cache_creation_input_tokens": 2701,
+        "cache_read_input_tokens": 9771,
+        "output_tokens": 296
+      },
+      "first_call_input_tokens": 5068,
+      "tool_calls": 2,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 4089,
+      "cost_usd": 0.005843350000000001,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "lk-03",
+      "category": "locks",
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": false,
+      "reason": "expected {License notice, Plan inclusions, Plan name, Plan price, Refund terms, Renewal terms}",
+      "answer": "Renewal terms, Refund terms, License notice",
+      "usage": {
+        "input_tokens": 10,
+        "cache_creation_input_tokens": 2236,
+        "cache_read_input_tokens": 9751,
+        "output_tokens": 349
+      },
+      "first_call_input_tokens": 5048,
+      "tool_calls": 2,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 4442,
+      "cost_usd": 0.005525100000000001,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "lk-04",
+      "category": "locks",
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "Yes",
+      "usage": {
+        "input_tokens": 15,
+        "cache_creation_input_tokens": 2321,
+        "cache_read_input_tokens": 16205,
+        "output_tokens": 354
+      },
+      "first_call_input_tokens": 5063,
+      "tool_calls": 3,
+      "turns": 3,
+      "hit_turn_cap": false,
+      "wall_ms": 4965,
+      "cost_usd": 0.00630675,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "lk-05",
+      "category": "locks",
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "The answer correctly states that the office manager with an Editor account cannot add the footer column because the footer is a template part requiring the edit_theme_options capability, which the Editor role lacks, matching all expected facts.",
+      "answer": "No, she cannot. The footer requires edit_theme_options capability, which only Administrators have. Editors lack this permission.",
+      "usage": {
+        "input_tokens": 8,
+        "cache_creation_input_tokens": 765,
+        "cache_read_input_tokens": 9762,
+        "output_tokens": 268
+      },
+      "first_call_input_tokens": 5059,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 4005,
+      "cost_usd": 0.00328045,
+      "judge_cost_usd": 0.00103
+    },
+    {
+      "question": "mh-01",
+      "category": "multi_home",
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": false,
+      "reason": "missing post.php?post=90062&action=edit",
+      "answer": "post.php?post=90070&action=edit",
+      "usage": {
+        "input_tokens": 8,
+        "cache_creation_input_tokens": 633,
+        "cache_read_input_tokens": 9763,
+        "output_tokens": 223
+      },
+      "first_call_input_tokens": 5060,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 3407,
+      "cost_usd": 0.00289055,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "mh-02",
+      "category": "multi_home",
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "contains all",
+      "answer": "post.php?post=90070&action=edit",
+      "usage": {
+        "input_tokens": 10,
+        "cache_creation_input_tokens": 2025,
+        "cache_read_input_tokens": 9761,
+        "output_tokens": 215
+      },
+      "first_call_input_tokens": 5058,
+      "tool_calls": 2,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 2921,
+      "cost_usd": 0.00459235,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "mh-03",
+      "category": "multi_home",
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "No",
+      "usage": {
+        "input_tokens": 19,
+        "cache_creation_input_tokens": 3510,
+        "cache_read_input_tokens": 23504,
+        "output_tokens": 482
+      },
+      "first_call_input_tokens": 5055,
+      "tool_calls": 3,
+      "turns": 4,
+      "hit_turn_cap": false,
+      "wall_ms": 7367,
+      "cost_usd": 0.0091669,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "mh-04",
+      "category": "multi_home",
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "2",
+      "usage": {
+        "input_tokens": 8,
+        "cache_creation_input_tokens": 1533,
+        "cache_read_input_tokens": 9770,
+        "output_tokens": 189
+      },
+      "first_call_input_tokens": 5067,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 2653,
+      "cost_usd": 0.00384625,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "mh-05",
+      "category": "multi_home",
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "same set",
+      "answer": "/about/, /commercial/",
+      "usage": {
+        "input_tokens": 16,
+        "cache_creation_input_tokens": 8591,
+        "cache_read_input_tokens": 16035,
+        "output_tokens": 395
+      },
+      "first_call_input_tokens": 5054,
+      "tool_calls": 6,
+      "turns": 3,
+      "hit_turn_cap": false,
+      "wall_ms": 5109,
+      "cost_usd": 0.01433325,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "sl-01",
+      "category": "selectors",
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "contains all",
+      "answer": "post.php?post=90062&action=edit",
+      "usage": {
+        "input_tokens": 19,
+        "cache_creation_input_tokens": 3248,
+        "cache_read_input_tokens": 23244,
+        "output_tokens": 320
+      },
+      "first_call_input_tokens": 5054,
+      "tool_calls": 3,
+      "turns": 4,
+      "hit_turn_cap": false,
+      "wall_ms": 5085,
+      "cost_usd": 0.008003399999999999,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "sl-02",
+      "category": "selectors",
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "same set",
+      "answer": "/financing/, /maintenance-plan/",
+      "usage": {
+        "input_tokens": 17,
+        "cache_creation_input_tokens": 5646,
+        "cache_read_input_tokens": 19619,
+        "output_tokens": 439
+      },
+      "first_call_input_tokens": 5061,
+      "tool_calls": 6,
+      "turns": 3,
+      "hit_turn_cap": false,
+      "wall_ms": 5098,
+      "cost_usd": 0.011231399999999999,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "sl-03",
+      "category": "selectors",
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "/maintenance-plan/",
+      "usage": {
+        "input_tokens": 37,
+        "cache_creation_input_tokens": 11216,
+        "cache_read_input_tokens": 67041,
+        "output_tokens": 603
+      },
+      "first_call_input_tokens": 5056,
+      "tool_calls": 6,
+      "turns": 7,
+      "hit_turn_cap": false,
+      "wall_ms": 9084,
+      "cost_usd": 0.023776099999999998,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "sl-04",
+      "category": "selectors",
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "contains all",
+      "answer": "post.php?post=90070&action=edit",
+      "usage": {
+        "input_tokens": 13,
+        "cache_creation_input_tokens": 2254,
+        "cache_read_input_tokens": 16419,
+        "output_tokens": 261
+      },
+      "first_call_input_tokens": 5062,
+      "tool_calls": 2,
+      "turns": 3,
+      "hit_turn_cap": false,
+      "wall_ms": 4001,
+      "cost_usd": 0.005777399999999999,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "sl-05",
+      "category": "selectors",
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "same set",
+      "answer": "/commercial/, /maintenance-plan/",
+      "usage": {
+        "input_tokens": 17,
+        "cache_creation_input_tokens": 7282,
+        "cache_read_input_tokens": 19617,
+        "output_tokens": 474
+      },
+      "first_call_input_tokens": 5057,
+      "tool_calls": 6,
+      "turns": 3,
+      "hit_turn_cap": false,
+      "wall_ms": 5470,
+      "cost_usd": 0.0134512,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "se-01",
+      "category": "stale_edit",
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": false,
+      "reason": "expected \"5\"",
+      "answer": "",
+      "usage": {
+        "input_tokens": 8,
+        "cache_creation_input_tokens": 1633,
+        "cache_read_input_tokens": 9810,
+        "output_tokens": 201
+      },
+      "first_call_input_tokens": 5107,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 2792,
+      "cost_usd": 0.00403525,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "se-02",
+      "category": "stale_edit",
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "changed",
+      "usage": {
+        "input_tokens": 10,
+        "cache_creation_input_tokens": 1859,
+        "cache_read_input_tokens": 9823,
+        "output_tokens": 190
+      },
+      "first_call_input_tokens": 5120,
+      "tool_calls": 2,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 2860,
+      "cost_usd": 0.00426605,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "se-03",
+      "category": "stale_edit",
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "unchanged",
+      "usage": {
+        "input_tokens": 10,
+        "cache_creation_input_tokens": 1829,
+        "cache_read_input_tokens": 9825,
+        "output_tokens": 310
+      },
+      "first_call_input_tokens": 5122,
+      "tool_calls": 2,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 3856,
+      "cost_usd": 0.00482875,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "se-04",
+      "category": "stale_edit",
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "gone",
+      "usage": {
+        "input_tokens": 14,
+        "cache_creation_input_tokens": 2416,
+        "cache_read_input_tokens": 16600,
+        "output_tokens": 343
+      },
+      "first_call_input_tokens": 5110,
+      "tool_calls": 2,
+      "turns": 3,
+      "hit_turn_cap": false,
+      "wall_ms": 4987,
+      "cost_usd": 0.006409,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "se-05",
+      "category": "stale_edit",
+      "condition": "manual-preloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "rep": 1,
+      "correct": true,
+      "reason": "same set",
+      "answer": "2, 4",
+      "usage": {
+        "input_tokens": 13,
+        "cache_creation_input_tokens": 2240,
+        "cache_read_input_tokens": 15842,
+        "output_tokens": 330
+      },
+      "first_call_input_tokens": 5094,
+      "tool_calls": 2,
+      "turns": 3,
+      "hit_turn_cap": false,
+      "wall_ms": 4260,
+      "cost_usd": 0.0060472,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "lk-01",
+      "category": "locks",
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "No",
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 110,
+        "cache_read_input_tokens": 6106,
+        "output_tokens": 129
+      },
+      "first_call_input_tokens": 6218,
+      "tool_calls": 0,
+      "turns": 1,
+      "hit_turn_cap": false,
+      "wall_ms": 1956,
+      "cost_usd": 0.0027901999999999996,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "lk-02",
+      "category": "locks",
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "Yes",
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 2382,
+        "cache_read_input_tokens": 12339,
+        "output_tokens": 192
+      },
+      "first_call_input_tokens": 6235,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 5696,
+      "cost_usd": 0.010350799999999999,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "lk-03",
+      "category": "locks",
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "same set",
+      "answer": "Plan name, Plan price, Plan inclusions, Renewal terms, Refund terms, License notice",
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 2343,
+        "cache_read_input_tokens": 12315,
+        "output_tokens": 713
+      },
+      "first_call_input_tokens": 6211,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 11530,
+      "cost_usd": 0.0154585,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "lk-04",
+      "category": "locks",
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "Yes",
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 1649,
+        "cache_read_input_tokens": 12336,
+        "output_tokens": 245
+      },
+      "first_call_input_tokens": 6232,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 5458,
+      "cost_usd": 0.0090477,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "lk-05",
+      "category": "locks",
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "The answer correctly states that the office manager cannot add footer links because the footer is a template part requiring the edit_theme_options capability that the Editor role lacks, and it accurately identifies that only an administrator can make this change.",
+      "answer": "No — editing the footer template part (and its footer navigation menu) requires the edit_theme_options capability, which the Editor role does not have; only an Administrator (or someone granted that capability) can do it, via site-editor.php?p=/wp_template_part/vwf-fixture//footer&canvas=edit",
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 110,
+        "cache_read_input_tokens": 6106,
+        "output_tokens": 283
+      },
+      "first_call_input_tokens": 6218,
+      "tool_calls": 0,
+      "turns": 1,
+      "hit_turn_cap": false,
+      "wall_ms": 5151,
+      "cost_usd": 0.0043302,
+      "judge_cost_usd": 0.001109
+    },
+    {
+      "question": "mh-01",
+      "category": "multi_home",
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": false,
+      "reason": "missing post.php?post=90062&action=edit",
+      "answer": "post.php?post=90070&action=edit",
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 113,
+        "cache_read_input_tokens": 6106,
+        "output_tokens": 224
+      },
+      "first_call_input_tokens": 6221,
+      "tool_calls": 0,
+      "turns": 1,
+      "hit_turn_cap": false,
+      "wall_ms": 3372,
+      "cost_usd": 0.0037476999999999996,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "mh-02",
+      "category": "multi_home",
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "contains all",
+      "answer": "post.php?post=90070&action=edit",
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 1263,
+        "cache_read_input_tokens": 12326,
+        "output_tokens": 233
+      },
+      "first_call_input_tokens": 6222,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 3487,
+      "cost_usd": 0.007960700000000001,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "mh-03",
+      "category": "multi_home",
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "No",
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 1732,
+        "cache_read_input_tokens": 12324,
+        "output_tokens": 189
+      },
+      "first_call_input_tokens": 6220,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 3930,
+      "cost_usd": 0.008692799999999999,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "mh-04",
+      "category": "multi_home",
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "2",
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 1713,
+        "cache_read_input_tokens": 12337,
+        "output_tokens": 214
+      },
+      "first_call_input_tokens": 6233,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 4096,
+      "cost_usd": 0.0088979,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "mh-05",
+      "category": "multi_home",
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "same set",
+      "answer": "/about/, /commercial/",
+      "usage": {
+        "input_tokens": 6,
+        "cache_creation_input_tokens": 7833,
+        "cache_read_input_tokens": 22698,
+        "output_tokens": 547
+      },
+      "first_call_input_tokens": 6211,
+      "tool_calls": 4,
+      "turns": 3,
+      "hit_turn_cap": false,
+      "wall_ms": 8742,
+      "cost_usd": 0.029604099999999998,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "sl-01",
+      "category": "selectors",
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "contains all",
+      "answer": "post.php?post=90062&action=edit",
+      "usage": {
+        "input_tokens": 6,
+        "cache_creation_input_tokens": 3839,
+        "cache_read_input_tokens": 20591,
+        "output_tokens": 314
+      },
+      "first_call_input_tokens": 6216,
+      "tool_calls": 2,
+      "turns": 3,
+      "hit_turn_cap": false,
+      "wall_ms": 4675,
+      "cost_usd": 0.0168677,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "sl-02",
+      "category": "selectors",
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "same set",
+      "answer": "/financing/, /maintenance-plan/",
+      "usage": {
+        "input_tokens": 6,
+        "cache_creation_input_tokens": 3560,
+        "cache_read_input_tokens": 21551,
+        "output_tokens": 641
+      },
+      "first_call_input_tokens": 6233,
+      "tool_calls": 5,
+      "turns": 3,
+      "hit_turn_cap": false,
+      "wall_ms": 8980,
+      "cost_usd": 0.019632200000000002,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "sl-03",
+      "category": "selectors",
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "/maintenance-plan/",
+      "usage": {
+        "input_tokens": 14,
+        "cache_creation_input_tokens": 14637,
+        "cache_read_input_tokens": 79281,
+        "output_tokens": 1204
+      },
+      "first_call_input_tokens": 6211,
+      "tool_calls": 9,
+      "turns": 7,
+      "hit_turn_cap": false,
+      "wall_ms": 15690,
+      "cost_usd": 0.0645167,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "sl-04",
+      "category": "selectors",
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "contains all",
+      "answer": "post.php?post=90070&action=edit",
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 2266,
+        "cache_read_input_tokens": 12325,
+        "output_tokens": 247
+      },
+      "first_call_input_tokens": 6221,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 5077,
+      "cost_usd": 0.010608,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "sl-05",
+      "category": "selectors",
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "same set",
+      "answer": "/commercial/, /maintenance-plan/",
+      "usage": {
+        "input_tokens": 8,
+        "cache_creation_input_tokens": 15771,
+        "cache_read_input_tokens": 39905,
+        "output_tokens": 1244
+      },
+      "first_call_input_tokens": 6215,
+      "tool_calls": 10,
+      "turns": 4,
+      "hit_turn_cap": false,
+      "wall_ms": 15209,
+      "cost_usd": 0.0598645,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "se-01",
+      "category": "stale_edit",
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": false,
+      "reason": "expected \"5\"",
+      "answer": "Block path 5 on page \"Maintenance plan\" (post.php?post=90062&action=edit)",
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 1847,
+        "cache_read_input_tokens": 12390,
+        "output_tokens": 224
+      },
+      "first_call_input_tokens": 6286,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 4478,
+      "cost_usd": 0.0093435,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "se-02",
+      "category": "stale_edit",
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "changed",
+      "usage": {
+        "input_tokens": 6,
+        "cache_creation_input_tokens": 2943,
+        "cache_read_input_tokens": 20999,
+        "output_tokens": 413
+      },
+      "first_call_input_tokens": 6305,
+      "tool_calls": 2,
+      "turns": 3,
+      "hit_turn_cap": false,
+      "wall_ms": 5883,
+      "cost_usd": 0.0156993,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "se-03",
+      "category": "stale_edit",
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "unchanged",
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 1745,
+        "cache_read_input_tokens": 12416,
+        "output_tokens": 220
+      },
+      "first_call_input_tokens": 6312,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 3156,
+      "cost_usd": 0.009053700000000001,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "se-04",
+      "category": "stale_edit",
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "matches",
+      "answer": "gone",
+      "usage": {
+        "input_tokens": 6,
+        "cache_creation_input_tokens": 5643,
+        "cache_read_input_tokens": 20991,
+        "output_tokens": 454
+      },
+      "first_call_input_tokens": 6299,
+      "tool_calls": 2,
+      "turns": 3,
+      "hit_turn_cap": false,
+      "wall_ms": 6328,
+      "cost_usd": 0.0228577,
+      "judge_cost_usd": 0
+    },
+    {
+      "question": "se-05",
+      "category": "stale_edit",
+      "condition": "manual-preloaded",
+      "model": "claude-sonnet-5",
+      "rep": 1,
+      "correct": true,
+      "reason": "same set",
+      "answer": "2, 4",
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 1296,
+        "cache_read_input_tokens": 12377,
+        "output_tokens": 206
+      },
+      "first_call_input_tokens": 6273,
+      "tool_calls": 1,
+      "turns": 2,
+      "hit_turn_cap": false,
+      "wall_ms": 2967,
+      "cost_usd": 0.007783399999999999,
+      "judge_cost_usd": 0
+    }
+  ],
+  "intervals": {
+    "resamples": 10000,
+    "seed": 1215,
+    "cells": [
+      {
+        "condition": "manual",
+        "model": "claude-haiku-4-5-20251001",
+        "questions": 20,
+        "reps": 1,
+        "accuracy": 1,
+        "lower": 1,
+        "upper": 1,
+        "read_by": [
+          "R1"
+        ]
+      },
+      {
+        "condition": "manual-preloaded",
+        "model": "claude-haiku-4-5-20251001",
+        "questions": 20,
+        "reps": 1,
+        "accuracy": 0.85,
+        "lower": 0.65,
+        "upper": 1,
+        "read_by": []
+      },
+      {
+        "condition": "manual",
+        "model": "claude-sonnet-5",
+        "questions": 20,
+        "reps": 1,
+        "accuracy": 0.95,
+        "lower": 0.85,
+        "upper": 1,
+        "read_by": [
+          "R1"
+        ]
+      },
+      {
+        "condition": "manual-preloaded",
+        "model": "claude-sonnet-5",
+        "questions": 20,
+        "reps": 1,
+        "accuracy": 0.9,
+        "lower": 0.75,
+        "upper": 1,
+        "read_by": []
+      }
+    ],
+    "comparisons": []
+  }
+}

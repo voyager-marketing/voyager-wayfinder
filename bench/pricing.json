@@ -1,0 +1,21 @@
+{
+  "source": "https://platform.claude.com/docs/en/about-claude/pricing",
+  "requested": "https://docs.claude.com/en/docs/about-claude/pricing (302 to the source above)",
+  "fetched": "2026-10-01",
+  "unit": "USD per million tokens",
+  "notes": "Standard first-party API rates, global inference. cache_write_5m is the 5-minute TTL that cache_control ephemeral uses by default.",
+  "models": {
+    "claude-haiku-4-5-20251001": {
+      "input": 1,
+      "cache_write_5m": 1.25,
+      "cache_read": 0.1,
+      "output": 5
+    },
+    "claude-sonnet-5": {
+      "input": 2,
+      "cache_write_5m": 2.5,
+      "cache_read": 0.2,
+      "output": 10
+    }
+  }
+}

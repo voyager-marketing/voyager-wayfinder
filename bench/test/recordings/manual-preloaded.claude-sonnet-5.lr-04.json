@@ -1,0 +1,26 @@
+{
+  "synthetic": true,
+  "note": "Hand-written for the dry-run test suite. Not a recorded API run and not a measurement.",
+  "question": "lr-04",
+  "condition": "manual-preloaded",
+  "model": "claude-sonnet-5",
+  "wall_ms": 1980,
+  "preload": "# wayfinder v1 brief h:9f2c41\nsite: Riverbend Plumbing | theme vwf-fixture (child of twentytwentyfive)\nedit:\n  CTA banner (3 pages) -> pat:cta-banner, synced: one edit changes all\n\n# wayfinder v1 index h:9f2c41\npat:cta-banner | CTA banner | synced, 3 usages | post.php?post=90003&action=edit | page:about, page:home, tpl:single-service",
+  "turns": [
+    {
+      "response": {
+        "id": "msg_dry_lr04_1",
+        "type": "message",
+        "role": "assistant",
+        "model": "claude-sonnet-5",
+        "content": [
+          { "type": "text", "text": "The child theme overrides two template parts from twentytwentyfive.\nANSWER: header, footer" }
+        ],
+        "stop_reason": "end_turn",
+        "stop_sequence": null,
+        "usage": { "input_tokens": 48, "cache_creation_input_tokens": 4630, "cache_read_input_tokens": 0, "output_tokens": 30 }
+      },
+      "tool_results": []
+    }
+  ]
+}

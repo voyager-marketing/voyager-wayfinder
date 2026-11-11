@@ -1,0 +1,45 @@
+name: Builder support
+description: Propose a section for a page builder or theme builder (Bricks, Beaver Themer, Divi, Elementor and others).
+labels: ["builder", "help wanted"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Builder-specific sections are left to contributors: the maintainers review them but won't write them.
+        A builder section reads the builder's own data and reports where each thing is edited. It never edits builder content.
+        See docs/good-first-issues.md for the shape of a builder task.
+  - type: input
+    id: builder
+    attributes:
+      label: Builder and version
+      placeholder: Bricks 2.4, Beaver Themer 1.5, Divi 5
+    validations:
+      required: true
+  - type: textarea
+    id: what-to-map
+    attributes:
+      label: What Wayfinder should map
+      description: Templates, headers, footers, global parts, display conditions, dynamic data. Say which of these a site owner edits most.
+    validations:
+      required: true
+  - type: textarea
+    id: where-stored
+    attributes:
+      label: Where the builder stores it
+      description: Post types, post meta keys, options or files, and any public API or abilities the builder offers for reading them.
+  - type: textarea
+    id: edit-location
+    attributes:
+      label: Where each thing is edited
+      description: The admin screen or builder URL a person opens to change it, for example `post.php?post=<id>&action=edit` or a builder-specific URL.
+    validations:
+      required: true
+  - type: checkboxes
+    id: commitment
+    attributes:
+      label: Contribution
+      options:
+        - label: The section reads only and changes nothing on the site.
+          required: true
+        - label: I can test it against a site running this builder.
+        - label: I'd like to write the pull request.

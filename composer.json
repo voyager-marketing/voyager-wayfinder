@@ -1,0 +1,44 @@
+{
+  "name": "voyager-marketing/voyager-wayfinder",
+  "description": "Scans a WordPress site and keeps a living manual of how it is built and where each thing is edited.",
+  "type": "wordpress-plugin",
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "php": ">=8.1"
+  },
+  "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+    "php-stubs/wordpress-stubs": "^7.1",
+    "phpstan/phpstan": "^2.2",
+    "phpunit/phpunit": "^10.5",
+    "squizlabs/php_codesniffer": "^3.9",
+    "szepeviktor/phpstan-wordpress": "^2.0.4",
+    "wp-coding-standards/wpcs": "^3.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Voyager\\Wayfinder\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Voyager\\Wayfinder\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "@php vendor/bin/phpunit --testsuite Unit",
+    "phpstan": "@php vendor/bin/phpstan analyse --memory-limit=1G --no-progress",
+    "phpcs": "@php vendor/bin/phpcs"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "platform": {
+      "php": "8.1.0"
+    },
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
+}

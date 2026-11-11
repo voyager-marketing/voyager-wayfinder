@@ -1,0 +1,24 @@
+# Find inputs for the frozen edit-safety set (questions/fixture-edit-safety.yaml), for the find eval.
+#
+# The set was frozen before run 4, before any question carried find inputs, so they live here, outside its hash.
+# Each is what the person asking would have to hand: the page they saw it on, the text they saw and the class
+# their developer named. Written from fixtures/seed.php and fixtures/truth.json (`edit_safety`). Every question
+# whose answer names an edit screen or a block path is listed. A stale_edit question's text is the anchored
+# block's text, which its prompt quotes.
+questions: questions/fixture-edit-safety.yaml
+questions_sha256: "69eb2c8401ba4ff31666e968dce3cf8ac31c3c5153c4920a70dbadb9fe372cc9"
+inputs:
+  - id: lk-05
+    find: { url: / }
+  - id: mh-01
+    find: { url: /financing/, text: 0% financing for 12 months on approved credit. }
+  - id: mh-02
+    find: { url: /financing/, text: 0% financing for 12 months on approved credit. }
+  - id: sl-01
+    find: { url: /maintenance-plan/, class: plan-card }
+  - id: sl-04
+    find: { url: /financing/, class: promo-strip }
+  - id: se-01
+    find: { url: /maintenance-plan/, text: 0% financing for 12 months on approved credit. }
+  - id: se-05
+    find: { url: /commercial/, text: Ask about after-hours service. }

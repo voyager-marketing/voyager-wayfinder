@@ -1,0 +1,49 @@
+# What stays out of voyager-wayfinder.zip. CI copies the tree with
+# `rsync --exclude-from=.distignore`, so a leading slash anchors to the repo root.
+# vendor/ ships: CI rebuilds it with --no-dev, leaving only the autoloader.
+
+# Git and CI
+/.git
+/.github
+/.gitignore
+/.gitattributes
+/.distignore
+/.worktreeinclude
+
+# WordPress.org listing assets (blueprint, screenshots), deployed separately
+/.wordpress-org
+
+# The README's art and the GitHub Playground blueprint
+/assets/readme
+/blueprint.json
+
+# Tests, fixtures, benchmark, docs
+/tests
+/bench
+/fixtures
+/docs
+/scratchpad
+
+# Dev config
+/composer.json
+/composer.lock
+/package.json
+/package-lock.json
+/node_modules
+/phpunit.xml.dist
+/phpstan.neon.dist
+/phpcs.xml.dist
+/.phpunit.cache
+/.wp-env.json
+/.wp-env.override.json
+/.claude
+/AGENTS.md
+/CLAUDE.md
+/README.md
+/CONTRIBUTING.md
+/CODE_OF_CONDUCT.md
+/SECURITY.md
+
+# Build output
+/build
+*.zip

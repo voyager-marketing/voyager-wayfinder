@@ -1,0 +1,115 @@
+{
+  "about": "Role of a plugin in the integrations section, keyed by plugin slug (the folder name under wp-content/plugins). A plugin not listed here gets role other. Keep each list sorted; src/Scanners/PluginRoles.php reads this file.",
+  "roles": {
+    "ai": [
+      "abilities-api",
+      "ai",
+      "ai-engine",
+      "ai-provider-for-anthropic",
+      "ai-provider-for-google",
+      "ai-provider-for-openai",
+      "mcp-adapter",
+      "wp-ai-client"
+    ],
+    "analytics": [
+      "burst-statistics",
+      "google-analytics-for-wordpress",
+      "google-site-kit",
+      "independent-analytics",
+      "koko-analytics",
+      "matomo",
+      "wp-statistics"
+    ],
+    "backup": [
+      "all-in-one-wp-migration",
+      "backwpup",
+      "duplicator",
+      "updraftplus",
+      "wpvivid-backuprestore"
+    ],
+    "builder": [
+      "bb-plugin",
+      "beaver-builder-lite-version",
+      "breakdance",
+      "divi-builder",
+      "elementor",
+      "elementor-pro",
+      "generateblocks",
+      "js_composer",
+      "kadence-blocks",
+      "ultimate-addons-for-gutenberg"
+    ],
+    "cache": [
+      "autoptimize",
+      "breeze",
+      "litespeed-cache",
+      "sg-cachepress",
+      "w3-total-cache",
+      "wp-fastest-cache",
+      "wp-rocket",
+      "wp-super-cache"
+    ],
+    "ecommerce": [
+      "easy-digital-downloads",
+      "surecart",
+      "woocommerce",
+      "woocommerce-gateway-stripe",
+      "woocommerce-payments"
+    ],
+    "email": [
+      "easy-wp-smtp",
+      "fluent-smtp",
+      "mailchimp-for-wp",
+      "mailpoet",
+      "post-smtp",
+      "postmark-approved-wordpress-plugin",
+      "wp-mail-smtp"
+    ],
+    "fields": [
+      "advanced-custom-fields",
+      "advanced-custom-fields-pro",
+      "meta-box",
+      "pods",
+      "secure-custom-fields"
+    ],
+    "forms": [
+      "contact-form-7",
+      "fluentform",
+      "formidable",
+      "forminator",
+      "gravityforms",
+      "ninja-forms",
+      "wpforms",
+      "wpforms-lite"
+    ],
+    "hosting": [
+      "hostinger",
+      "spinupwp"
+    ],
+    "multilingual": [
+      "gtranslate",
+      "polylang",
+      "polylang-pro",
+      "sitepress-multilingual-cms",
+      "translatepress-multilingual",
+      "weglot"
+    ],
+    "security": [
+      "all-in-one-wp-security-and-firewall",
+      "better-wp-security",
+      "limit-login-attempts-reloaded",
+      "really-simple-ssl",
+      "sucuri-scanner",
+      "two-factor",
+      "wordfence"
+    ],
+    "seo": [
+      "all-in-one-seo-pack",
+      "autodescription",
+      "seo-by-rank-math",
+      "wordpress-seo",
+      "wordpress-seo-premium",
+      "wp-seopress"
+    ]
+  }
+}

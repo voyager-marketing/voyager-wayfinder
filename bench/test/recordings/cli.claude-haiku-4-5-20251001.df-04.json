@@ -1,0 +1,133 @@
+{
+  "synthetic": true,
+  "note": "Hand-written for the dry-run test suite. Not a recorded API run and not a measurement.",
+  "question": "df-04",
+  "condition": "cli",
+  "model": "claude-haiku-4-5-20251001",
+  "wall_ms": 6240,
+  "turns": [
+    {
+      "response": {
+        "id": "msg_dry_df04_1",
+        "type": "message",
+        "role": "assistant",
+        "model": "claude-haiku-4-5-20251001",
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "toolu_dry_df04_1",
+            "name": "wp",
+            "input": {
+              "args": "eval \"print_r(get_post_types(['_builtin' => false]));\""
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "stop_sequence": null,
+        "usage": {
+          "input_tokens": 1702,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 58
+        }
+      },
+      "tool_results": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_dry_df04_1",
+          "content": "refused: wp eval is not a read-only command this tool runs. The tool description lists the ones it does",
+          "is_error": true
+        }
+      ]
+    },
+    {
+      "response": {
+        "id": "msg_dry_df04_2",
+        "type": "message",
+        "role": "assistant",
+        "model": "claude-haiku-4-5-20251001",
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "toolu_dry_df04_2",
+            "name": "wp",
+            "input": {
+              "args": "plugin list --status=must-use --fields=name,status"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "stop_sequence": null,
+        "usage": {
+          "input_tokens": 1815,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 51
+        }
+      },
+      "tool_results": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_dry_df04_2",
+          "content": "name\tstatus\nvwf-classic-core\tmust-use\nvwf-dev-guard\tmust-use\nvwf-fixture-core\tmust-use"
+        }
+      ]
+    },
+    {
+      "response": {
+        "id": "msg_dry_df04_3",
+        "type": "message",
+        "role": "assistant",
+        "model": "claude-haiku-4-5-20251001",
+        "content": [
+          {
+            "type": "tool_use",
+            "id": "toolu_dry_df04_3",
+            "name": "read_file",
+            "input": {
+              "path": "mu-plugins/vwf-fixture-core.php"
+            }
+          }
+        ],
+        "stop_reason": "tool_use",
+        "stop_sequence": null,
+        "usage": {
+          "input_tokens": 1902,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 46
+        }
+      },
+      "tool_results": [
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_dry_df04_3",
+          "content": "<?php\n\n/**\n * Plugin Name: Wayfinder fixture core\n * Description: Content model, Business Info settings and the business-info block bindings source for the Wayfinder fixture site. Test fixture only, never ships.\n * Version:     0.1.0\n * License:     GPL-2.0-or-later\n *\n * Loaded as an mu-plugin through the `.wp-env.json` mappings. `vwf_fixture_model()`\n * is the single description of what this file registers; fixtures/seed.php reads\n * the same array when it writes fixtures/truth.json, so the site and its ground\n * truth come from one set of constants.\n *\n * The fixture site also hosts the classic fixture (vwf-classic-core.php beside\n * this file), so everything here registers only while the vwf-fixture theme is\n * active. Each seed switches the theme and then reruns itself in a fresh WP-CLI\n * process, where `init` registers the right model.\n *\n * @package Voyager\\Wayfinder\n */\n\ndeclare(strict_types=1);\n\nif (!defined('ABSPATH')) {\n    exit;\n}\n\n// fixtures/seed.php and fixtures/classic/seed.php delete every page and post,\n// and refuse to run unless this constant says they are on the fixture site.\ndefine('VWF_FIXTURE', true);\n"
+        }
+      ]
+    },
+    {
+      "response": {
+        "id": "msg_dry_df04_4",
+        "type": "message",
+        "role": "assistant",
+        "model": "claude-haiku-4-5-20251001",
+        "content": [
+          {
+            "type": "text",
+            "text": "The must-use plugin vwf-fixture-core.php registers the service and team_member post types, the service_area taxonomy and the business info binding source.\nANSWER: vwf-fixture-core.php"
+          }
+        ],
+        "stop_reason": "end_turn",
+        "stop_sequence": null,
+        "usage": {
+          "input_tokens": 2391,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 49
+        }
+      },
+      "tool_results": []
+    }
+  ]
+}

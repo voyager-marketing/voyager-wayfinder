@@ -1,0 +1,1770 @@
+{
+    "binding_sources": [
+        {
+            "arg": "key",
+            "edit_path": "options-general.php?page=vwf-business-info",
+            "id": "vwf-fixture/business-info",
+            "keys": [
+                {
+                    "id": "bind:vwf-fixture/business-info.address",
+                    "key": "address",
+                    "label": "Address",
+                    "option": "vwf_address",
+                    "used_in": [
+                        "part:footer"
+                    ],
+                    "value": "120 Mill Race Rd, Fredericksburg, VA"
+                },
+                {
+                    "id": "bind:vwf-fixture/business-info.hours",
+                    "key": "hours",
+                    "label": "Hours",
+                    "option": "vwf_hours",
+                    "used_in": [],
+                    "value": "Mon to Fri 7am to 6pm"
+                },
+                {
+                    "id": "bind:vwf-fixture/business-info.phone",
+                    "key": "phone",
+                    "label": "Phone",
+                    "option": "vwf_phone",
+                    "used_in": [
+                        "part:footer"
+                    ],
+                    "value": "(540) 555-0142"
+                }
+            ],
+            "label": "Business info",
+            "registered_by": "mu-plugin:vwf-fixture-core.php",
+            "settings_page": {
+                "menu": "Settings > Business Info",
+                "option_group": "vwf-business-info",
+                "slug": "vwf-business-info"
+            }
+        }
+    ],
+    "counts": {
+        "pt:page": 10,
+        "pt:post": 4,
+        "pt:service": 6,
+        "pt:team_member": 4,
+        "tax:service_area": 5
+    },
+    "drift": {
+        "option": "vwf_fixture_extra_field",
+        "value": 0,
+        "when_enabled_adds": [
+            {
+                "id": "field:service.warranty_years",
+                "show_in_rest": true,
+                "type": "integer"
+            }
+        ]
+    },
+    "edit_safety": {
+        "anchors": [
+            {
+                "entity": "pt:page",
+                "fp": "efe040c1b98bfc5d",
+                "key": "after-hours",
+                "page_path": "/commercial/",
+                "path": "3",
+                "paths_now": [
+                    "2",
+                    "4"
+                ],
+                "post": 90060,
+                "status": "moved",
+                "text": "Ask about after-hours service."
+            },
+            {
+                "entity": "pt:page",
+                "fp": "2096b11dc3de1788",
+                "key": "financing-line",
+                "page_path": "/maintenance-plan/",
+                "path": "4",
+                "paths_now": [
+                    "5"
+                ],
+                "post": 90062,
+                "status": "moved",
+                "text": "0% financing for 12 months on approved credit."
+            },
+            {
+                "entity": "pt:page",
+                "fp": "eb5f9b00ca0d3965",
+                "key": "inspection-offer",
+                "page_path": "/maintenance-plan/",
+                "path": "6",
+                "paths_now": [],
+                "post": 90062,
+                "status": "gone",
+                "text": "Plans include a free first-year inspection."
+            },
+            {
+                "entity": "pt:page",
+                "fp": "e89fbf3ecf2e4890",
+                "key": "plan-price",
+                "page_path": "/maintenance-plan/",
+                "path": "2.1",
+                "paths_now": [],
+                "post": 90062,
+                "status": "changed",
+                "text": "$179 a year, billed once."
+            },
+            {
+                "entity": "pt:page",
+                "fp": "18f1e6fd950a2a8e",
+                "key": "renewal-terms",
+                "page_path": "/maintenance-plan/",
+                "path": "3.0",
+                "paths_now": [
+                    "3.0"
+                ],
+                "post": 90062,
+                "status": "unchanged",
+                "text": "Plans renew each year unless you cancel in writing."
+            }
+        ],
+        "blocks": [
+            {
+                "block": "core/paragraph",
+                "can_remove": "yes",
+                "classes": [],
+                "edit_path": "post.php?post=90061&action=edit",
+                "name": "Approval time",
+                "page": "page:financing",
+                "page_path": "/financing/",
+                "path": "3",
+                "template_lock": null,
+                "text_editable": "yes"
+            },
+            {
+                "block": "core/paragraph",
+                "can_remove": "yes",
+                "classes": [],
+                "edit_path": "post.php?post=90062&action=edit",
+                "name": "Financing line",
+                "page": "page:maintenance-plan",
+                "page_path": "/maintenance-plan/",
+                "path": "5",
+                "template_lock": null,
+                "text_editable": "yes"
+            },
+            {
+                "block": "core/paragraph",
+                "can_remove": "no",
+                "classes": [],
+                "edit_path": "post.php?post=90062&action=edit",
+                "name": "License notice",
+                "page": "page:maintenance-plan",
+                "page_path": "/maintenance-plan/",
+                "path": "4",
+                "template_lock": null,
+                "text_editable": "yes"
+            },
+            {
+                "block": "core/group",
+                "can_remove": "yes",
+                "classes": [
+                    "plan-card"
+                ],
+                "edit_path": "post.php?post=90062&action=edit",
+                "name": "Plan card",
+                "page": "page:maintenance-plan",
+                "page_path": "/maintenance-plan/",
+                "path": "2",
+                "template_lock": "contentOnly",
+                "text_editable": "no"
+            },
+            {
+                "block": "core/paragraph",
+                "can_remove": "no",
+                "classes": [],
+                "edit_path": "post.php?post=90062&action=edit",
+                "name": "Plan inclusions",
+                "page": "page:maintenance-plan",
+                "page_path": "/maintenance-plan/",
+                "path": "2.2",
+                "template_lock": null,
+                "text_editable": "yes"
+            },
+            {
+                "block": "core/heading",
+                "can_remove": "no",
+                "classes": [],
+                "edit_path": "post.php?post=90062&action=edit",
+                "name": "Plan name",
+                "page": "page:maintenance-plan",
+                "page_path": "/maintenance-plan/",
+                "path": "2.0",
+                "template_lock": null,
+                "text_editable": "yes"
+            },
+            {
+                "block": "core/paragraph",
+                "can_remove": "no",
+                "classes": [],
+                "edit_path": "post.php?post=90062&action=edit",
+                "name": "Plan price",
+                "page": "page:maintenance-plan",
+                "page_path": "/maintenance-plan/",
+                "path": "2.1",
+                "template_lock": null,
+                "text_editable": "yes"
+            },
+            {
+                "block": "core/group",
+                "can_remove": "yes",
+                "classes": [],
+                "edit_path": "post.php?post=90062&action=edit",
+                "name": "Plan terms",
+                "page": "page:maintenance-plan",
+                "page_path": "/maintenance-plan/",
+                "path": "3",
+                "template_lock": "all",
+                "text_editable": "no"
+            },
+            {
+                "block": "core/paragraph",
+                "can_remove": "no",
+                "classes": [],
+                "edit_path": "post.php?post=90062&action=edit",
+                "name": "Refund terms",
+                "page": "page:maintenance-plan",
+                "page_path": "/maintenance-plan/",
+                "path": "3.1",
+                "template_lock": null,
+                "text_editable": "yes"
+            },
+            {
+                "block": "core/paragraph",
+                "can_remove": "no",
+                "classes": [],
+                "edit_path": "post.php?post=90062&action=edit",
+                "name": "Renewal terms",
+                "page": "page:maintenance-plan",
+                "page_path": "/maintenance-plan/",
+                "path": "3.0",
+                "template_lock": null,
+                "text_editable": "yes"
+            },
+            {
+                "block": "core/button",
+                "can_remove": "yes",
+                "classes": [
+                    "is-style-outline"
+                ],
+                "edit_path": "post.php?post=90060&action=edit",
+                "name": "Survey button",
+                "page": "page:commercial",
+                "page_path": "/commercial/",
+                "path": "5.0",
+                "template_lock": null,
+                "text_editable": "yes"
+            }
+        ],
+        "classes": [
+            {
+                "class": "hide-mobile",
+                "count": 2,
+                "edit_paths": [
+                    "post.php?post=90061&action=edit",
+                    "post.php?post=90062&action=edit"
+                ],
+                "homes": [
+                    "page:financing",
+                    "page:maintenance-plan"
+                ],
+                "shown_on": [
+                    "/financing/",
+                    "/maintenance-plan/"
+                ]
+            },
+            {
+                "class": "is-style-outline",
+                "count": 2,
+                "edit_paths": [
+                    "post.php?post=90060&action=edit",
+                    "post.php?post=90062&action=edit"
+                ],
+                "homes": [
+                    "page:commercial",
+                    "page:maintenance-plan"
+                ],
+                "shown_on": [
+                    "/commercial/",
+                    "/maintenance-plan/"
+                ]
+            },
+            {
+                "class": "plan-card",
+                "count": 1,
+                "edit_paths": [
+                    "post.php?post=90062&action=edit"
+                ],
+                "homes": [
+                    "page:maintenance-plan"
+                ],
+                "shown_on": [
+                    "/maintenance-plan/"
+                ]
+            },
+            {
+                "class": "promo-strip",
+                "count": 1,
+                "edit_paths": [
+                    "post.php?post=90070&action=edit"
+                ],
+                "homes": [
+                    "pat:financing-offer"
+                ],
+                "shown_on": [
+                    "/commercial/",
+                    "/financing/"
+                ]
+            }
+        ],
+        "client_can": [
+            {
+                "answer": "no",
+                "edit_path": "site-editor.php?p=/wp_template_part/vwf-fixture//footer&canvas=edit",
+                "key": "footer-layout",
+                "needs": [
+                    "edit_theme_options"
+                ],
+                "role_lacks": [
+                    "edit_theme_options"
+                ],
+                "text_editable": "yes"
+            },
+            {
+                "answer": "no",
+                "edit_path": "options-general.php?page=vwf-business-info",
+                "key": "footer-phone",
+                "needs": [
+                    "manage_options"
+                ],
+                "role_lacks": [
+                    "manage_options"
+                ],
+                "text_editable": "yes"
+            },
+            {
+                "answer": "yes",
+                "edit_path": "post.php?post=90062&action=edit",
+                "key": "plan-price",
+                "needs": [
+                    "edit_others_pages",
+                    "edit_published_pages"
+                ],
+                "role_lacks": [],
+                "text_editable": "yes"
+            },
+            {
+                "answer": "yes",
+                "edit_path": "post.php?post=90062&action=edit",
+                "key": "renewal-terms",
+                "needs": [
+                    "edit_others_pages",
+                    "edit_published_pages"
+                ],
+                "role_lacks": [],
+                "text_editable": "yes"
+            }
+        ],
+        "client_role": "editor",
+        "client_role_caps": {
+            "edit_others_pages": true,
+            "edit_published_pages": true,
+            "edit_theme_options": false,
+            "manage_options": false
+        },
+        "pages": [
+            {
+                "cannot_remove": [],
+                "edit_path": "post.php?post=90060&action=edit",
+                "path": "/commercial/",
+                "post": 90060,
+                "slug": "commercial",
+                "title": "Commercial plumbing"
+            },
+            {
+                "cannot_remove": [],
+                "edit_path": "post.php?post=90061&action=edit",
+                "path": "/financing/",
+                "post": 90061,
+                "slug": "financing",
+                "title": "Financing"
+            },
+            {
+                "cannot_remove": [
+                    "License notice",
+                    "Plan inclusions",
+                    "Plan name",
+                    "Plan price",
+                    "Refund terms",
+                    "Renewal terms"
+                ],
+                "edit_path": "post.php?post=90062&action=edit",
+                "path": "/maintenance-plan/",
+                "post": 90062,
+                "slug": "maintenance-plan",
+                "title": "Maintenance plan"
+            }
+        ],
+        "texts": [
+            {
+                "edit_paths": [
+                    "post.php?post=90062&action=edit"
+                ],
+                "homes": [
+                    "page:maintenance-plan"
+                ],
+                "key": "book-tune-up",
+                "shown_at": [
+                    {
+                        "blocks": 2,
+                        "edit_path": "post.php?post=90062&action=edit",
+                        "follows_pattern": "no",
+                        "home": "page:maintenance-plan",
+                        "path": "/maintenance-plan/"
+                    }
+                ],
+                "text": "Book your annual tune-up"
+            },
+            {
+                "edit_paths": [
+                    "post.php?post=90062&action=edit",
+                    "post.php?post=90070&action=edit"
+                ],
+                "homes": [
+                    "page:maintenance-plan",
+                    "pat:financing-offer"
+                ],
+                "key": "financing-offer",
+                "shown_at": [
+                    {
+                        "blocks": 1,
+                        "edit_path": "post.php?post=90070&action=edit",
+                        "follows_pattern": "yes",
+                        "home": "pat:financing-offer",
+                        "path": "/commercial/"
+                    },
+                    {
+                        "blocks": 1,
+                        "edit_path": "post.php?post=90070&action=edit",
+                        "follows_pattern": "yes",
+                        "home": "pat:financing-offer",
+                        "path": "/financing/"
+                    },
+                    {
+                        "blocks": 1,
+                        "edit_path": "post.php?post=90062&action=edit",
+                        "follows_pattern": "no",
+                        "home": "page:maintenance-plan",
+                        "path": "/maintenance-plan/"
+                    }
+                ],
+                "text": "0% financing for 12 months on approved credit."
+            },
+            {
+                "edit_paths": [
+                    "post.php?post=90010&action=edit",
+                    "post.php?post=90060&action=edit"
+                ],
+                "homes": [
+                    "page:about",
+                    "page:commercial"
+                ],
+                "key": "founding-year",
+                "shown_at": [
+                    {
+                        "blocks": 1,
+                        "edit_path": "post.php?post=90010&action=edit",
+                        "follows_pattern": "no",
+                        "home": "page:about",
+                        "path": "/about/"
+                    },
+                    {
+                        "blocks": 1,
+                        "edit_path": "post.php?post=90060&action=edit",
+                        "follows_pattern": "no",
+                        "home": "page:commercial",
+                        "path": "/commercial/"
+                    }
+                ],
+                "text": "2009"
+            }
+        ]
+    },
+    "edit_safety_2": {
+        "anchors": [
+            {
+                "entity": "pt:page",
+                "fp": "9e1c4112cdf0ed24",
+                "key": "emergency-line",
+                "page_path": "/emergencies/",
+                "path": "2",
+                "paths_now": [],
+                "post": 90082,
+                "status": "gone",
+                "text": "Call our emergency line any time, day or night."
+            },
+            {
+                "entity": "pt:page",
+                "fp": "196e21f3b7aac669",
+                "key": "frozen-pipes",
+                "page_path": "/guarantee/",
+                "path": "4",
+                "paths_now": [
+                    "5"
+                ],
+                "post": 90081,
+                "status": "moved",
+                "text": "The guarantee does not cover frozen pipes."
+            },
+            {
+                "entity": "pt:page",
+                "fp": "efb7d39b50ccca73",
+                "key": "labor-rate",
+                "page_path": "/pricing/",
+                "path": "2.1",
+                "paths_now": [],
+                "post": 90080,
+                "status": "changed",
+                "text": "Labor: $125 an hour after the first hour."
+            },
+            {
+                "entity": "pt:page",
+                "fp": "ef6647e74f970269",
+                "key": "night-rate",
+                "page_path": "/pricing/",
+                "path": "2.2",
+                "paths_now": [
+                    "2.2"
+                ],
+                "post": 90080,
+                "status": "unchanged",
+                "text": "Nights and Sundays are billed at time and a half."
+            },
+            {
+                "entity": "pt:page",
+                "fp": "383d9cdc67cf7d49",
+                "key": "price-promise",
+                "page_path": "/pricing/",
+                "path": "4",
+                "paths_now": [
+                    "3"
+                ],
+                "post": 90080,
+                "status": "moved",
+                "text": "The price we quote is the price you pay."
+            },
+            {
+                "entity": "pt:page",
+                "fp": "be27137e3ef777db",
+                "key": "valve-note",
+                "page_path": "/emergencies/",
+                "path": "1.1",
+                "paths_now": [
+                    "1.1.0"
+                ],
+                "post": 90082,
+                "status": "moved",
+                "text": "Our main valve is in the crawl space."
+            }
+        ],
+        "blocks": [
+            {
+                "block": "core/paragraph",
+                "can_insert": null,
+                "can_move": "yes",
+                "can_remove": "yes",
+                "classes": [
+                    "night-note"
+                ],
+                "edit_path": "post.php?post=90082&action=edit",
+                "name": "After-dark line",
+                "page": "page:emergencies",
+                "page_path": "/emergencies/",
+                "path": "3",
+                "template_lock": null,
+                "text_editable": "yes"
+            },
+            {
+                "block": "core/paragraph",
+                "can_insert": null,
+                "can_move": "yes",
+                "can_remove": "no",
+                "classes": [],
+                "edit_path": "post.php?post=90080&action=edit",
+                "name": "Call-out fee",
+                "page": "page:pricing",
+                "page_path": "/pricing/",
+                "path": "2.0",
+                "template_lock": null,
+                "text_editable": "yes"
+            },
+            {
+                "block": "core/heading",
+                "can_insert": null,
+                "can_move": "no",
+                "can_remove": "no",
+                "classes": [],
+                "edit_path": "post.php?post=90082&action=edit",
+                "name": "Checklist title",
+                "page": "page:emergencies",
+                "page_path": "/emergencies/",
+                "path": "1.0",
+                "template_lock": null,
+                "text_editable": "yes"
+            },
+            {
+                "block": "core/group",
+                "can_insert": "no",
+                "can_move": "yes",
+                "can_remove": "yes",
+                "classes": [
+                    "claim-steps"
+                ],
+                "edit_path": "post.php?post=90081&action=edit",
+                "name": "Claim steps",
+                "page": "page:guarantee",
+                "page_path": "/guarantee/",
+                "path": "2",
+                "template_lock": "all",
+                "text_editable": "no"
+            },
+            {
+                "block": "core/group",
+                "can_insert": "no",
+                "can_move": "yes",
+                "can_remove": "yes",
+                "classes": [],
+                "edit_path": "post.php?post=90082&action=edit",
+                "name": "Emergency checklist",
+                "page": "page:emergencies",
+                "page_path": "/emergencies/",
+                "path": "1",
+                "template_lock": "all",
+                "text_editable": "no"
+            },
+            {
+                "block": "core/paragraph",
+                "can_insert": null,
+                "can_move": "yes",
+                "can_remove": "no",
+                "classes": [],
+                "edit_path": "post.php?post=90080&action=edit",
+                "name": "Labor rate",
+                "page": "page:pricing",
+                "page_path": "/pricing/",
+                "path": "2.1",
+                "template_lock": null,
+                "text_editable": "yes"
+            },
+            {
+                "block": "core/paragraph",
+                "can_insert": null,
+                "can_move": "yes",
+                "can_remove": "yes",
+                "classes": [],
+                "edit_path": "post.php?post=90080&action=edit",
+                "name": "Night rate",
+                "page": "page:pricing",
+                "page_path": "/pricing/",
+                "path": "2.2",
+                "template_lock": null,
+                "text_editable": "yes"
+            },
+            {
+                "block": "core/paragraph",
+                "can_insert": null,
+                "can_move": "no",
+                "can_remove": "no",
+                "classes": [],
+                "edit_path": "post.php?post=90080&action=edit",
+                "name": "Price promise",
+                "page": "page:pricing",
+                "page_path": "/pricing/",
+                "path": "3",
+                "template_lock": null,
+                "text_editable": "yes"
+            },
+            {
+                "block": "core/button",
+                "can_insert": null,
+                "can_move": "yes",
+                "can_remove": "yes",
+                "classes": [
+                    "quote-cta"
+                ],
+                "edit_path": "post.php?post=90080&action=edit",
+                "name": "Quote button",
+                "page": "page:pricing",
+                "page_path": "/pricing/",
+                "path": "6.0",
+                "template_lock": null,
+                "text_editable": "yes"
+            },
+            {
+                "block": "core/group",
+                "can_insert": "no",
+                "can_move": "yes",
+                "can_remove": "yes",
+                "classes": [
+                    "rate-card"
+                ],
+                "edit_path": "post.php?post=90080&action=edit",
+                "name": "Rate card",
+                "page": "page:pricing",
+                "page_path": "/pricing/",
+                "path": "2",
+                "template_lock": "insert",
+                "text_editable": "no"
+            },
+            {
+                "block": "core/paragraph",
+                "can_insert": null,
+                "can_move": "no",
+                "can_remove": "no",
+                "classes": [],
+                "edit_path": "post.php?post=90081&action=edit",
+                "name": "Step one",
+                "page": "page:guarantee",
+                "page_path": "/guarantee/",
+                "path": "2.0",
+                "template_lock": null,
+                "text_editable": "yes"
+            },
+            {
+                "block": "core/paragraph",
+                "can_insert": null,
+                "can_move": "no",
+                "can_remove": "no",
+                "classes": [],
+                "edit_path": "post.php?post=90081&action=edit",
+                "name": "Step three",
+                "page": "page:guarantee",
+                "page_path": "/guarantee/",
+                "path": "2.2",
+                "template_lock": null,
+                "text_editable": "yes"
+            },
+            {
+                "block": "core/paragraph",
+                "can_insert": null,
+                "can_move": "no",
+                "can_remove": "no",
+                "classes": [],
+                "edit_path": "post.php?post=90081&action=edit",
+                "name": "Step two",
+                "page": "page:guarantee",
+                "page_path": "/guarantee/",
+                "path": "2.1",
+                "template_lock": null,
+                "text_editable": "yes"
+            },
+            {
+                "block": "core/paragraph",
+                "can_insert": null,
+                "can_move": "yes",
+                "can_remove": "yes",
+                "classes": [],
+                "edit_path": "post.php?post=90082&action=edit",
+                "name": "Valve note",
+                "page": "page:emergencies",
+                "page_path": "/emergencies/",
+                "path": "1.1.0",
+                "template_lock": null,
+                "text_editable": "yes"
+            },
+            {
+                "block": "core/group",
+                "can_insert": "yes",
+                "can_move": "no",
+                "can_remove": "no",
+                "classes": [],
+                "edit_path": "post.php?post=90082&action=edit",
+                "name": "Your own notes",
+                "page": "page:emergencies",
+                "page_path": "/emergencies/",
+                "path": "1.1",
+                "template_lock": false,
+                "text_editable": "no"
+            }
+        ],
+        "classes": [
+            {
+                "class": "claim-steps",
+                "count": 1,
+                "edit_paths": [
+                    "post.php?post=90081&action=edit"
+                ],
+                "homes": [
+                    "page:guarantee"
+                ],
+                "shown_on": [
+                    "/guarantee/"
+                ]
+            },
+            {
+                "class": "guarantee-note",
+                "count": 1,
+                "edit_paths": [
+                    "post.php?post=90081&action=edit"
+                ],
+                "homes": [
+                    "page:guarantee"
+                ],
+                "shown_on": [
+                    "/guarantee/"
+                ]
+            },
+            {
+                "class": "night-note",
+                "count": 2,
+                "edit_paths": [
+                    "post.php?post=90082&action=edit"
+                ],
+                "homes": [
+                    "page:emergencies"
+                ],
+                "shown_on": [
+                    "/emergencies/"
+                ]
+            },
+            {
+                "class": "notice-bar",
+                "count": 1,
+                "edit_paths": [
+                    "post.php?post=90071&action=edit"
+                ],
+                "homes": [
+                    "pat:same-day-service"
+                ],
+                "shown_on": [
+                    "/guarantee/",
+                    "/pricing/"
+                ]
+            },
+            {
+                "class": "quote-cta",
+                "count": 1,
+                "edit_paths": [
+                    "post.php?post=90080&action=edit"
+                ],
+                "homes": [
+                    "page:pricing"
+                ],
+                "shown_on": [
+                    "/pricing/"
+                ]
+            },
+            {
+                "class": "rate-card",
+                "count": 1,
+                "edit_paths": [
+                    "post.php?post=90080&action=edit"
+                ],
+                "homes": [
+                    "page:pricing"
+                ],
+                "shown_on": [
+                    "/pricing/"
+                ]
+            },
+            {
+                "class": "small-print",
+                "count": 2,
+                "edit_paths": [
+                    "post.php?post=90080&action=edit",
+                    "post.php?post=90082&action=edit"
+                ],
+                "homes": [
+                    "page:emergencies",
+                    "page:pricing"
+                ],
+                "shown_on": [
+                    "/emergencies/",
+                    "/pricing/"
+                ]
+            }
+        ],
+        "client_can": [
+            {
+                "answer": "no",
+                "edit_path": "site-editor.php?p=/wp_template/vwf-fixture//page-contact&canvas=edit",
+                "key": "contact-layout",
+                "needs": [
+                    "edit_theme_options"
+                ],
+                "role_lacks": [
+                    "edit_theme_options"
+                ],
+                "text_editable": "yes"
+            },
+            {
+                "answer": "yes",
+                "edit_path": "post.php?post=90003&action=edit",
+                "key": "cta-banner",
+                "needs": [
+                    "edit_others_posts",
+                    "edit_published_posts"
+                ],
+                "role_lacks": [],
+                "text_editable": "yes"
+            },
+            {
+                "answer": "no",
+                "edit_path": "site-editor.php?p=/wp_navigation/90001",
+                "key": "main-menu",
+                "needs": [
+                    "edit_theme_options"
+                ],
+                "role_lacks": [
+                    "edit_theme_options"
+                ],
+                "text_editable": "yes"
+            },
+            {
+                "answer": "yes",
+                "edit_path": "post.php?post=90080&action=edit",
+                "key": "night-rate",
+                "needs": [
+                    "edit_others_pages",
+                    "edit_published_pages"
+                ],
+                "role_lacks": [],
+                "text_editable": "yes"
+            },
+            {
+                "answer": "no",
+                "edit_path": "options-general.php",
+                "key": "site-title",
+                "needs": [
+                    "manage_options"
+                ],
+                "role_lacks": [
+                    "manage_options"
+                ],
+                "text_editable": "yes"
+            }
+        ],
+        "client_role": "editor",
+        "client_role_caps": {
+            "edit_others_pages": true,
+            "edit_others_posts": true,
+            "edit_published_pages": true,
+            "edit_published_posts": true,
+            "edit_theme_options": false,
+            "manage_options": false
+        },
+        "pages": [
+            {
+                "cannot_remove": [
+                    "Checklist title",
+                    "Your own notes"
+                ],
+                "edit_path": "post.php?post=90082&action=edit",
+                "path": "/emergencies/",
+                "post": 90082,
+                "shows": [
+                    "Water where it should not be? Shut off the main valve first.",
+                    "While you wait for us",
+                    "Our main valve is in the crawl space.",
+                    "Same-day service on calls booked before noon.",
+                    "After 8pm, leave a message and we call back within the hour.",
+                    "Night visits are billed at time and a half.",
+                    "Holiday visits are billed at time and a half too."
+                ],
+                "slug": "emergencies",
+                "title": "Emergencies"
+            },
+            {
+                "cannot_remove": [
+                    "Step one",
+                    "Step three",
+                    "Step two"
+                ],
+                "edit_path": "post.php?post=90081&action=edit",
+                "path": "/guarantee/",
+                "post": 90081,
+                "shows": [
+                    "Our workmanship guarantee",
+                    "Every repair is guaranteed for two years, parts and labor.",
+                    "Call us within two years of the repair.",
+                    "We inspect the work at no charge.",
+                    "If our work failed, we fix it free.",
+                    "All work is done by plumbers licensed in Virginia.",
+                    "Same-day service on calls booked before noon.",
+                    "The guarantee does not cover frozen pipes."
+                ],
+                "slug": "guarantee",
+                "title": "Our guarantee"
+            },
+            {
+                "cannot_remove": [
+                    "Call-out fee",
+                    "Labor rate",
+                    "Price promise"
+                ],
+                "edit_path": "post.php?post=90080&action=edit",
+                "path": "/pricing/",
+                "post": 90080,
+                "shows": [
+                    "What a visit costs",
+                    "Every price below is for a standard home visit.",
+                    "Call-out fee: $89, waived when you book the repair.",
+                    "Labor: $135 an hour after the first hour.",
+                    "Nights and Sundays are billed at time and a half.",
+                    "The price we quote is the price you pay.",
+                    "Same-day service on calls booked before noon.",
+                    "Prices include Virginia sales tax where it applies.",
+                    "Ask for a quote"
+                ],
+                "slug": "pricing",
+                "title": "Pricing"
+            }
+        ],
+        "texts": [
+            {
+                "edit_paths": [
+                    "post.php?post=90010&action=edit",
+                    "post.php?post=90062&action=edit",
+                    "post.php?post=90081&action=edit"
+                ],
+                "homes": [
+                    "page:about",
+                    "page:guarantee",
+                    "page:maintenance-plan"
+                ],
+                "key": "licensed-in-virginia",
+                "shown_at": [
+                    {
+                        "blocks": 1,
+                        "edit_path": "post.php?post=90010&action=edit",
+                        "follows_pattern": "no",
+                        "home": "page:about",
+                        "path": "/about/"
+                    },
+                    {
+                        "blocks": 1,
+                        "edit_path": "post.php?post=90081&action=edit",
+                        "follows_pattern": "no",
+                        "home": "page:guarantee",
+                        "path": "/guarantee/"
+                    },
+                    {
+                        "blocks": 1,
+                        "edit_path": "post.php?post=90062&action=edit",
+                        "follows_pattern": "no",
+                        "home": "page:maintenance-plan",
+                        "path": "/maintenance-plan/"
+                    }
+                ],
+                "text": "licensed in Virginia"
+            },
+            {
+                "edit_paths": [
+                    "post.php?post=90071&action=edit",
+                    "post.php?post=90082&action=edit"
+                ],
+                "homes": [
+                    "page:emergencies",
+                    "pat:same-day-service"
+                ],
+                "key": "same-day-service",
+                "shown_at": [
+                    {
+                        "blocks": 1,
+                        "edit_path": "post.php?post=90082&action=edit",
+                        "follows_pattern": "no",
+                        "home": "page:emergencies",
+                        "path": "/emergencies/"
+                    },
+                    {
+                        "blocks": 1,
+                        "edit_path": "post.php?post=90071&action=edit",
+                        "follows_pattern": "yes",
+                        "home": "pat:same-day-service",
+                        "path": "/guarantee/"
+                    },
+                    {
+                        "blocks": 1,
+                        "edit_path": "post.php?post=90071&action=edit",
+                        "follows_pattern": "yes",
+                        "home": "pat:same-day-service",
+                        "path": "/pricing/"
+                    }
+                ],
+                "text": "Same-day service on calls booked before noon."
+            },
+            {
+                "edit_paths": [
+                    "post.php?post=90080&action=edit",
+                    "post.php?post=90082&action=edit"
+                ],
+                "homes": [
+                    "page:emergencies",
+                    "page:pricing"
+                ],
+                "key": "time-and-a-half",
+                "shown_at": [
+                    {
+                        "blocks": 2,
+                        "edit_path": "post.php?post=90082&action=edit",
+                        "follows_pattern": "no",
+                        "home": "page:emergencies",
+                        "path": "/emergencies/"
+                    },
+                    {
+                        "blocks": 1,
+                        "edit_path": "post.php?post=90080&action=edit",
+                        "follows_pattern": "no",
+                        "home": "page:pricing",
+                        "path": "/pricing/"
+                    }
+                ],
+                "text": "time and a half"
+            }
+        ]
+    },
+    "format": "wayfinder-fixture-truth/1",
+    "front_page": {
+        "page": "home",
+        "path": "/"
+    },
+    "mu_plugins": [
+        {
+            "file": "vwf-fixture-core.php",
+            "name": "Wayfinder fixture core",
+            "registers": [
+                "bind:vwf-fixture/business-info",
+                "pt:service",
+                "pt:team_member",
+                "tax:service_area"
+            ]
+        }
+    ],
+    "navigation": [
+        {
+            "edit_path": "site-editor.php?p=/wp_navigation/90002",
+            "id": "nav:footer",
+            "item_count": 2,
+            "items": [
+                {
+                    "label": "About",
+                    "path": "/about/"
+                },
+                {
+                    "label": "Contact",
+                    "path": "/contact/"
+                }
+            ],
+            "menu_path": "Appearance > Editor > Navigation",
+            "slug": "footer",
+            "title": "Footer",
+            "used_in": [
+                "part:footer"
+            ]
+        },
+        {
+            "edit_path": "site-editor.php?p=/wp_navigation/90001",
+            "id": "nav:primary",
+            "item_count": 5,
+            "items": [
+                {
+                    "label": "Home",
+                    "path": "/"
+                },
+                {
+                    "label": "About",
+                    "path": "/about/"
+                },
+                {
+                    "label": "Services",
+                    "path": "/services/"
+                },
+                {
+                    "label": "Blog",
+                    "path": "/blog/"
+                },
+                {
+                    "label": "Contact",
+                    "path": "/contact/"
+                }
+            ],
+            "menu_path": "Appearance > Editor > Navigation",
+            "slug": "primary",
+            "title": "Primary",
+            "used_in": [
+                "part:header"
+            ]
+        }
+    ],
+    "options": [
+        {
+            "id": "opt:blogname",
+            "value": "Riverbend Plumbing"
+        },
+        {
+            "id": "opt:page_for_posts",
+            "value": "blog"
+        },
+        {
+            "id": "opt:page_on_front",
+            "value": "home"
+        },
+        {
+            "id": "opt:permalink_structure",
+            "value": "/%postname%/"
+        },
+        {
+            "id": "opt:show_on_front",
+            "value": "page"
+        },
+        {
+            "id": "opt:stylesheet",
+            "value": "vwf-fixture"
+        },
+        {
+            "id": "opt:template",
+            "value": "twentytwentyfive"
+        }
+    ],
+    "pages": [
+        {
+            "path": "/about/",
+            "refs": [
+                "pat:cta-banner"
+            ],
+            "slug": "about",
+            "template": "default",
+            "title": "About"
+        },
+        {
+            "path": "/blog/",
+            "refs": [],
+            "slug": "blog",
+            "template": "default",
+            "title": "Blog"
+        },
+        {
+            "path": "/commercial/",
+            "refs": [
+                "pat:financing-offer"
+            ],
+            "slug": "commercial",
+            "template": "default",
+            "title": "Commercial plumbing"
+        },
+        {
+            "path": "/contact/",
+            "refs": [],
+            "slug": "contact",
+            "template": "page-contact",
+            "title": "Contact"
+        },
+        {
+            "path": "/emergencies/",
+            "refs": [],
+            "slug": "emergencies",
+            "template": "default",
+            "title": "Emergencies"
+        },
+        {
+            "path": "/financing/",
+            "refs": [
+                "pat:financing-offer"
+            ],
+            "slug": "financing",
+            "template": "default",
+            "title": "Financing"
+        },
+        {
+            "path": "/guarantee/",
+            "refs": [
+                "pat:same-day-service"
+            ],
+            "slug": "guarantee",
+            "template": "default",
+            "title": "Our guarantee"
+        },
+        {
+            "path": "/",
+            "refs": [
+                "pat:cta-banner"
+            ],
+            "slug": "home",
+            "template": "default",
+            "title": "Home"
+        },
+        {
+            "path": "/maintenance-plan/",
+            "refs": [],
+            "slug": "maintenance-plan",
+            "template": "default",
+            "title": "Maintenance plan"
+        },
+        {
+            "path": "/pricing/",
+            "refs": [
+                "pat:same-day-service"
+            ],
+            "slug": "pricing",
+            "template": "default",
+            "title": "Pricing"
+        }
+    ],
+    "patterns": [
+        {
+            "edit_path": "post.php?post=90003&action=edit",
+            "id": "pat:cta-banner",
+            "slug": "cta-banner",
+            "synced": true,
+            "title": "CTA banner",
+            "usage_count": 3,
+            "used_in": [
+                "page:about",
+                "page:home",
+                "tpl:single-service"
+            ]
+        },
+        {
+            "edit_path": "post.php?post=90070&action=edit",
+            "id": "pat:financing-offer",
+            "slug": "financing-offer",
+            "synced": true,
+            "title": "Financing offer",
+            "usage_count": 2,
+            "used_in": [
+                "page:commercial",
+                "page:financing"
+            ]
+        },
+        {
+            "edit_path": "post.php?post=90071&action=edit",
+            "id": "pat:same-day-service",
+            "slug": "same-day-service",
+            "synced": true,
+            "title": "Same-day service",
+            "usage_count": 2,
+            "used_in": [
+                "page:guarantee",
+                "page:pricing"
+            ]
+        }
+    ],
+    "plugins": [
+        {
+            "id": "plugin:advanced-custom-fields",
+            "name": "Advanced Custom Fields",
+            "role": "fields",
+            "slug": "advanced-custom-fields"
+        },
+        {
+            "id": "plugin:mcp-adapter",
+            "name": "MCP Adapter",
+            "role": "ai",
+            "slug": "mcp-adapter"
+        },
+        {
+            "id": "plugin:voyager-wayfinder",
+            "name": "Voyager Wayfinder",
+            "role": "other",
+            "slug": "voyager-wayfinder"
+        }
+    ],
+    "post_types": [
+        {
+            "archive_path": "/services/",
+            "edit_path": "edit.php?post_type=service",
+            "fields": [
+                {
+                    "id": "field:service.duration",
+                    "key": "duration",
+                    "label": "Duration",
+                    "show_in_rest": true,
+                    "single": true,
+                    "source": "registered_meta",
+                    "type": "string"
+                },
+                {
+                    "id": "field:service.internal_sku",
+                    "key": "internal_sku",
+                    "label": "Internal SKU",
+                    "show_in_rest": false,
+                    "single": true,
+                    "source": "registered_meta",
+                    "type": "string"
+                },
+                {
+                    "id": "field:service.price_from",
+                    "key": "price_from",
+                    "label": "Price from",
+                    "show_in_rest": true,
+                    "single": true,
+                    "source": "registered_meta",
+                    "type": "number"
+                }
+            ],
+            "has_archive": true,
+            "has_public_url": true,
+            "id": "pt:service",
+            "label": "Services",
+            "menu_name": "Services",
+            "public": true,
+            "published": 6,
+            "rewrite_slug": "services",
+            "show_in_rest": true,
+            "show_ui": true,
+            "slug": "service",
+            "supports": [
+                "title",
+                "editor",
+                "thumbnail",
+                "excerpt",
+                "custom-fields"
+            ],
+            "taxonomies": [
+                "tax:service_area"
+            ]
+        },
+        {
+            "archive_path": null,
+            "edit_path": "edit.php?post_type=team_member",
+            "fields": [
+                {
+                    "group": "Team member details",
+                    "group_edit_path": "defined in code",
+                    "id": "field:team_member.linkedin",
+                    "key": "linkedin",
+                    "label": "LinkedIn",
+                    "show_in_rest": false,
+                    "source": "acf",
+                    "type": "url"
+                },
+                {
+                    "group": "Team member details",
+                    "group_edit_path": "defined in code",
+                    "id": "field:team_member.photo",
+                    "key": "photo",
+                    "label": "Photo",
+                    "show_in_rest": false,
+                    "source": "acf",
+                    "type": "image"
+                },
+                {
+                    "group": "Team member details",
+                    "group_edit_path": "defined in code",
+                    "id": "field:team_member.role",
+                    "key": "role",
+                    "label": "Role",
+                    "show_in_rest": false,
+                    "source": "acf",
+                    "type": "text"
+                }
+            ],
+            "has_archive": false,
+            "has_public_url": false,
+            "id": "pt:team_member",
+            "label": "Team members",
+            "menu_name": "Team",
+            "public": false,
+            "published": 4,
+            "rewrite_slug": null,
+            "show_in_rest": true,
+            "show_ui": true,
+            "slug": "team_member",
+            "supports": [
+                "title",
+                "editor",
+                "thumbnail"
+            ],
+            "taxonomies": []
+        }
+    ],
+    "posts": [
+        {
+            "date": "2026-06-04",
+            "path": "/how-to-find-your-main-water-shut-off/",
+            "slug": "how-to-find-your-main-water-shut-off",
+            "title": "How to find your main water shut-off"
+        },
+        {
+            "date": "2026-07-09",
+            "path": "/signs-your-water-heater-needs-repair/",
+            "slug": "signs-your-water-heater-needs-repair",
+            "title": "Signs your water heater needs repair"
+        },
+        {
+            "date": "2026-08-13",
+            "path": "/what-not-to-put-down-a-kitchen-drain/",
+            "slug": "what-not-to-put-down-a-kitchen-drain",
+            "title": "What not to put down a kitchen drain"
+        },
+        {
+            "date": "2026-09-17",
+            "path": "/winterizing-outdoor-faucets/",
+            "slug": "winterizing-outdoor-faucets",
+            "title": "Winterizing outdoor faucets"
+        }
+    ],
+    "posts_page": {
+        "page": "blog",
+        "path": "/blog/"
+    },
+    "services": [
+        {
+            "duration": "1 to 2 hours",
+            "edit_path": "post.php?post=90020&action=edit",
+            "internal_sku": "RB-DRN-01",
+            "path": "/services/drain-cleaning/",
+            "price_from": 149,
+            "service_areas": [
+                "fredericksburg",
+                "stafford"
+            ],
+            "slug": "drain-cleaning",
+            "template": "tpl:single-service",
+            "title": "Drain cleaning"
+        },
+        {
+            "duration": "Same day",
+            "edit_path": "post.php?post=90021&action=edit",
+            "internal_sku": "RB-EMR-06",
+            "path": "/services/emergency-plumbing/",
+            "price_from": 225,
+            "service_areas": [
+                "culpeper",
+                "fredericksburg",
+                "king-george",
+                "spotsylvania",
+                "stafford"
+            ],
+            "slug": "emergency-plumbing",
+            "template": "tpl:single-service",
+            "title": "Emergency plumbing"
+        },
+        {
+            "duration": "1 to 3 hours",
+            "edit_path": "post.php?post=90022&action=edit",
+            "internal_sku": "RB-FIX-05",
+            "path": "/services/fixture-installation/",
+            "price_from": 120,
+            "service_areas": [
+                "spotsylvania"
+            ],
+            "slug": "fixture-installation",
+            "template": "tpl:single-service",
+            "title": "Fixture installation"
+        },
+        {
+            "duration": "2 hours",
+            "edit_path": "post.php?post=90023&action=edit",
+            "internal_sku": "RB-LEK-03",
+            "path": "/services/leak-detection/",
+            "price_from": 189,
+            "service_areas": [
+                "king-george",
+                "stafford"
+            ],
+            "slug": "leak-detection",
+            "template": "tpl:single-service",
+            "title": "Leak detection"
+        },
+        {
+            "duration": "1 to 2 days",
+            "edit_path": "post.php?post=90024&action=edit",
+            "internal_sku": "RB-SWR-04",
+            "path": "/services/sewer-line-repair/",
+            "price_from": 950,
+            "service_areas": [
+                "culpeper",
+                "spotsylvania"
+            ],
+            "slug": "sewer-line-repair",
+            "template": "tpl:single-service",
+            "title": "Sewer line repair"
+        },
+        {
+            "duration": "2 to 4 hours",
+            "edit_path": "post.php?post=90025&action=edit",
+            "internal_sku": "RB-WHR-02",
+            "path": "/services/water-heater-repair/",
+            "price_from": 179,
+            "service_areas": [
+                "fredericksburg"
+            ],
+            "slug": "water-heater-repair",
+            "template": "tpl:single-service",
+            "title": "Water heater repair"
+        }
+    ],
+    "site": {
+        "parent_theme": "twentytwentyfive",
+        "permalink_structure": "/%postname%/",
+        "theme": "vwf-fixture",
+        "title": "Riverbend Plumbing"
+    },
+    "taxonomies": [
+        {
+            "edit_path": "edit-tags.php?taxonomy=service_area&post_type=service",
+            "hierarchical": false,
+            "id": "tax:service_area",
+            "label": "Service areas",
+            "menu_path": "Services > Service areas",
+            "object_types": [
+                "pt:service"
+            ],
+            "public": true,
+            "show_in_rest": true,
+            "slug": "service_area",
+            "terms": [
+                {
+                    "name": "Culpeper",
+                    "services": [
+                        "emergency-plumbing",
+                        "sewer-line-repair"
+                    ],
+                    "slug": "culpeper"
+                },
+                {
+                    "name": "Fredericksburg",
+                    "services": [
+                        "drain-cleaning",
+                        "emergency-plumbing",
+                        "water-heater-repair"
+                    ],
+                    "slug": "fredericksburg"
+                },
+                {
+                    "name": "King George",
+                    "services": [
+                        "emergency-plumbing",
+                        "leak-detection"
+                    ],
+                    "slug": "king-george"
+                },
+                {
+                    "name": "Spotsylvania",
+                    "services": [
+                        "emergency-plumbing",
+                        "fixture-installation",
+                        "sewer-line-repair"
+                    ],
+                    "slug": "spotsylvania"
+                },
+                {
+                    "name": "Stafford",
+                    "services": [
+                        "drain-cleaning",
+                        "emergency-plumbing",
+                        "leak-detection"
+                    ],
+                    "slug": "stafford"
+                }
+            ]
+        }
+    ],
+    "team_members": [
+        {
+            "has_photo": true,
+            "linkedin": "https://example.com/linkedin/dana-whitfield",
+            "role": "Owner and master plumber",
+            "slug": "dana-whitfield",
+            "title": "Dana Whitfield"
+        },
+        {
+            "has_photo": true,
+            "linkedin": "https://example.com/linkedin/luis-ortega",
+            "role": "Service plumber",
+            "slug": "luis-ortega",
+            "title": "Luis Ortega"
+        },
+        {
+            "has_photo": true,
+            "linkedin": "https://example.com/linkedin/priya-nair",
+            "role": "Office manager",
+            "slug": "priya-nair",
+            "title": "Priya Nair"
+        },
+        {
+            "has_photo": true,
+            "linkedin": "https://example.com/linkedin/sam-becker",
+            "role": "Apprentice plumber",
+            "slug": "sam-becker",
+            "title": "Sam Becker"
+        }
+    ],
+    "template_parts": [
+        {
+            "area": "footer",
+            "edit_path": "site-editor.php?p=/wp_template_part/vwf-fixture//footer&canvas=edit",
+            "file": "parts/footer.html",
+            "id": "part:footer",
+            "overrides": "twentytwentyfive",
+            "refs": [
+                "bind:vwf-fixture/business-info.address",
+                "bind:vwf-fixture/business-info.phone",
+                "nav:footer"
+            ],
+            "slug": "footer",
+            "theme": "vwf-fixture"
+        },
+        {
+            "area": "header",
+            "edit_path": "site-editor.php?p=/wp_template_part/vwf-fixture//header&canvas=edit",
+            "file": "parts/header.html",
+            "id": "part:header",
+            "overrides": "twentytwentyfive",
+            "refs": [
+                "nav:primary"
+            ],
+            "slug": "header",
+            "theme": "vwf-fixture"
+        }
+    ],
+    "templates": [
+        {
+            "assigned_to": [
+                "page:contact"
+            ],
+            "edit_path": "site-editor.php?p=/wp_template/vwf-fixture//page-contact&canvas=edit",
+            "file": "templates/page-contact.html",
+            "id": "tpl:page-contact",
+            "refs": [
+                "part:footer",
+                "part:header"
+            ],
+            "slug": "page-contact",
+            "theme": "vwf-fixture",
+            "used_by_paths": [
+                "/contact/"
+            ]
+        },
+        {
+            "assigned_to": [],
+            "edit_path": "site-editor.php?p=/wp_template/vwf-fixture//single-service&canvas=edit",
+            "file": "templates/single-service.html",
+            "id": "tpl:single-service",
+            "refs": [
+                "part:footer",
+                "part:header",
+                "pat:cta-banner"
+            ],
+            "slug": "single-service",
+            "theme": "vwf-fixture",
+            "used_by_paths": [
+                "/services/drain-cleaning/",
+                "/services/emergency-plumbing/",
+                "/services/fixture-installation/",
+                "/services/leak-detection/",
+                "/services/sewer-line-repair/",
+                "/services/water-heater-repair/"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,79 @@
+{
+  "default_fixture": "block",
+  "fixtures": {
+    "block": {
+      "site": "fixture",
+      "truth": "../fixtures/truth.json",
+      "questions": "questions/fixture.yaml",
+      "seed": "wp-content/plugins/voyager-wayfinder/fixtures/seed.php",
+      "recordings": "test/recordings",
+      "question_sets": {
+        "edit-safety": { "site": "fixture-edit-safety", "questions": "questions/fixture-edit-safety.yaml" },
+        "edit-safety-2": { "site": "fixture-edit-safety-2", "questions": "questions/fixture-edit-safety-2.yaml" }
+      }
+    },
+    "classic": {
+      "site": "fixture-classic",
+      "truth": "../fixtures/classic/truth.json",
+      "questions": "questions/fixture-classic.yaml",
+      "seed": "wp-content/plugins/voyager-wayfinder/fixtures/classic/seed.php"
+    }
+  },
+  "site_url": "http://localhost:8888",
+  "credentials": "../fixtures/.credentials",
+  "conditions": ["raw", "manual", "manual-preloaded", "adapter", "cli", "cli-manual"],
+  "models": [
+    {
+      "id": "claude-haiku-4-5-20251001",
+      "params": {},
+      "cache_min_tokens": 4096
+    },
+    {
+      "id": "claude-sonnet-5",
+      "params": {},
+      "cache_min_tokens": 1024
+    }
+  ],
+  "temperature_policy": "From run 6 no agent model is sent a temperature, so each runs at its provider's default and two cells differ only in the model. Sonnet 5 rejects temperature, top_p and top_k with a 400, so the default is the one setting every model accepts, and every model's params stay empty. The judge is one model at temperature 0 for every cell (judge_params).",
+  "cache_min_source": "Minimum cacheable prompt length per model, from the prompt caching docs (platform.claude.com/docs/en/build-with-claude/prompt-caching). A shorter prefix is not cached and the API reports cache_creation_input_tokens 0.",
+  "judge_model": "claude-haiku-4-5-20251001",
+  "judge_params": { "temperature": 0 },
+  "manual_routes": {
+    "brief": "/wp-json/wayfinder/v1/context?tier=brief",
+    "index": "/wp-json/wayfinder/v1/context?tier=index",
+    "section": "/wp-json/wayfinder/v1/context?tier=section&id={id}",
+    "find": "/wp-json/wayfinder/v1/find?url={url}&text={text}&class={class}"
+  },
+  "adapter_endpoint": "/wp-json/mcp/mcp-adapter-default-server",
+  "cli_exec_limit": 8,
+  "conversation_caching": true,
+  "hypothesis_set": "run3",
+  "hypotheses": {
+    "h1_min_accuracy": 0.9,
+    "h2_min_input_ratio": 5,
+    "h2b_min_total_input_ratio": 3,
+    "h3": {
+      "challenger": { "condition": "manual-preloaded", "model": "claude-haiku-4-5-20251001" },
+      "baseline": { "condition": "raw", "model": "claude-sonnet-5" },
+      "repetitions": 3
+    },
+    "h4_max_est_tokens": { "brief": 600, "index": 4000 },
+    "h5_min_p90_input_ratio": 3,
+    "h6_min_cost_per_correct_ratio": 5
+  },
+  "run3_hypotheses": {
+    "source": "Run 3 hypotheses, set 2026-10-02 before run 3 and approved by the maintainers",
+    "r1_min_accuracy": { "block": 0.9, "classic": 0.85 },
+    "r2_min_gain_points": 10,
+    "r3": {
+      "challenger": { "condition": "manual-preloaded", "model": "claude-haiku-4-5-20251001" },
+      "baseline": { "condition": "adapter", "model": "claude-sonnet-5" }
+    },
+    "r4_max_est_tokens": { "brief": 600, "index": 4000 },
+    "r5_min_total_input_ratio": 3,
+    "r6_min_p90_input_ratio": 3,
+    "r7_min_cost_per_correct_ratio": 10,
+    "baseline": "adapter",
+    "repetitions": 3
+  }
+}
