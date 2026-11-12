@@ -26,13 +26,13 @@ final class IndexRendererTest extends TestCase
             static fn (string $line): bool => str_contains($line, ' | ')
         )));
 
-        // Templates, parts, patterns in use, post types and plugins lead; the other kinds by id; fields and options last.
+        // Templates, parts, post types, plugins and patterns in use lead; the other kinds by id; fields and options last.
         $this->assertSame([
             'tpl:page-contact', 'tpl:single-service',
             'part:footer', 'part:header',
-            'pat:cta-banner',
             'pt:page', 'pt:post', 'pt:service', 'pt:team_member',
             'plugin:advanced-custom-fields',
+            'pat:cta-banner',
             'bind:vwf-fixture/business-info.address', 'bind:vwf-fixture/business-info.phone', 'core:wordpress', 'nav:footer', 'nav:primary', 'tax:service_area',
             'field:service.duration', 'field:service.internal_sku', 'field:service.price_from', 'field:team_member.linkedin', 'field:team_member.photo', 'field:team_member.role',
             'opt:blogname', 'opt:page_for_posts', 'opt:page_on_front', 'opt:permalink_structure', 'opt:show_on_front', 'opt:stylesheet', 'opt:template',

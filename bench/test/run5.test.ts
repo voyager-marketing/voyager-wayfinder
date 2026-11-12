@@ -188,7 +188,7 @@ describe('S5 and S6', () => {
     const index = [
       '# wayfinder v1 index h:abc',
       'pt:service | Services',
-      line(99, 'patterns', 'section layout, pages 2-4, 6'),
+      line(99, 'patterns in use', 'section layout, pages 2-4, 6'),
       line(23, 'fields', 'section content_model, page 3'),
       line(15, 'plugins', 'section integrations'),
       line(1, 'REST route', 'section code, page 1'),

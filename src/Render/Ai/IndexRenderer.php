@@ -12,9 +12,11 @@ use Voyager\Wayfinder\Manifest\Manifest;
  * their item. About 4,000 tokens on the fixture.
  *
  * Lines are ordered by what answers edit questions, not by id: templates,
- * routes, parts, patterns in use, post types and plugins first, then every
+ * routes, parts, post types, plugins and patterns in use first, then every
  * other kind, then unused patterns, fields and options (see RANKS). Within a
- * rank, by id.
+ * rank, by id. Post types and plugins go before patterns: they are small,
+ * fixed sets behind most "where is this edited?" questions, and a site can
+ * carry a hundred patterns.
  *
  * The fields of a post type with no posts are not listed one by one. They
  * become one closing line per post type, `field: +33 of pt:service_area,
@@ -25,8 +27,9 @@ use Voyager\Wayfinder\Manifest\Manifest;
  * order, keeping as much as fits at each step: first the refs column, then
  * post type field lists (collapsed to counts), then whole items from the end.
  * Nothing goes silently: each kind of item dropped from a section is
- * summarised as `+12 more patterns (section layout, pages 3-4)`, which names
- * the section tier call, and its pages, that returns them.
+ * summarised as `+12 more patterns in use (section layout, pages 3-4)`, which
+ * names the section tier call, and its pages, that returns them. Patterns in
+ * use and unused patterns rank apart, so each gets its own line.
  *
  * When it lists a binding, a closing line says binding keys are known only
  * from blocks that use them, so an agent does not read the list as every key
@@ -55,9 +58,9 @@ final class IndexRenderer
         'template'      => 0,
         'route'         => 1,
         'template_part' => 2,
-        'pattern'       => 3,
-        'post_type'     => 4,
-        'plugin'        => 5,
+        'post_type'     => 3,
+        'plugin'        => 4,
+        'pattern'       => 5,
         'field'         => 8,
         'option'        => 9,
     ];
@@ -72,6 +75,9 @@ final class IndexRenderer
     /** `field: +N of <post type> ...`: the fields of a post type with no posts. */
     public const NO_POSTS_LINE = 'field: +%d of %s, which has no posts (%s)';
 
+    /** Singular and plural for a dropped line of unused patterns. NOUNS names the patterns in use. */
+    private const UNUSED_PATTERN_NOUNS = ['unused pattern', 'unused patterns'];
+
     /** Singular and plural, for the dropped lines. A kind not named here is an item. */
     private const NOUNS = [
         'binding'          => ['binding', 'bindings'],
@@ -84,7 +90,7 @@ final class IndexRenderer
         'navigation'       => ['menu', 'menus'],
         'option'           => ['option', 'options'],
         'options_page'     => ['options page', 'options pages'],
-        'pattern'          => ['pattern', 'patterns'],
+        'pattern'          => ['pattern in use', 'patterns in use'],
         'plugin'           => ['plugin', 'plugins'],
         'post_type'        => ['post type', 'post types'],
         'rest_route'       => ['REST route', 'REST routes'],
@@ -157,7 +163,8 @@ final class IndexRenderer
 
     /**
      * Keeps the most items that fit with the closing lines and one
-     * `+N more <noun> (<where>)` line per kind and section that lost items.
+     * `+N more <noun> (<where>)` line per rank, kind and section that lost
+     * items, so patterns in use and unused patterns are counted apart.
      *
      * @param list<string>                                            $blocks  One per row, refs and field lists already dropped.
      * @param list<array{item: Item, section: string, rank: int}>     $rows    In index order.
@@ -193,16 +200,15 @@ final class IndexRenderer
 
             $keep--;
             ['item' => $item, 'section' => $section, 'rank' => $rank] = $rows[$keep];
-            $key = $item->kind . ' ' . $section;
+            $key = $rank . ' ' . $item->kind . ' ' . $section;
             $dropped[$key] ??= ['rank' => $rank, 'kind' => $item->kind, 'section' => $section, 'count' => 0, 'pages' => [], 'of' => $where[$item->id]['pages'] ?? 1];
-            $dropped[$key]['rank'] = min($dropped[$key]['rank'], $rank);
             $dropped[$key]['count']++;
             $dropped[$key]['pages'][$where[$item->id]['page'] ?? 1] = true;
         }
     }
 
     /**
-     * One line per kind and section that lost items, in index order.
+     * One line per rank, kind and section that lost items, in index order.
      *
      * @param array<string, array{rank: int, kind: string, section: string, count: int, pages: array<int, true>, of: int}> $dropped
      * @return list<string>
@@ -213,7 +219,9 @@ final class IndexRenderer
 
         $lines = [];
         foreach ($dropped as $group) {
-            $nouns = self::NOUNS[$group['kind']] ?? ['item', 'items'];
+            $nouns = $group['kind'] === 'pattern' && $group['rank'] === self::UNUSED_PATTERN_RANK
+                ? self::UNUSED_PATTERN_NOUNS
+                : (self::NOUNS[$group['kind']] ?? ['item', 'items']);
             $lines[] = sprintf(self::DROPPED_LINE, $group['count'], $nouns[$group['count'] === 1 ? 0 : 1], self::fetch($group['section'], array_keys($group['pages']), $group['of']));
         }
 

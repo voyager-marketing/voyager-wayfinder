@@ -155,12 +155,12 @@ final class Abilities
             self::GET_INDEX          => $common + [
                 'label'            => __('Get the site index', 'voyager-wayfinder'),
                 'description'      => 'Returns every item Wayfinder knows on this site, one line each: templates (tpl:), routes '
-                    . '(route:), template parts (part:), patterns in use (pat:), post types (pt:) and plugins (plugin:) first, then '
+                    . '(route:), template parts (part:), post types (pt:), plugins (plugin:) and patterns in use (pat:) first, then '
                     . 'menus (nav:), block bindings (bind:), taxonomies (tax:) and the rest, then fields (field:) and settings '
                     . '(opt:), each with key facts, the wp-admin edit path and what it references. About 8,200 characters (roughly '
                     . '2,000 tokens) on a small site, never more than 16,000. On a large site it leaves items out to fit, and '
                     . 'ends with a line per kind it left out naming the get-section call and pages that return them, such as '
-                    . '"+12 more patterns (section layout, pages 3-4)". Call get-brief first, and this one when the brief is not '
+                    . '"+12 more patterns in use (section layout, pages 3-4)". Call get-brief first, and this one when the brief is not '
                     . 'enough. Pass an id from here to get-section for every fact about that item.',
                 'input_schema'     => self::noInput(),
                 'output_schema'    => self::tierOutput('The index, as compact text.'),
@@ -296,9 +296,11 @@ final class Abilities
     public function section(mixed $input): array|WP_Error
     {
         $id = trim(self::field($input, 'id'));
-        // Before WordPress 7.1 the REST run route passes a GET input's numbers on as strings.
-        $page = is_array($input) ? ($input['page'] ?? null) : null;
-        $page = is_int($page) ? $page : (is_string($page) && ctype_digit($page) ? (int) $page : null);
+        $page = self::page($input);
+
+        if ($page instanceof WP_Error) {
+            return $page;
+        }
 
         try {
             $json = $this->newContext()->render(SectionRenderer::TIER, $id, $page);
@@ -373,6 +375,32 @@ final class Abilities
             'hash' => $context->manifest()->hash,
             'text' => (string) $context->render($tier),
         ];
+    }
+
+    /**
+     * The page a section was asked for: null when none was, else a whole
+     * number from 1. Before WordPress 7.1 the REST run route hands a GET
+     * input's numbers over as strings, so a string of digits counts. Any
+     * other value, `-2`, `1.5` or an empty string among them, is refused
+     * rather than read as no page, which would return the whole section.
+     */
+    private static function page(mixed $input): int|WP_Error|null
+    {
+        $page = is_array($input) ? ($input['page'] ?? null) : null;
+
+        if ($page === null) {
+            return null;
+        }
+
+        if (is_string($page) && preg_match('/^[0-9]+$/', $page) === 1) {
+            $page = (int) $page;
+        }
+
+        if (!is_int($page) || $page < 1) {
+            return new WP_Error('vwf_bad_request', __('The page must be a whole number from 1.', 'voyager-wayfinder'), ['status' => 400]);
+        }
+
+        return $page;
     }
 
     private static function field(mixed $input, string $key): string

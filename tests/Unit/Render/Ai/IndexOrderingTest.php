@@ -15,8 +15,8 @@ use Voyager\Wayfinder\Render\Ai\Visibility;
 
 /**
  * The index on a site the size of a real one: 34 templates, 33 routes, 84
- * patterns in use, 11 post types (six with no posts and 75 fields between
- * them), 15 plugins and 163 REST routes. Its untruncated index is several
+ * patterns in use and 6 nothing uses, 11 post types (six with no posts and
+ * 75 fields between them), 15 plugins and 163 REST routes. Its untruncated index is several
  * times the budget, so it orders lines by what answers edit questions,
  * collapses the fields nobody can fill yet, and says where to fetch
  * everything it leaves out.
@@ -42,7 +42,7 @@ final class IndexOrderingTest extends TestCase
         'event'         => [0, 4],
     ];
 
-    /** `+12 more patterns (section layout, pages 3-4)`. */
+    /** `+12 more patterns in use (section layout, pages 3-4)`. */
     private const DROPPED = '/^\+(\d+) more ([a-zA-Z ]+) \(section ([a-z_]+)(?:, pages? ([\d, -]+))?\)$/';
 
     /** `field: +33 of pt:service_area, which has no posts (section content_model, pages 3-4)`. */
@@ -97,7 +97,7 @@ final class IndexOrderingTest extends TestCase
             $missing = [];
             foreach (Visibility::of($manifest)->listed as ['item' => $item, 'section' => $section]) {
                 if (!isset($lines[$item->id]) && !isset($collapsed[$item->id])) {
-                    $missing[$item->kind . ' ' . $section][] = $item->id;
+                    $missing[self::group($item) . ' ' . $section][] = $item->id;
                 }
             }
 
@@ -173,10 +173,55 @@ final class IndexOrderingTest extends TestCase
         sort($sorted);
 
         $this->assertSame($sorted, $keys);
+
+        // Runs of one prefix, in order: patterns in use after plugins, unused ones after every other kind.
+        $runs = [];
+        foreach ($ids as $id) {
+            $prefix = strstr($id, ':', true);
+
+            if (end($runs) !== $prefix) {
+                $runs[] = $prefix;
+            }
+        }
+
         $this->assertSame(
-            ['tpl', 'route', 'part', 'pat', 'pt', 'plugin', 'bind', 'core', 'filter', 'gates', 'nav', 'rest', 'tax', 'field', 'opt'],
-            array_values(array_unique(array_map(static fn (string $id): string => strstr($id, ':', true), $ids)))
+            ['tpl', 'route', 'part', 'pt', 'plugin', 'pat', 'bind', 'core', 'filter', 'gates', 'nav', 'rest', 'tax', 'pat', 'field', 'opt'],
+            $runs
         );
+    }
+
+    public function testPatternsInUseAndUnusedPatternsGetTheirOwnPointerLines(): void
+    {
+        $manifest = self::realSized();
+        $index = (new IndexRenderer())->render($manifest);
+        $lines = array_flip(self::lineIds($index));
+
+        $inUse = 0;
+        $unused = 0;
+        foreach (Visibility::of($manifest)->listed as ['item' => $item]) {
+            if ($item->kind === 'pattern' && !isset($lines[$item->id])) {
+                IndexRenderer::rank($item) === IndexRenderer::UNUSED_PATTERN_RANK ? $unused++ : $inUse++;
+            }
+        }
+
+        $this->assertSame(6, $unused, 'Every unused pattern is left out at this budget.');
+        $this->assertGreaterThan(0, $inUse, 'Some patterns in use are left out at this budget.');
+        $this->assertMatchesRegularExpression('/^\+' . $inUse . ' more patterns in use \(section layout, pages? [\d, -]+\)$/m', $index);
+        $this->assertMatchesRegularExpression('/^\+6 more unused patterns \(section layout, pages? [\d, -]+\)$/m', $index);
+        $this->assertDoesNotMatchRegularExpression('/^\+\d+ more patterns \(/m', $index, 'No line counts both together.');
+        $this->assertLessThan(
+            strpos($index, ' more unused patterns ('),
+            strpos($index, ' more patterns in use ('),
+            'The pointers keep the rank order.'
+        );
+
+        // With no budget the unused patterns are lines, after every other kind but fields and options.
+        $full = self::lineIds((new IndexRenderer(PHP_INT_MAX))->render($manifest));
+        $this->assertSame(
+            ['pat:promo-01', 'pat:promo-02', 'pat:promo-03', 'pat:promo-04', 'pat:promo-05', 'pat:promo-06'],
+            array_values(array_filter($full, static fn (string $id): bool => str_starts_with($id, 'pat:promo-')))
+        );
+        $this->assertSame('field:', substr($full[array_search('pat:promo-06', $full, true) + 1], 0, 6));
     }
 
     public function testAPatternNothingUsesSortsAfterEveryOtherKindButFieldsAndOptions(): void
@@ -224,7 +269,7 @@ final class IndexOrderingTest extends TestCase
     }
 
     /**
-     * The pointer lines, by kind noun and section, as the index orders them.
+     * The pointer lines, by group (see group()) and section.
      *
      * @return array<string, array{count: int, section: string, pages: list<int>}>
      */
@@ -234,7 +279,8 @@ final class IndexOrderingTest extends TestCase
             'bindings' => 'binding', 'binding' => 'binding', 'core item' => 'core', 'core items' => 'core',
             'fields' => 'field', 'field' => 'field', 'head filters' => 'head_filter', 'head filter' => 'head_filter',
             'menus' => 'navigation', 'menu' => 'navigation', 'options' => 'option', 'option' => 'option',
-            'patterns' => 'pattern', 'pattern' => 'pattern', 'plugins' => 'plugin', 'plugin' => 'plugin',
+            'patterns in use' => 'pattern', 'pattern in use' => 'pattern', 'unused patterns' => 'pattern_unused', 'unused pattern' => 'pattern_unused',
+            'plugins' => 'plugin', 'plugin' => 'plugin',
             'post types' => 'post_type', 'post type' => 'post_type', 'REST routes' => 'rest_route', 'REST route' => 'rest_route',
             'routes' => 'route', 'route' => 'route', 'taxonomies' => 'taxonomy', 'taxonomy' => 'taxonomy',
             'templates' => 'template', 'template' => 'template', 'parts' => 'template_part', 'part' => 'template_part',
@@ -244,7 +290,8 @@ final class IndexOrderingTest extends TestCase
 
         foreach (explode("\n", $index) as $line) {
             if (preg_match(self::DROPPED, $line, $match) === 1) {
-                $pointers[$nouns[$match[2]] . ' ' . $match[3]] = ['count' => (int) $match[1], 'section' => $match[3], 'pages' => self::pages($match[4] ?? '')];
+                // A noun this map does not know keys apart, so its count cannot match anything.
+                $pointers[($nouns[$match[2]] ?? 'unknown ' . $match[2]) . ' ' . $match[3]] = ['count' => (int) $match[1], 'section' => $match[3], 'pages' => self::pages($match[4] ?? '')];
             }
         }
 
@@ -306,12 +353,12 @@ final class IndexOrderingTest extends TestCase
         }
 
         foreach (self::dropped($index) as $key => $pointer) {
-            $kind = strstr($key, ' ', true);
+            $group = strstr($key, ' ', true);
 
             foreach (self::fetch($manifest, $pointer['section'], $pointer['pages']) as $id) {
                 $item = self::item($manifest, $id);
 
-                if ($item !== null && $item->kind === $kind && isset($listed[$id]) && !isset($covered[$id])) {
+                if ($item !== null && self::group($item) === $group && isset($listed[$id]) && !isset($covered[$id])) {
                     $covered[$id] = true;
                 }
             }
@@ -354,6 +401,14 @@ final class IndexOrderingTest extends TestCase
         }
 
         return $pages;
+    }
+
+    /**
+     * What one pointer line counts: the kind, with patterns nothing uses apart from those in use.
+     */
+    private static function group(Item $item): string
+    {
+        return $item->kind === 'pattern' && IndexRenderer::rank($item) === IndexRenderer::UNUSED_PATTERN_RANK ? 'pattern_unused' : $item->kind;
     }
 
     private static function item(Manifest $manifest, string $id): ?Item
@@ -422,6 +477,11 @@ final class IndexOrderingTest extends TestCase
 
         for ($b = 1; $b <= 8; $b++) {
             $layout[] = new Item(sprintf('bind:acme/site.key_%d', $b), 'binding', 'Site data: key ' . $b, ['bound' => ['core/paragraph.content'], 'defined_in' => 'plugins/acme-blocks/src/bindings.php', 'key' => 'key_' . $b, 'reads' => ['option:acme_key_' . $b], 'source' => 'acme/site', 'source_label' => 'Site data'], 'options-general.php?page=acme-site', [], ['usage_count' => 1, 'used_in' => ['part:footer']]);
+        }
+
+        // Synced patterns nothing uses.
+        for ($p = 1; $p <= 6; $p++) {
+            $layout[] = new Item(sprintf('pat:promo-%02d', $p), 'pattern', 'Promo ' . $p, ['registered' => false, 'synced' => true], 'post.php?post=' . (500 + $p) . '&action=edit', [], ['usage_count' => 0, 'used_in' => []]);
         }
 
         $layout[] = new Item('nav:main', 'navigation', 'Main', [], 'site-editor.php?p=/wp_navigation/12', [], ['item_count' => 7, 'usage_count' => 1, 'used_in' => ['part:header']]);
