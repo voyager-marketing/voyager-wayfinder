@@ -22,6 +22,9 @@ final class Context
 {
     public const TIERS = [BriefRenderer::TIER, IndexRenderer::TIER, SectionRenderer::TIER];
 
+    /** The stats row for the index with no budget: what it would be with nothing left out. */
+    public const UNTRUNCATED = 'index_untruncated';
+
     /** @var Closure(): Manifest */
     private Closure $scan;
 
@@ -57,19 +60,20 @@ final class Context
     }
 
     /**
-     * @param string $id Section name or item id. Section tier only.
+     * @param string   $id   Section name or item id. Section tier only.
+     * @param int|null $page One page of a section (SectionRenderer::PAGE_ITEMS items). Section tier only.
      * @return string|null Null when the section tier names no known section or item.
      *
-     * @throws InvalidArgumentException On an unknown tier, or the section tier with no id.
+     * @throws InvalidArgumentException On an unknown tier, the section tier with no id, or a page the section does not have.
      */
-    public function render(string $tier, string $id = ''): ?string
+    public function render(string $tier, string $id = '', ?int $page = null): ?string
     {
         return match ($tier) {
             BriefRenderer::TIER   => (new BriefRenderer())->render($this->manifest(), $this->notes()),
             IndexRenderer::TIER   => (new IndexRenderer())->render($this->manifest(), $this->notes()),
             SectionRenderer::TIER => $id === ''
                 ? throw new InvalidArgumentException('The section tier needs an id: a section name or an item id.')
-                : (new SectionRenderer())->render($this->manifest(), $id, $this->notes()),
+                : (new SectionRenderer())->render($this->manifest(), $id, $this->notes(), $page),
             default => throw new InvalidArgumentException(sprintf(
                 'Unknown tier "%s". Use one of: %s.',
                 esc_html($tier),
@@ -93,16 +97,24 @@ final class Context
     }
 
     /**
-     * Size of the brief and the index. `est_tokens` is characters / 4, an estimate.
+     * Size of the brief and the index, then of the index with no budget
+     * (UNTRUNCATED): what it would be with nothing left out, so a site whose
+     * index fits only by dropping items shows it. `est_tokens` is
+     * characters / 4, an estimate.
      *
      * @return list<array{tier: string, chars: int, est_tokens: int}>
      */
     public function stats(): array
     {
+        $texts = [
+            BriefRenderer::TIER => (string) $this->render(BriefRenderer::TIER),
+            IndexRenderer::TIER => (string) $this->render(IndexRenderer::TIER),
+            self::UNTRUNCATED   => (new IndexRenderer(PHP_INT_MAX))->render($this->manifest(), $this->notes()),
+        ];
+
         $rows = [];
 
-        foreach ([BriefRenderer::TIER, IndexRenderer::TIER] as $tier) {
-            $text = (string) $this->render($tier);
+        foreach ($texts as $tier => $text) {
             $rows[] = [
                 'tier'       => $tier,
                 'chars'      => Compact::length($text),

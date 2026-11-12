@@ -182,12 +182,23 @@ describe('S5 and S6', () => {
 
   it('counts the items an index left out, in the format IndexRenderer writes them', () => {
     const php = readFileSync(join(BENCH_DIR, '..', 'src', 'Render', 'Ai', 'IndexRenderer.php'), 'utf8');
-    const format = php.match(/sprintf\('(\+%d more in section %s)'/)?.[1];
-    expect(format).toBe('+%d more in section %s');
-    const line = (n: number, section: string) => format!.replace('%d', String(n)).replace('%s', section);
-    const index = ['# wayfinder v1 index h:abc', 'pt:service | Services', line(99, 'layout'), line(23, 'content_model'), line(15, 'integrations'), line(33, 'routes')].join('\n');
+    const format = php.match(/DROPPED_LINE = '([^']+)'/)?.[1];
+    expect(format).toBe('+%d more %s (%s)');
+    const line = (n: number, noun: string, where: string) => format!.replace('%d', String(n)).replace('%s', noun).replace('%s', where);
+    const index = [
+      '# wayfinder v1 index h:abc',
+      'pt:service | Services',
+      line(99, 'patterns', 'section layout, pages 2-4, 6'),
+      line(23, 'fields', 'section content_model, page 3'),
+      line(15, 'plugins', 'section integrations'),
+      line(1, 'REST route', 'section code, page 1'),
+      line(32, 'options', 'section site'),
+    ].join('\n');
     expect(indexDropped(index)).toBe(170);
     expect(indexDropped('# wayfinder v1 index h:abc\npt:service | Services | 3 more fields')).toBe(0);
+    // Left out by rule, not to fit the budget: fold lines and the fields of a post type with no posts.
+    const folded = ['tpl: +4 unused from acme-parent (section layout)', 'field: +33 of pt:service_area, which has no posts (section content_model, pages 3-4)'];
+    expect(indexDropped(['# wayfinder v1 index h:abc', ...folded].join('\n'))).toBe(0);
   });
 
   it('S6 pools the held-out sets and ignores the frozen sets\' evals for the verdict', () => {

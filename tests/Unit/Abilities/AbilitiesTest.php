@@ -158,6 +158,30 @@ final class AbilitiesTest extends TestCase
         $this->assertSame(self::context()->render('section', 'layout'), CanonicalJson::encode($section));
     }
 
+    public function testSectionTakesThePageTheIndexNames(): void
+    {
+        $page = self::abilities()->section(['id' => 'layout', 'page' => 1]);
+
+        $this->assertIsArray($page);
+        $this->assertSame(1, $page['page']);
+        $this->assertSame(1, $page['pages']);
+        $this->assertSame(self::context()->render('section', 'layout', 1), CanonicalJson::encode($page));
+
+        // A GET run before WordPress 7.1 hands the number over as a string.
+        $this->assertSame(CanonicalJson::encode($page), CanonicalJson::encode(self::abilities()->section(['id' => 'layout', 'page' => '1'])));
+
+        $past = self::abilities()->section(['id' => 'layout', 'page' => 2]);
+        $this->assertInstanceOf(WP_Error::class, $past);
+        $this->assertSame('vwf_bad_request', $past->get_error_code());
+        $this->assertSame(['status' => 400], $past->get_error_data());
+
+        $definition = (new Abilities())->definitions(false)['voyager-wayfinder/get-section'];
+        $this->assertSame(['type' => 'integer', 'minimum' => 1], array_intersect_key($definition['input_schema']['properties']['page'], ['type' => true, 'minimum' => true]));
+        $this->assertSame(['id'], $definition['input_schema']['required']);
+        $this->assertSame(['type' => 'integer'], $definition['output_schema']['oneOf'][0]['properties']['page']);
+        $this->assertSame(['type' => 'integer'], $definition['output_schema']['oneOf'][0]['properties']['pages']);
+    }
+
     public function testAnItemWithNoFactsKeepsAnObjectSoItEncodesAsBraces(): void
     {
         $manifest = FixtureManifest::manifest(['site' => [new Item('opt:blogdescription', 'option', 'Tagline', [], 'options-general.php')]]);

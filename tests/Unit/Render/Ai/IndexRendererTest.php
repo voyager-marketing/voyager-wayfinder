@@ -14,24 +14,29 @@ use Voyager\Wayfinder\Tests\Support\FixtureManifest;
 
 final class IndexRendererTest extends TestCase
 {
-    public function testOneLinePerListedItemSortedByIdUnderTheHeader(): void
+    public function testOneLinePerListedItemByRankThenIdUnderTheHeader(): void
     {
         $manifest = FixtureManifest::manifest();
         $lines = explode("\n", rtrim((new IndexRenderer())->render($manifest), "\n"));
 
         $this->assertSame('# wayfinder v1 index h:' . substr($manifest->hash, 0, 6), array_shift($lines));
 
-        $ids = array_map(static fn (string $line): string => explode(' | ', $line)[0], array_filter(
+        $ids = array_values(array_map(static fn (string $line): string => explode(' | ', $line)[0], array_filter(
             $lines,
             static fn (string $line): bool => str_contains($line, ' | ')
-        ));
-        $sorted = $ids;
-        sort($sorted, SORT_STRING);
+        )));
 
-        $this->assertSame($sorted, array_values($ids));
-        $this->assertContains('pt:service', $ids);
-        $this->assertContains('opt:blogname', $ids);
-        $this->assertContains('tpl:single-service', $ids);
+        // Templates, parts, patterns in use, post types and plugins lead; the other kinds by id; fields and options last.
+        $this->assertSame([
+            'tpl:page-contact', 'tpl:single-service',
+            'part:footer', 'part:header',
+            'pat:cta-banner',
+            'pt:page', 'pt:post', 'pt:service', 'pt:team_member',
+            'plugin:advanced-custom-fields',
+            'bind:vwf-fixture/business-info.address', 'bind:vwf-fixture/business-info.phone', 'core:wordpress', 'nav:footer', 'nav:primary', 'tax:service_area',
+            'field:service.duration', 'field:service.internal_sku', 'field:service.price_from', 'field:team_member.linkedin', 'field:team_member.photo', 'field:team_member.role',
+            'opt:blogname', 'opt:page_for_posts', 'opt:page_on_front', 'opt:permalink_structure', 'opt:show_on_front', 'opt:stylesheet', 'opt:template',
+        ], $ids);
     }
 
     public function testLinesFollowTheCompactGrammar(): void
@@ -227,12 +232,15 @@ final class IndexRendererTest extends TestCase
         $counts = (new IndexRenderer(Compact::length($noRefs) - 1))->render($manifest);
         $this->assertStringContainsString("\npt:service | Services | 6-20 published; archive /services/; 3 fields; defined in mu-plugins/vwf-fixture-core.php | edit.php?post_type=service\n", $counts);
 
-        // Far under: items go from the end, and each section says how many it lost.
+        // Far under: items go from the end, options and fields first, and each kind a section lost is
+        // named with the section that returns it.
         $cut = (new IndexRenderer(1500))->render($manifest);
         $this->assertLessThanOrEqual(1500, Compact::length($cut));
-        $this->assertStringContainsString("\nbind:vwf-fixture/business-info.address |", $cut);
-        $this->assertMatchesRegularExpression('/\n\+\d+ more in section site\n$/', $cut);
-        $this->assertStringNotContainsString("\ntpl:single-service |", $cut);
+        $this->assertStringContainsString("\ntpl:single-service |", $cut);
+        $this->assertStringNotContainsString("\nbind:vwf-fixture/business-info.address |", $cut);
+        $this->assertStringContainsString("\n+2 more bindings (section layout)\n", $cut);
+        $this->assertStringContainsString("\n+6 more fields (section content_model)\n", $cut);
+        $this->assertStringEndsWith("\n+7 more options (section site)\n", $cut);
     }
 
     public function testAPipeOrNewlineInALabelCannotBreakALine(): void
@@ -252,6 +260,7 @@ final class IndexRendererTest extends TestCase
         $index = (new IndexRenderer())->render(FixtureManifest::manifest());
 
         $this->assertLessThanOrEqual(IndexRenderer::BUDGET, Compact::length($index));
-        $this->assertStringNotContainsString('more in section', $index);
+        $this->assertDoesNotMatchRegularExpression('/^\+\d+ more /m', $index, 'Nothing left out.');
+        $this->assertStringNotContainsString('which has no posts', $index, 'Every fixture post type has posts.');
     }
 }

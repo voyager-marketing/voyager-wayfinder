@@ -82,11 +82,13 @@ type Config = z.infer<typeof Config>;
 export const wpEnvRoot = (fixture: { snapshot?: string }): string => (fixture.snapshot ? dirname(resolve(BENCH_DIR, fixture.snapshot)) : join(BENCH_DIR, '..'));
 
 /**
- * Items the index left out to fit its character budget: the sum of its `+N more in section <name>` lines
- * (`IndexRenderer::truncate`). 0 on the fixtures; on a large real site a budget-sized index is a cut one, not a compact one.
+ * Items the index left out to fit its character budget: the sum of its `+N more <kind> (section <name>[, pages ...])`
+ * lines (`IndexRenderer::DROPPED_LINE`). Fold lines and the fields of a post type with no posts (`field: +N of ...`)
+ * are left out by rule, not to fit, so they do not count. 0 on the fixtures; on a large real site a budget-sized index
+ * is a cut one, not a compact one.
  */
 export const indexDropped = (index: string): number =>
-  [...index.matchAll(/^\+(\d+) more in section \S+$/gm)].reduce((total, m) => total + Number(m[1]), 0);
+  [...index.matchAll(/^\+(\d+) more .+ \(section [a-z_]+(?:, pages? [\d, -]+)?\)$/gm)].reduce((total, m) => total + Number(m[1]), 0);
 
 /** The MCP server route the adapter condition talks to on this fixture's site. */
 export const adapterEndpointFor = (config: Pick<Config, 'adapter_endpoint'>, fixture: { adapter_endpoint?: string }): string =>

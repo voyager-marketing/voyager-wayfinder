@@ -154,12 +154,14 @@ final class Abilities
             ],
             self::GET_INDEX          => $common + [
                 'label'            => __('Get the site index', 'voyager-wayfinder'),
-                'description'      => 'Returns every item Wayfinder knows on this site, one line each, sorted by id: post types (pt:), '
-                    . 'fields (field:), taxonomies (tax:), templates (tpl:), template parts (part:), patterns (pat:), menus (nav:), '
-                    . 'block bindings (bind:), routes (route:), plugins (plugin:) and settings (opt:), each with key facts, the '
-                    . 'wp-admin edit path and what it references. About 8,200 characters (roughly 2,000 tokens) on a small site, '
-                    . 'never more than 16,000. Call get-brief first, and this one when the brief is not enough. Pass an id from '
-                    . 'here to get-section for every fact about that item.',
+                'description'      => 'Returns every item Wayfinder knows on this site, one line each: templates (tpl:), routes '
+                    . '(route:), template parts (part:), patterns in use (pat:), post types (pt:) and plugins (plugin:) first, then '
+                    . 'menus (nav:), block bindings (bind:), taxonomies (tax:) and the rest, then fields (field:) and settings '
+                    . '(opt:), each with key facts, the wp-admin edit path and what it references. About 8,200 characters (roughly '
+                    . '2,000 tokens) on a small site, never more than 16,000. On a large site it leaves items out to fit, and '
+                    . 'ends with a line per kind it left out naming the get-section call and pages that return them, such as '
+                    . '"+12 more patterns (section layout, pages 3-4)". Call get-brief first, and this one when the brief is not '
+                    . 'enough. Pass an id from here to get-section for every fact about that item.',
                 'input_schema'     => self::noInput(),
                 'output_schema'    => self::tierOutput('The index, as compact text.'),
                 'execute_callback' => [$this, 'index'],
@@ -171,14 +173,20 @@ final class Abilities
                     . 'every fact, its edit path, its refs, exact counts, the content that uses it and a route\'s example URL (stats), and any agency '
                     . 'notes on the item. Call it when a line in the brief or '
                     . 'the index needs detail. One item is usually under 1,000 characters; a whole section can run to tens of '
-                    . 'thousands, so ask for an item when you can. Call get-brief first.',
+                    . 'thousands, so ask for an item when you can, or for one page of a section (25 items by id, with page and '
+                    . 'pages beside them) as the index names it. Call get-brief first.',
                 'input_schema'     => [
                     'type'                 => 'object',
                     'properties'           => [
-                        'id' => [
+                        'id'   => [
                             'type'        => 'string',
                             'minLength'   => 1,
                             'description' => 'A section name (site, content_model, layout, routes, code, integrations) or an item id from the index, such as pat:cta-banner.',
+                        ],
+                        'page' => [
+                            'type'        => 'integer',
+                            'minimum'     => 1,
+                            'description' => 'One page of a section, from 1: up to 25 of its items, by id. Leave it out for the whole section. Ignored for an item id.',
                         ],
                     ],
                     'required'             => ['id'],
@@ -288,9 +296,12 @@ final class Abilities
     public function section(mixed $input): array|WP_Error
     {
         $id = trim(self::field($input, 'id'));
+        // Before WordPress 7.1 the REST run route passes a GET input's numbers on as strings.
+        $page = is_array($input) ? ($input['page'] ?? null) : null;
+        $page = is_int($page) ? $page : (is_string($page) && ctype_digit($page) ? (int) $page : null);
 
         try {
-            $json = $this->newContext()->render(SectionRenderer::TIER, $id);
+            $json = $this->newContext()->render(SectionRenderer::TIER, $id, $page);
         } catch (InvalidArgumentException $e) {
             return new WP_Error('vwf_bad_request', $e->getMessage(), ['status' => 400]);
         }
@@ -477,6 +488,8 @@ final class Abilities
                             'items' => $item,
                         ],
                         'stats' => ['type' => 'object'],
+                        'page'  => ['type' => 'integer'],
+                        'pages' => ['type' => 'integer'],
                     ],
                     'required'   => ['name', 'hash', 'items'],
                 ],

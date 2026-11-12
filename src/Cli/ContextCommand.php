@@ -44,11 +44,16 @@ final class ContextCommand
      * [--id=<id>]
      * : Section name or item id. Required for the section tier.
      *
+     * [--page=<page>]
+     * : One page of a section, from 1, of up to 25 items by id. The index
+     * names the pages that hold what it left out. Ignored for an item id.
+     *
      * ## EXAMPLES
      *
      *     wp wayfinder context
      *     wp wayfinder context --tier=index
      *     wp wayfinder context --tier=section --id=pat:cta-banner
+     *     wp wayfinder context --tier=section --id=layout --page=2
      *
      * @param list<string>          $args      Unused.
      * @param array<string, string> $assocArgs
@@ -57,9 +62,18 @@ final class ContextCommand
     {
         $tier = (string) ($assocArgs['tier'] ?? 'brief');
         $id = trim((string) ($assocArgs['id'] ?? ''));
+        $page = null;
+
+        if (isset($assocArgs['page'])) {
+            $page = filter_var($assocArgs['page'], FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
+
+            if ($page === false) {
+                WP_CLI::error('--page takes a whole number from 1.');
+            }
+        }
 
         try {
-            $body = $this->newContext()->render($tier, $id);
+            $body = $this->newContext()->render($tier, $id, $page);
         } catch (InvalidArgumentException | UnexpectedValueException $e) {
             WP_CLI::error($e->getMessage());
         }
@@ -77,6 +91,8 @@ final class ContextCommand
      *
      * One row per tier: tier, chars, est_tokens. est_tokens is chars / 4,
      * rounded up, and is an estimate: the benchmark reports real token counts.
+     * A third row, index_untruncated, is the index with no budget: what it
+     * would be if it left nothing out.
      *
      * ## OPTIONS
      *

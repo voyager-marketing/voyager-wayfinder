@@ -14,7 +14,7 @@ The contract for what Wayfinder hands to AI agents. This file is canonical for t
 |---|---|---|---|
 | brief | site identity, content counts (banded), top edit locations, note count, what else exists | 2,400 chars (about 600 tokens) | compact text |
 | index | every item, one line each | 16,000 chars (about 4,000 tokens) | compact text |
-| section | full detail for one section or item | none | JSON |
+| section | full detail for one section or item, or one page of 25 items of a section | none | JSON |
 | find-edit-location | URL and optional text or class in, source chain and edit path out | 3 hits and 3 chain entries unless `detail` is `full`: about 3,000 chars (about 800 tokens) | JSON |
 | changes-since | manifest hash in, changed item ids out | none | JSON |
 
@@ -56,7 +56,7 @@ Plugin roles are `ai`, `analytics`, `backup`, `builder`, `cache`, `ecommerce`, `
 <id> | <label> | <key facts> | <edit path> | <refs, comma separated>
 ```
 
-- One item per line in the index, sorted by id.
+- One item per line in the index, in rank order, then by id within a rank: templates, routes, parts, patterns something uses, post types, plugins, then every other kind (bindings, menus, taxonomies, REST routes, head filters and the rest), then patterns nothing uses, fields and options last. The ranks are `IndexRenderer::RANKS`.
 - Edit paths are relative to wp-admin (`edit.php?post_type=service`) or a short Site Editor trail when no stable URL exists.
 - Templates, parts and menus use the Site Editor's own routes, which open the item: `site-editor.php?p=/wp_template/<theme>//<slug>&canvas=edit`, `site-editor.php?p=/wp_template_part/<theme>//<slug>&canvas=edit` and `site-editor.php?p=/wp_navigation/<id>`. The older `postType=&postId=` form still loads in WordPress 7.1, but it redirects to the Templates or Patterns list instead of the item.
 - Omit empty columns from the end of a line, never from the middle. An empty middle column is printed as `-`.
@@ -91,11 +91,15 @@ A child theme inherits every template and part its parent ships, and those pull 
 
 Everything else becomes one line per kind at the end of the index, e.g. `tpl: +8 unused from twentytwentyfive (section layout)`, `pat: +13 unused registered (section layout)` or `rest: +40 from plugins (section code)`. The manifest and the section tier keep every item.
 
+The fields of a post type with no posts (no published, draft or private ones, nor uploads for media) are not listed one by one. Each such post type gets one closing line after the fold lines, by post type id, naming how many fields it has and the section tier call that returns them: `field: +33 of pt:service_area, which has no posts (section content_model, pages 3-4)`. The post type keeps its own line, which counts its fields (`33 fields`) instead of naming them. A post type whose stats carry no counts is not known to be empty and is listed as before. Publishing its first post (the `0` band to `1-5`) lists its fields again.
+
 When the index lists any binding, a closing line after the fold lines states the limit on them: `bind: keys are known only from blocks that use them, so a source may serve more; settings saved beside them that nothing reads are named on the source's first binding line`. It is kept when the index overflows. Those settings (`unread_settings`) are named once per source, on the line of its binding that sorts first, in the index as in the brief.
 
 ### Budgets
 
-The brief must fit 2,400 characters and the index 16,000. On overflow the brief gives up detail in this order, stopping as soon as it fits: field names per post type go from 3 to 1 to none, then the `content:`, `terms:` and `plugins:` lines keep fewer entries and end in `+N more`, then the `gates:` line does the same, then edit lines go from the end. The header, `site:`, `layout:`, `locks:`, `builders:`, `notes:` and `more:` lines always stay. On overflow the index gives up detail in this order, stopping as soon as it fits: drop the refs column, collapse post type and options page field lists to a count (`3 fields`), then drop items from the end and print `+N more in section <name>` for each section that lost items. `wp wayfinder stats` prints `tier,chars,est_tokens`; `est_tokens` is characters / 4, rounded up, and is an estimate.
+The brief must fit 2,400 characters and the index 16,000. On overflow the brief gives up detail in this order, stopping as soon as it fits: field names per post type go from 3 to 1 to none, then the `content:`, `terms:` and `plugins:` lines keep fewer entries and end in `+N more`, then the `gates:` line does the same, then edit lines go from the end. The header, `site:`, `layout:`, `locks:`, `builders:`, `notes:` and `more:` lines always stay. On overflow the index gives up detail in this order, stopping as soon as it fits: drop the refs column, collapse post type and options page field lists to a count (`3 fields`), then drop items from the end of the rank order. Nothing goes silently: each kind of item a section lost gets one line at the very end, in rank order, naming how many, what, and the section tier call that returns them, with the pages that hold them when the section has more than one: `+12 more patterns (section layout, pages 3-4)`, `+7 more options (section site)`. The fold lines, the no-posts lines and the binding keys line always stay.
+
+`wp wayfinder stats` prints `tier,chars,est_tokens`, one row for the brief, one for the index and one, `index_untruncated`, for the index with no budget: what it would be with nothing left out, so a site whose index fits only by dropping items shows it. `est_tokens` is characters / 4, rounded up, and is an estimate.
 
 ## Manifest JSON
 
@@ -437,12 +441,14 @@ vwf_anchor_check(array $anchor): array
 
 | Surface | Brief and index | Section | Changes |
 |---|---|---|---|
-| REST (`edit_pages`) | `GET wayfinder/v1/context?tier=brief\|index`, text/plain | `GET wayfinder/v1/context?tier=section&id=<section or item id>`, application/json | `GET wayfinder/v1/changes?since=<hash>` |
-| WP-CLI | `wp wayfinder context --tier=brief\|index` | `wp wayfinder context --tier=section --id=<id>` | none |
+| REST (`edit_pages`) | `GET wayfinder/v1/context?tier=brief\|index`, text/plain | `GET wayfinder/v1/context?tier=section&id=<section or item id>[&page=<n>]`, application/json | `GET wayfinder/v1/changes?since=<hash>` |
+| WP-CLI | `wp wayfinder context --tier=brief\|index` | `wp wayfinder context --tier=section --id=<id> [--page=<n>]` | none |
 | Abilities (`edit_pages`) | `voyager-wayfinder/get-brief`, `voyager-wayfinder/get-index` | `voyager-wayfinder/get-section` | `voyager-wayfinder/get-changes-since` |
 | MCP resources (`edit_pages`) | `wayfinder://brief`, `wayfinder://index`, text/plain | none | none |
 
 The section tier answers 400 with no id and 404 for an id that is neither a section nor an item. An item's JSON adds `section` and, when it has any, `stats` (exact, not banded) and `notes`. A section's JSON adds `stats`, keyed by item id, when any of its items has some. Neither is covered by the `hash` beside it.
+
+A section can be asked for one page at a time (`page`, from 1). A page is the section's items, by id, 25 at a time (`SectionRenderer::PAGE_ITEMS`), with `page` and `pages` beside them, the stats of those items only, and the whole section's `hash`. Pages are cut by item count, never by size, so they move only when items are added or removed, and the pages the index names stay put while content grows. A page past the last, or below 1, answers 400. An item id ignores `page`. Without `page` the section comes whole, as before.
 
 `changes` follows the `vwf_manifest_history` chain (see "Snapshots and notes") from the link whose `previous` is `since`. It returns `{"changed": [...], "full": false, "hash": "<current>"}`, every id added, removed or changed on the way, sorted, when `since` is the current hash or the chain runs unbroken from it to the hash of the site as scanned now. Otherwise it returns `{"full": true, "hash": "<current>"}`: fetch the brief and index again. A site that changed after the last stored scan answers `full` until the next refresh.
 
@@ -475,7 +481,7 @@ Five read-only abilities, the tools, in the `voyager-wayfinder` category, regist
 |---|---|---|
 | `voyager-wayfinder/get-brief` | none | `{"hash": "<manifest hash>", "text": "<brief>"}` |
 | `voyager-wayfinder/get-index` | none | `{"hash": "<manifest hash>", "text": "<index>"}` |
-| `voyager-wayfinder/get-section` | `{"id": "<section or item id>"}` | the section tier JSON; an unknown id is a `vwf_not_found` error |
+| `voyager-wayfinder/get-section` | `{"id": "<section or item id>", "page": 2}`, page optional | the section tier JSON, one page of a section when page is given; an unknown id is a `vwf_not_found` error and a page the section does not have a `vwf_bad_request` error |
 | `voyager-wayfinder/find-edit-location` | `{"url": "/", "text": "555-0142", "class": "hide-mobile", "detail": "full"}`, text, class and detail optional | the find result above, compact unless detail is `full`; an unknown URL is a `vwf_unknown_url` error |
 | `voyager-wayfinder/get-changes-since` | `{"since": "<manifest hash>"}` | the `changes` result above |
 
