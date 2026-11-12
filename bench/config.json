@@ -42,7 +42,7 @@
     "brief": "/wp-json/wayfinder/v1/context?tier=brief",
     "index": "/wp-json/wayfinder/v1/context?tier=index",
     "section": "/wp-json/wayfinder/v1/context?tier=section&id={id}",
-    "find": "/wp-json/wayfinder/v1/find?url={url}&text={text}&class={class}"
+    "find": "/wp-json/wayfinder/v1/find?url={url}&text={text}&class={class}&detail={detail}"
   },
   "adapter_endpoint": "/wp-json/mcp/mcp-adapter-default-server",
   "cli_exec_limit": 8,

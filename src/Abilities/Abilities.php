@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use JsonException;
 use Voyager\Wayfinder\Blocks\Locks;
 use Voyager\Wayfinder\Edit\EditLocator;
+use Voyager\Wayfinder\Edit\FindPayload;
 use Voyager\Wayfinder\Manifest\SnapshotStore;
 use Voyager\Wayfinder\Plugin;
 use Voyager\Wayfinder\Render\Ai\BriefRenderer;
@@ -24,8 +25,9 @@ use WP_Error;
  *
  * Five read-only abilities in the `voyager-wayfinder` category. Each one runs
  * the code its REST route runs: Context for the brief, the index and the
- * section tier, EditLocator for find-edit-location, Changes over the stored
- * history for changes-since. Nothing here renders or scans on its own.
+ * section tier, EditLocator for find-edit-location (shaped by FindPayload),
+ * Changes over the stored history for changes-since. Nothing here renders or
+ * scans on its own.
  *
  * Every ability needs edit_pages, like the REST routes and the menu. MCP
  * exposure is off unless the `vwf_mcp_enabled` option is truthy: the manual
@@ -203,22 +205,29 @@ final class Abilities
                     . 'When coverage is partial with reason builder_document, the page is built in a page builder such as '
                     . 'Elementor whose content Wayfinder does not read: a miss is not an answer, so send the edit to the '
                     . 'content entry\'s edit URL, the builder\'s editor, instead of searching further. '
-                    . 'Usually under 3,000 characters. Call get-brief first if you have not read it.',
+                    . 'The answer keeps the first three hits and chain entries and counts the rest in hits_more and '
+                    . 'chain_more, so it usually runs to about 3,000 characters; give detail full for every hit, the whole chain '
+                    . 'and the class and lock lists of the page. Call get-brief first if you have not read it.',
                 'input_schema'     => [
                     'type'                 => 'object',
                     'properties'           => [
-                        'url'   => [
+                        'url'    => [
                             'type'        => 'string',
                             'minLength'   => 1,
                             'description' => 'Page path or full URL on this site, such as / or /services/drain-cleaning/.',
                         ],
-                        'text'  => [
+                        'text'   => [
                             'type'        => 'string',
                             'description' => 'Optional. Text visible on that page, such as a phone number or a heading.',
                         ],
-                        'class' => [
+                        'class'  => [
                             'type'        => 'string',
                             'description' => 'Optional. A CSS class a block carries, such as hide-mobile, or a block name. With text, only blocks matching both.',
+                        ],
+                        'detail' => [
+                            'type'        => 'string',
+                            'enum'        => FindPayload::DETAILS,
+                            'description' => 'Optional. compact, the default, keeps the first three hits and chain entries; full returns every one, with the class and lock lists of the page.',
                         ],
                     ],
                     'required'             => ['url'],
@@ -306,20 +315,27 @@ final class Abilities
     }
 
     /**
-     * @param mixed $input `{url, text?, class?}`, already checked against the input schema.
+     * @param mixed $input `{url, text?, class?, detail?}`, already checked against the input schema.
      * @return array<string, mixed>|WP_Error
      */
     public function find(mixed $input): array|WP_Error
     {
         $text = self::field($input, 'text');
         $class = self::field($input, 'class');
+        $detail = FindPayload::detail(self::field($input, 'detail'));
+
+        // The schema's enum stops a bad detail first; a direct call gets the same answer as REST.
+        if ($detail === null) {
+            return new WP_Error('vwf_bad_request', 'detail must be compact or full.', ['status' => 400]);
+        }
+
         $result = $this->newLocator()->find(self::field($input, 'url'), $text !== '' ? $text : null, $class !== '' ? $class : null);
 
         if ($result['route'] === null) {
             return new WP_Error('vwf_unknown_url', (string) $result['message'], ['status' => 404]);
         }
 
-        return $result;
+        return FindPayload::shape($result, $detail);
     }
 
     /**
@@ -470,8 +486,8 @@ final class Abilities
     }
 
     /**
-     * EditLocator's result, as the REST route returns it. Chain entries stay
-     * open to new keys, like manifest items.
+     * EditLocator's result as FindPayload shapes it, as the REST route returns
+     * it. Chain entries stay open to new keys, like manifest items.
      *
      * @return array<string, mixed>
      */
@@ -493,6 +509,9 @@ final class Abilities
         return [
             'type'                 => 'object',
             'properties'           => [
+                'detail'     => ['type' => 'string', 'enum' => FindPayload::DETAILS],
+                'chain_more' => ['type' => 'integer', 'minimum' => 1],
+                'hits_more'  => ['type' => 'integer', 'minimum' => 1],
                 'url'      => ['type' => 'string'],
                 'route'    => ['type' => 'string'],
                 'template' => $nullableString,
@@ -567,7 +586,7 @@ final class Abilities
                     ],
                 ],
             ],
-            'required'             => ['url', 'route', 'template', 'text', 'class', 'matched', 'ambiguous', 'message', 'chain', 'hits', 'verify'],
+            'required'             => ['detail', 'url', 'route', 'template', 'text', 'class', 'matched', 'ambiguous', 'message', 'chain', 'hits', 'verify'],
             'additionalProperties' => false,
         ];
     }

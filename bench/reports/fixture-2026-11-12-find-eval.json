@@ -1,0 +1,470 @@
+{
+  "format": "wayfinder-find-eval/1",
+  "site": "fixture",
+  "date": "2026-11-12",
+  "fixture": "block",
+  "commit": "6eec85172c5eaa85bc3c9ebadaf12b84138b7a3b",
+  "question_set": {
+    "file": "questions/fixture.yaml",
+    "sha256": "e404e30f7180e638250227fe1f0ac7bb6ca7c5e755c1b0a06a3ff7265c0eb81b",
+    "count": 40,
+    "find_inputs": "questions/find-inputs-fixture.yaml"
+  },
+  "snapshot": null,
+  "totals": {
+    "questions": 7,
+    "top1": 4,
+    "any_hit": 5,
+    "from_hits": {
+      "questions": 4,
+      "top1": 3,
+      "any_hit": 3
+    },
+    "from_chain": {
+      "questions": 3,
+      "top1": 1,
+      "any_hit": 2
+    }
+  },
+  "by_category": [
+    {
+      "questions": 7,
+      "top1": 4,
+      "any_hit": 5,
+      "category": "edit_location"
+    }
+  ],
+  "questions": [
+    {
+      "question": "el-01",
+      "category": "edit_location",
+      "find": {
+        "url": "/",
+        "text": "(540) 555-0142"
+      },
+      "refs": [
+        "binding_sources[id=vwf-fixture/business-info].edit_path"
+      ],
+      "expected": [
+        {
+          "edit": "options-general.php?page=vwf-business-info"
+        }
+      ],
+      "status": 200,
+      "route": "route:front-page",
+      "matched": true,
+      "ambiguous": false,
+      "message": null,
+      "ranked_from": "hits",
+      "top1": true,
+      "any_hit": true,
+      "found": 1,
+      "first_match": 1,
+      "ranked": [
+        {
+          "rank": 1,
+          "id": "bind:vwf-fixture/business-info.phone",
+          "edit": "options-general.php?page=vwf-business-info",
+          "post": null,
+          "block_path": "0.1",
+          "snippet": "bound: bind:vwf-fixture/business-info.phone"
+        }
+      ]
+    },
+    {
+      "question": "el-02",
+      "category": "edit_location",
+      "find": {
+        "url": "/services/"
+      },
+      "refs": [
+        "post_types[id=pt:service].edit_path"
+      ],
+      "expected": [
+        {
+          "edit": "edit.php?post_type=service"
+        }
+      ],
+      "status": 200,
+      "route": "route:archive-service",
+      "matched": null,
+      "ambiguous": false,
+      "message": null,
+      "ranked_from": "chain",
+      "top1": false,
+      "any_hit": false,
+      "found": 0,
+      "first_match": null,
+      "ranked": [
+        {
+          "rank": 1,
+          "id": "tpl:archive",
+          "edit": "site-editor.php?p=/wp_template/vwf-fixture//archive&canvas=edit",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 2,
+          "id": "part:footer",
+          "edit": "site-editor.php?p=/wp_template_part/vwf-fixture//footer&canvas=edit",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 3,
+          "id": "part:header",
+          "edit": "site-editor.php?p=/wp_template_part/vwf-fixture//header&canvas=edit",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 4,
+          "id": "pat:twentytwentyfive/template-query-loop",
+          "edit": null,
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 5,
+          "id": "bind:vwf-fixture/business-info.address",
+          "edit": "options-general.php?page=vwf-business-info",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 6,
+          "id": "bind:vwf-fixture/business-info.phone",
+          "edit": "options-general.php?page=vwf-business-info",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 7,
+          "id": "nav:footer",
+          "edit": "site-editor.php?p=/wp_navigation/90002",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 8,
+          "id": "nav:primary",
+          "edit": "site-editor.php?p=/wp_navigation/90001",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 9,
+          "id": "route:archive-service",
+          "edit": null,
+          "post": null,
+          "block_path": null
+        }
+      ]
+    },
+    {
+      "question": "el-03",
+      "category": "edit_location",
+      "find": {
+        "url": "/"
+      },
+      "refs": [
+        "template_parts[id=part:footer].edit_path"
+      ],
+      "expected": [
+        {
+          "edit": "site-editor.php?p=/wp_template_part/vwf-fixture//footer&canvas=edit"
+        }
+      ],
+      "status": 200,
+      "route": "route:front-page",
+      "matched": null,
+      "ambiguous": false,
+      "message": null,
+      "ranked_from": "chain",
+      "top1": false,
+      "any_hit": true,
+      "found": 1,
+      "first_match": 3,
+      "ranked": [
+        {
+          "rank": 1,
+          "id": "pt:page",
+          "edit": "post.php?post=90013&action=edit",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 2,
+          "id": "tpl:page",
+          "edit": "site-editor.php?p=/wp_template/vwf-fixture//page&canvas=edit",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 3,
+          "id": "part:footer",
+          "edit": "site-editor.php?p=/wp_template_part/vwf-fixture//footer&canvas=edit",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 4,
+          "id": "part:header",
+          "edit": "site-editor.php?p=/wp_template_part/vwf-fixture//header&canvas=edit",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 5,
+          "id": "pat:cta-banner",
+          "edit": "post.php?post=90003&action=edit",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 6,
+          "id": "bind:vwf-fixture/business-info.address",
+          "edit": "options-general.php?page=vwf-business-info",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 7,
+          "id": "bind:vwf-fixture/business-info.phone",
+          "edit": "options-general.php?page=vwf-business-info",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 8,
+          "id": "nav:footer",
+          "edit": "site-editor.php?p=/wp_navigation/90002",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 9,
+          "id": "nav:primary",
+          "edit": "site-editor.php?p=/wp_navigation/90001",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 10,
+          "id": "route:front-page",
+          "edit": "options-reading.php",
+          "post": null,
+          "block_path": null
+        }
+      ]
+    },
+    {
+      "question": "el-04",
+      "category": "edit_location",
+      "find": {
+        "url": "/",
+        "text": "Need a plumber today?"
+      },
+      "refs": [
+        "patterns[id=pat:cta-banner].edit_path"
+      ],
+      "expected": [
+        {
+          "edit": "post.php?post=90003&action=edit"
+        }
+      ],
+      "status": 200,
+      "route": "route:front-page",
+      "matched": true,
+      "ambiguous": false,
+      "message": null,
+      "ranked_from": "hits",
+      "top1": true,
+      "any_hit": true,
+      "found": 1,
+      "first_match": 1,
+      "ranked": [
+        {
+          "rank": 1,
+          "id": "pat:cta-banner",
+          "edit": "post.php?post=90003&action=edit",
+          "post": null,
+          "block_path": "0.0",
+          "snippet": "Need a plumber today?"
+        }
+      ]
+    },
+    {
+      "question": "el-06",
+      "category": "edit_location",
+      "find": {
+        "url": "/",
+        "text": "Services"
+      },
+      "refs": [
+        "navigation[id=nav:primary].edit_path"
+      ],
+      "expected": [
+        {
+          "edit": "site-editor.php?p=/wp_navigation/90001"
+        }
+      ],
+      "status": 200,
+      "route": "route:front-page",
+      "matched": true,
+      "ambiguous": false,
+      "message": null,
+      "ranked_from": "hits",
+      "top1": true,
+      "any_hit": true,
+      "found": 1,
+      "first_match": 1,
+      "ranked": [
+        {
+          "rank": 1,
+          "id": "nav:primary",
+          "edit": "site-editor.php?p=/wp_navigation/90001",
+          "post": null,
+          "block_path": "2",
+          "snippet": "Services"
+        }
+      ]
+    },
+    {
+      "question": "el-08",
+      "category": "edit_location",
+      "find": {
+        "url": "/services/drain-cleaning/"
+      },
+      "refs": [
+        "services[slug=drain-cleaning].edit_path"
+      ],
+      "expected": [
+        {
+          "edit": "post.php?post=90020&action=edit"
+        }
+      ],
+      "status": 200,
+      "route": "route:single-service",
+      "matched": null,
+      "ambiguous": false,
+      "message": null,
+      "ranked_from": "chain",
+      "top1": true,
+      "any_hit": true,
+      "found": 1,
+      "first_match": 1,
+      "ranked": [
+        {
+          "rank": 1,
+          "id": "pt:service",
+          "edit": "post.php?post=90020&action=edit",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 2,
+          "id": "tpl:single-service",
+          "edit": "site-editor.php?p=/wp_template/vwf-fixture//single-service&canvas=edit",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 3,
+          "id": "part:footer",
+          "edit": "site-editor.php?p=/wp_template_part/vwf-fixture//footer&canvas=edit",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 4,
+          "id": "part:header",
+          "edit": "site-editor.php?p=/wp_template_part/vwf-fixture//header&canvas=edit",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 5,
+          "id": "pat:cta-banner",
+          "edit": "post.php?post=90003&action=edit",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 6,
+          "id": "bind:vwf-fixture/business-info.address",
+          "edit": "options-general.php?page=vwf-business-info",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 7,
+          "id": "bind:vwf-fixture/business-info.phone",
+          "edit": "options-general.php?page=vwf-business-info",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 8,
+          "id": "nav:footer",
+          "edit": "site-editor.php?p=/wp_navigation/90002",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 9,
+          "id": "nav:primary",
+          "edit": "site-editor.php?p=/wp_navigation/90001",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 10,
+          "id": "route:single-service",
+          "edit": null,
+          "post": null,
+          "block_path": null
+        }
+      ]
+    },
+    {
+      "question": "el-09",
+      "category": "edit_location",
+      "find": {
+        "url": "/services/drain-cleaning/",
+        "text": "Service areas:"
+      },
+      "refs": [
+        "taxonomies[id=tax:service_area].edit_path"
+      ],
+      "expected": [
+        {
+          "edit": "edit-tags.php?taxonomy=service_area&post_type=service"
+        }
+      ],
+      "status": 200,
+      "route": "route:single-service",
+      "matched": false,
+      "ambiguous": false,
+      "message": "No block on this page contains that text. It may come from PHP, a plugin or a dynamic block. The chain lists everything the page is built from.",
+      "ranked_from": "hits",
+      "top1": false,
+      "any_hit": false,
+      "found": 0,
+      "first_match": null,
+      "ranked": []
+    }
+  ],
+  "skipped": [
+    {
+      "question": "el-05",
+      "category": "edit_location",
+      "reason": "the hours show on no page; no block binds the hours key (truth.json used_in is empty)"
+    },
+    {
+      "question": "el-07",
+      "category": "edit_location",
+      "reason": "team members show on no page; the post type is not public"
+    }
+  ]
+}

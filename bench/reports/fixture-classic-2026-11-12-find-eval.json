@@ -1,0 +1,272 @@
+{
+  "format": "wayfinder-find-eval/1",
+  "site": "fixture-classic",
+  "date": "2026-11-12",
+  "fixture": "classic",
+  "commit": "6eec85172c5eaa85bc3c9ebadaf12b84138b7a3b",
+  "question_set": {
+    "file": "questions/fixture-classic.yaml",
+    "sha256": "4511d7c994aabf5bd16fe64a880ef7dd06bebc2202ced544d78a30bd3b02f9ce",
+    "count": 30,
+    "find_inputs": "questions/find-inputs-fixture-classic.yaml"
+  },
+  "snapshot": null,
+  "totals": {
+    "questions": 6,
+    "top1": 0,
+    "any_hit": 0,
+    "from_hits": {
+      "questions": 4,
+      "top1": 0,
+      "any_hit": 0
+    },
+    "from_chain": {
+      "questions": 2,
+      "top1": 0,
+      "any_hit": 0
+    }
+  },
+  "by_category": [
+    {
+      "questions": 6,
+      "top1": 0,
+      "any_hit": 0,
+      "category": "edit_location"
+    }
+  ],
+  "questions": [
+    {
+      "question": "el-01",
+      "category": "edit_location",
+      "find": {
+        "url": "/",
+        "text": "(434) 555-0187"
+      },
+      "refs": [
+        "options_pages[id=optpage:company-settings].edit_path"
+      ],
+      "expected": [
+        {
+          "edit": "admin.php?page=company-settings"
+        }
+      ],
+      "status": 200,
+      "route": "route:front-page",
+      "matched": false,
+      "ambiguous": false,
+      "message": "No block on this page contains that text. It may come from PHP, a plugin or a dynamic block. The chain lists everything the page is built from.",
+      "ranked_from": "hits",
+      "top1": false,
+      "any_hit": false,
+      "found": 0,
+      "first_match": null,
+      "ranked": []
+    },
+    {
+      "question": "el-02",
+      "category": "edit_location",
+      "find": {
+        "url": "/projects/"
+      },
+      "refs": [
+        "post_types[id=pt:project].edit_path"
+      ],
+      "expected": [
+        {
+          "edit": "edit.php?post_type=project"
+        }
+      ],
+      "status": 200,
+      "route": "route:archive-project",
+      "matched": null,
+      "ambiguous": false,
+      "message": null,
+      "ranked_from": "chain",
+      "top1": false,
+      "any_hit": false,
+      "found": 0,
+      "first_match": null,
+      "ranked": [
+        {
+          "rank": 1,
+          "id": "tpl:archive-project",
+          "edit": null,
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 2,
+          "id": "part:footer",
+          "edit": null,
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 3,
+          "id": "part:header",
+          "edit": null,
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 4,
+          "id": "part:template-parts/content-project",
+          "edit": null,
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 5,
+          "id": "route:archive-project",
+          "edit": null,
+          "post": null,
+          "block_path": null
+        }
+      ]
+    },
+    {
+      "question": "el-03",
+      "category": "edit_location",
+      "find": {
+        "url": "/",
+        "text": "Projects"
+      },
+      "refs": [
+        "navigation[id=nav:main-navigation].edit_path"
+      ],
+      "expected": [
+        {
+          "edit": "nav-menus.php?action=edit&menu=90190"
+        }
+      ],
+      "status": 200,
+      "route": "route:front-page",
+      "matched": false,
+      "ambiguous": false,
+      "message": "No block on this page contains that text. It may come from PHP, a plugin or a dynamic block. The chain lists everything the page is built from.",
+      "ranked_from": "hits",
+      "top1": false,
+      "any_hit": false,
+      "found": 0,
+      "first_match": null,
+      "ranked": []
+    },
+    {
+      "question": "el-04",
+      "category": "edit_location",
+      "find": {
+        "url": "/projects/"
+      },
+      "refs": [
+        "taxonomies[id=tax:project_type].edit_path"
+      ],
+      "expected": [
+        {
+          "edit": "edit-tags.php?taxonomy=project_type&post_type=project"
+        }
+      ],
+      "status": 200,
+      "route": "route:archive-project",
+      "matched": null,
+      "ambiguous": false,
+      "message": null,
+      "ranked_from": "chain",
+      "top1": false,
+      "any_hit": false,
+      "found": 0,
+      "first_match": null,
+      "ranked": [
+        {
+          "rank": 1,
+          "id": "tpl:archive-project",
+          "edit": null,
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 2,
+          "id": "part:footer",
+          "edit": null,
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 3,
+          "id": "part:header",
+          "edit": null,
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 4,
+          "id": "part:template-parts/content-project",
+          "edit": null,
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 5,
+          "id": "route:archive-project",
+          "edit": null,
+          "post": null,
+          "block_path": null
+        }
+      ]
+    },
+    {
+      "question": "el-05",
+      "category": "edit_location",
+      "find": {
+        "url": "/projects/brennan-kitchen/",
+        "text": "Planning a remodel? Call for a free in-home estimate."
+      },
+      "refs": [
+        "sidebars[id=sidebar:project-sidebar].edit_path"
+      ],
+      "expected": [
+        {
+          "edit": "widgets.php"
+        }
+      ],
+      "status": 200,
+      "route": "route:single-project",
+      "matched": false,
+      "ambiguous": false,
+      "message": "No block on this page contains that text. It may come from PHP, a plugin or a dynamic block. The chain lists everything the page is built from.",
+      "ranked_from": "hits",
+      "top1": false,
+      "any_hit": false,
+      "found": 0,
+      "first_match": null,
+      "ranked": []
+    },
+    {
+      "question": "el-06",
+      "category": "edit_location",
+      "find": {
+        "url": "/kitchen-remodeling/",
+        "text": "Kitchens built around how you cook"
+      },
+      "refs": [
+        "pages[slug=kitchen-remodeling].edit_path"
+      ],
+      "expected": [
+        {
+          "edit": "post.php?post=90103&action=edit"
+        }
+      ],
+      "status": 200,
+      "route": "route:page-kitchen-remodeling",
+      "matched": false,
+      "ambiguous": false,
+      "message": "No block on this page contains that text. It may come from PHP, a plugin or a dynamic block. The chain lists everything the page is built from.",
+      "ranked_from": "hits",
+      "top1": false,
+      "any_hit": false,
+      "found": 0,
+      "first_match": null,
+      "ranked": []
+    }
+  ],
+  "skipped": []
+}
