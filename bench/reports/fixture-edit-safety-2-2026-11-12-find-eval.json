@@ -1,0 +1,443 @@
+{
+  "format": "wayfinder-find-eval/1",
+  "site": "fixture-edit-safety-2",
+  "date": "2026-11-12",
+  "fixture": "block",
+  "commit": "6eec85172c5eaa85bc3c9ebadaf12b84138b7a3b",
+  "question_set": {
+    "file": "questions/fixture-edit-safety-2.yaml",
+    "sha256": "79b1b58aef25744644e6dfc104550afb654338bd89897963d14f1a5aec73bcb7",
+    "count": 30,
+    "find_inputs": null
+  },
+  "snapshot": null,
+  "totals": {
+    "questions": 8,
+    "top1": 7,
+    "any_hit": 8,
+    "from_hits": {
+      "questions": 7,
+      "top1": 7,
+      "any_hit": 7
+    },
+    "from_chain": {
+      "questions": 1,
+      "top1": 0,
+      "any_hit": 1
+    }
+  },
+  "by_category": [
+    {
+      "questions": 1,
+      "top1": 0,
+      "any_hit": 1,
+      "category": "client_can"
+    },
+    {
+      "questions": 3,
+      "top1": 3,
+      "any_hit": 3,
+      "category": "multi_home"
+    },
+    {
+      "questions": 2,
+      "top1": 2,
+      "any_hit": 2,
+      "category": "selectors"
+    },
+    {
+      "questions": 2,
+      "top1": 2,
+      "any_hit": 2,
+      "category": "stale_edit"
+    }
+  ],
+  "questions": [
+    {
+      "question": "cc-26",
+      "category": "client_can",
+      "find": {
+        "url": "/contact/"
+      },
+      "refs": [
+        "templates[id=tpl:page-contact].edit_path"
+      ],
+      "expected": [
+        {
+          "edit": "site-editor.php?p=/wp_template/vwf-fixture//page-contact&canvas=edit"
+        }
+      ],
+      "status": 200,
+      "route": "route:page-contact",
+      "matched": null,
+      "ambiguous": false,
+      "message": null,
+      "ranked_from": "chain",
+      "top1": false,
+      "any_hit": true,
+      "found": 1,
+      "first_match": 2,
+      "ranked": [
+        {
+          "rank": 1,
+          "id": "pt:page",
+          "edit": "post.php?post=90012&action=edit",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 2,
+          "id": "tpl:page-contact",
+          "edit": "site-editor.php?p=/wp_template/vwf-fixture//page-contact&canvas=edit",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 3,
+          "id": "part:footer",
+          "edit": "site-editor.php?p=/wp_template_part/vwf-fixture//footer&canvas=edit",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 4,
+          "id": "part:header",
+          "edit": "site-editor.php?p=/wp_template_part/vwf-fixture//header&canvas=edit",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 5,
+          "id": "bind:vwf-fixture/business-info.address",
+          "edit": "options-general.php?page=vwf-business-info",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 6,
+          "id": "bind:vwf-fixture/business-info.phone",
+          "edit": "options-general.php?page=vwf-business-info",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 7,
+          "id": "nav:footer",
+          "edit": "site-editor.php?p=/wp_navigation/90002",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 8,
+          "id": "nav:primary",
+          "edit": "site-editor.php?p=/wp_navigation/90001",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 9,
+          "id": "route:page-contact",
+          "edit": "post.php?post=90012&action=edit",
+          "post": null,
+          "block_path": null
+        }
+      ]
+    },
+    {
+      "question": "mh-21",
+      "category": "multi_home",
+      "find": {
+        "url": "/guarantee/",
+        "text": "licensed in Virginia"
+      },
+      "refs": [
+        "edit_safety_2.texts[key=licensed-in-virginia].edit_paths"
+      ],
+      "expected": [
+        {
+          "edit": "post.php?post=90010&action=edit"
+        },
+        {
+          "edit": "post.php?post=90062&action=edit"
+        },
+        {
+          "edit": "post.php?post=90081&action=edit"
+        }
+      ],
+      "status": 200,
+      "route": "route:single-page",
+      "matched": true,
+      "ambiguous": false,
+      "message": null,
+      "ranked_from": "hits",
+      "top1": true,
+      "any_hit": true,
+      "found": 3,
+      "first_match": 1,
+      "ranked": [
+        {
+          "rank": 1,
+          "id": "pt:page",
+          "edit": "post.php?post=90081&action=edit",
+          "post": 90081,
+          "block_path": "3",
+          "snippet": "All work is done by plumbers licensed in Virginia."
+        },
+        {
+          "rank": 2,
+          "id": "page:about",
+          "edit": "post.php?post=90010&action=edit",
+          "post": 90010,
+          "block_path": "1",
+          "snippet": "Every plumber on the team is licensed in Virginia, and every job comes with a w…"
+        },
+        {
+          "rank": 3,
+          "id": "page:maintenance-plan",
+          "edit": "post.php?post=90062&action=edit",
+          "post": 90062,
+          "block_path": "4",
+          "snippet": "Every visit is done by a plumber licensed in Virginia."
+        }
+      ]
+    },
+    {
+      "question": "mh-24",
+      "category": "multi_home",
+      "find": {
+        "url": "/pricing/",
+        "text": "Same-day service on calls booked before noon."
+      },
+      "refs": [
+        "edit_safety_2.texts[key=same-day-service].shown_at[path=/pricing/].edit_path"
+      ],
+      "expected": [
+        {
+          "edit": "post.php?post=90071&action=edit"
+        }
+      ],
+      "status": 200,
+      "route": "route:single-page",
+      "matched": true,
+      "ambiguous": false,
+      "message": null,
+      "ranked_from": "hits",
+      "top1": true,
+      "any_hit": true,
+      "found": 1,
+      "first_match": 1,
+      "ranked": [
+        {
+          "rank": 1,
+          "id": "pat:same-day-service",
+          "edit": "post.php?post=90071&action=edit",
+          "post": null,
+          "block_path": "0.0",
+          "snippet": "Same-day service on calls booked before noon."
+        },
+        {
+          "rank": 2,
+          "id": "page:emergencies",
+          "edit": "post.php?post=90082&action=edit",
+          "post": 90082,
+          "block_path": "2",
+          "snippet": "Same-day service on calls booked before noon."
+        }
+      ]
+    },
+    {
+      "question": "mh-26",
+      "category": "multi_home",
+      "find": {
+        "url": "/emergencies/",
+        "text": "Same-day service on calls booked before noon."
+      },
+      "refs": [
+        "edit_safety_2.texts[key=same-day-service].edit_paths"
+      ],
+      "expected": [
+        {
+          "edit": "post.php?post=90071&action=edit"
+        },
+        {
+          "edit": "post.php?post=90082&action=edit"
+        }
+      ],
+      "status": 200,
+      "route": "route:single-page",
+      "matched": true,
+      "ambiguous": false,
+      "message": null,
+      "ranked_from": "hits",
+      "top1": true,
+      "any_hit": true,
+      "found": 2,
+      "first_match": 1,
+      "ranked": [
+        {
+          "rank": 1,
+          "id": "pt:page",
+          "edit": "post.php?post=90082&action=edit",
+          "post": 90082,
+          "block_path": "2",
+          "snippet": "Same-day service on calls booked before noon."
+        },
+        {
+          "rank": 2,
+          "id": "pat:same-day-service",
+          "edit": "post.php?post=90071&action=edit",
+          "post": null,
+          "block_path": "0.0",
+          "snippet": "Same-day service on calls booked before noon."
+        }
+      ]
+    },
+    {
+      "question": "sl-21",
+      "category": "selectors",
+      "find": {
+        "url": "/pricing/",
+        "class": "rate-card"
+      },
+      "refs": [
+        "edit_safety_2.classes[class=rate-card].edit_paths"
+      ],
+      "expected": [
+        {
+          "edit": "post.php?post=90080&action=edit"
+        }
+      ],
+      "status": 200,
+      "route": "route:single-page",
+      "matched": true,
+      "ambiguous": false,
+      "message": null,
+      "ranked_from": "hits",
+      "top1": true,
+      "any_hit": true,
+      "found": 1,
+      "first_match": 1,
+      "ranked": [
+        {
+          "rank": 1,
+          "id": "pt:page",
+          "edit": "post.php?post=90080&action=edit",
+          "post": 90080,
+          "block_path": "2",
+          "snippet": ""
+        }
+      ]
+    },
+    {
+      "question": "sl-24",
+      "category": "selectors",
+      "find": {
+        "url": "/guarantee/",
+        "class": "notice-bar"
+      },
+      "refs": [
+        "edit_safety_2.classes[class=notice-bar].edit_paths"
+      ],
+      "expected": [
+        {
+          "edit": "post.php?post=90071&action=edit"
+        }
+      ],
+      "status": 200,
+      "route": "route:single-page",
+      "matched": true,
+      "ambiguous": false,
+      "message": null,
+      "ranked_from": "hits",
+      "top1": true,
+      "any_hit": true,
+      "found": 1,
+      "first_match": 1,
+      "ranked": [
+        {
+          "rank": 1,
+          "id": "pat:same-day-service",
+          "edit": "post.php?post=90071&action=edit",
+          "post": null,
+          "block_path": "0",
+          "snippet": ""
+        }
+      ]
+    },
+    {
+      "question": "se-25",
+      "category": "stale_edit",
+      "find": {
+        "url": "/pricing/",
+        "text": "The price we quote is the price you pay."
+      },
+      "refs": [
+        "edit_safety_2.anchors[key=price-promise].paths_now"
+      ],
+      "expected": [
+        {
+          "post": 90080,
+          "path": "3"
+        }
+      ],
+      "status": 200,
+      "route": "route:single-page",
+      "matched": true,
+      "ambiguous": false,
+      "message": null,
+      "ranked_from": "hits",
+      "top1": true,
+      "any_hit": true,
+      "found": 1,
+      "first_match": 1,
+      "ranked": [
+        {
+          "rank": 1,
+          "id": "pt:page",
+          "edit": "post.php?post=90080&action=edit",
+          "post": 90080,
+          "block_path": "3",
+          "snippet": "The price we quote is the price you pay."
+        }
+      ]
+    },
+    {
+      "question": "se-26",
+      "category": "stale_edit",
+      "find": {
+        "url": "/emergencies/",
+        "text": "Our main valve is in the crawl space."
+      },
+      "refs": [
+        "edit_safety_2.anchors[key=valve-note].paths_now"
+      ],
+      "expected": [
+        {
+          "post": 90082,
+          "path": "1.1.0"
+        }
+      ],
+      "status": 200,
+      "route": "route:single-page",
+      "matched": true,
+      "ambiguous": false,
+      "message": null,
+      "ranked_from": "hits",
+      "top1": true,
+      "any_hit": true,
+      "found": 1,
+      "first_match": 1,
+      "ranked": [
+        {
+          "rank": 1,
+          "id": "pt:page",
+          "edit": "post.php?post=90082&action=edit",
+          "post": 90082,
+          "block_path": "1.1.0",
+          "snippet": "Our main valve is in the crawl space."
+        }
+      ]
+    }
+  ],
+  "skipped": []
+}

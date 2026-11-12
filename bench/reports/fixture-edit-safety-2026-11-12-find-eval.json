@@ -1,0 +1,412 @@
+{
+  "format": "wayfinder-find-eval/1",
+  "site": "fixture-edit-safety",
+  "date": "2026-11-12",
+  "fixture": "block",
+  "commit": "6eec85172c5eaa85bc3c9ebadaf12b84138b7a3b",
+  "question_set": {
+    "file": "questions/fixture-edit-safety.yaml",
+    "sha256": "69eb2c8401ba4ff31666e968dce3cf8ac31c3c5153c4920a70dbadb9fe372cc9",
+    "count": 20,
+    "find_inputs": "questions/find-inputs-fixture-edit-safety.yaml"
+  },
+  "snapshot": null,
+  "totals": {
+    "questions": 7,
+    "top1": 6,
+    "any_hit": 7,
+    "from_hits": {
+      "questions": 6,
+      "top1": 6,
+      "any_hit": 6
+    },
+    "from_chain": {
+      "questions": 1,
+      "top1": 0,
+      "any_hit": 1
+    }
+  },
+  "by_category": [
+    {
+      "questions": 1,
+      "top1": 0,
+      "any_hit": 1,
+      "category": "locks"
+    },
+    {
+      "questions": 2,
+      "top1": 2,
+      "any_hit": 2,
+      "category": "multi_home"
+    },
+    {
+      "questions": 2,
+      "top1": 2,
+      "any_hit": 2,
+      "category": "selectors"
+    },
+    {
+      "questions": 2,
+      "top1": 2,
+      "any_hit": 2,
+      "category": "stale_edit"
+    }
+  ],
+  "questions": [
+    {
+      "question": "lk-05",
+      "category": "locks",
+      "find": {
+        "url": "/"
+      },
+      "refs": [
+        "template_parts[id=part:footer].edit_path"
+      ],
+      "expected": [
+        {
+          "edit": "site-editor.php?p=/wp_template_part/vwf-fixture//footer&canvas=edit"
+        }
+      ],
+      "status": 200,
+      "route": "route:front-page",
+      "matched": null,
+      "ambiguous": false,
+      "message": null,
+      "ranked_from": "chain",
+      "top1": false,
+      "any_hit": true,
+      "found": 1,
+      "first_match": 3,
+      "ranked": [
+        {
+          "rank": 1,
+          "id": "pt:page",
+          "edit": "post.php?post=90013&action=edit",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 2,
+          "id": "tpl:page",
+          "edit": "site-editor.php?p=/wp_template/vwf-fixture//page&canvas=edit",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 3,
+          "id": "part:footer",
+          "edit": "site-editor.php?p=/wp_template_part/vwf-fixture//footer&canvas=edit",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 4,
+          "id": "part:header",
+          "edit": "site-editor.php?p=/wp_template_part/vwf-fixture//header&canvas=edit",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 5,
+          "id": "pat:cta-banner",
+          "edit": "post.php?post=90003&action=edit",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 6,
+          "id": "bind:vwf-fixture/business-info.address",
+          "edit": "options-general.php?page=vwf-business-info",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 7,
+          "id": "bind:vwf-fixture/business-info.phone",
+          "edit": "options-general.php?page=vwf-business-info",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 8,
+          "id": "nav:footer",
+          "edit": "site-editor.php?p=/wp_navigation/90002",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 9,
+          "id": "nav:primary",
+          "edit": "site-editor.php?p=/wp_navigation/90001",
+          "post": null,
+          "block_path": null
+        },
+        {
+          "rank": 10,
+          "id": "route:front-page",
+          "edit": "options-reading.php",
+          "post": null,
+          "block_path": null
+        }
+      ]
+    },
+    {
+      "question": "mh-01",
+      "category": "multi_home",
+      "find": {
+        "url": "/financing/",
+        "text": "0% financing for 12 months on approved credit."
+      },
+      "refs": [
+        "edit_safety.texts[key=financing-offer].edit_paths"
+      ],
+      "expected": [
+        {
+          "edit": "post.php?post=90062&action=edit"
+        },
+        {
+          "edit": "post.php?post=90070&action=edit"
+        }
+      ],
+      "status": 200,
+      "route": "route:single-page",
+      "matched": true,
+      "ambiguous": false,
+      "message": null,
+      "ranked_from": "hits",
+      "top1": true,
+      "any_hit": true,
+      "found": 2,
+      "first_match": 1,
+      "ranked": [
+        {
+          "rank": 1,
+          "id": "pat:financing-offer",
+          "edit": "post.php?post=90070&action=edit",
+          "post": null,
+          "block_path": "0.0",
+          "snippet": "0% financing for 12 months on approved credit."
+        },
+        {
+          "rank": 2,
+          "id": "page:maintenance-plan",
+          "edit": "post.php?post=90062&action=edit",
+          "post": 90062,
+          "block_path": "5",
+          "snippet": "0% financing for 12 months on approved credit."
+        }
+      ]
+    },
+    {
+      "question": "mh-02",
+      "category": "multi_home",
+      "find": {
+        "url": "/financing/",
+        "text": "0% financing for 12 months on approved credit."
+      },
+      "refs": [
+        "edit_safety.texts[key=financing-offer].shown_at[path=/financing/].edit_path"
+      ],
+      "expected": [
+        {
+          "edit": "post.php?post=90070&action=edit"
+        }
+      ],
+      "status": 200,
+      "route": "route:single-page",
+      "matched": true,
+      "ambiguous": false,
+      "message": null,
+      "ranked_from": "hits",
+      "top1": true,
+      "any_hit": true,
+      "found": 1,
+      "first_match": 1,
+      "ranked": [
+        {
+          "rank": 1,
+          "id": "pat:financing-offer",
+          "edit": "post.php?post=90070&action=edit",
+          "post": null,
+          "block_path": "0.0",
+          "snippet": "0% financing for 12 months on approved credit."
+        },
+        {
+          "rank": 2,
+          "id": "page:maintenance-plan",
+          "edit": "post.php?post=90062&action=edit",
+          "post": 90062,
+          "block_path": "5",
+          "snippet": "0% financing for 12 months on approved credit."
+        }
+      ]
+    },
+    {
+      "question": "sl-01",
+      "category": "selectors",
+      "find": {
+        "url": "/maintenance-plan/",
+        "class": "plan-card"
+      },
+      "refs": [
+        "edit_safety.classes[class=plan-card].edit_paths"
+      ],
+      "expected": [
+        {
+          "edit": "post.php?post=90062&action=edit"
+        }
+      ],
+      "status": 200,
+      "route": "route:single-page",
+      "matched": true,
+      "ambiguous": false,
+      "message": null,
+      "ranked_from": "hits",
+      "top1": true,
+      "any_hit": true,
+      "found": 1,
+      "first_match": 1,
+      "ranked": [
+        {
+          "rank": 1,
+          "id": "pt:page",
+          "edit": "post.php?post=90062&action=edit",
+          "post": 90062,
+          "block_path": "2",
+          "snippet": ""
+        }
+      ]
+    },
+    {
+      "question": "sl-04",
+      "category": "selectors",
+      "find": {
+        "url": "/financing/",
+        "class": "promo-strip"
+      },
+      "refs": [
+        "edit_safety.classes[class=promo-strip].edit_paths"
+      ],
+      "expected": [
+        {
+          "edit": "post.php?post=90070&action=edit"
+        }
+      ],
+      "status": 200,
+      "route": "route:single-page",
+      "matched": true,
+      "ambiguous": false,
+      "message": null,
+      "ranked_from": "hits",
+      "top1": true,
+      "any_hit": true,
+      "found": 1,
+      "first_match": 1,
+      "ranked": [
+        {
+          "rank": 1,
+          "id": "pat:financing-offer",
+          "edit": "post.php?post=90070&action=edit",
+          "post": null,
+          "block_path": "0",
+          "snippet": ""
+        }
+      ]
+    },
+    {
+      "question": "se-01",
+      "category": "stale_edit",
+      "find": {
+        "url": "/maintenance-plan/",
+        "text": "0% financing for 12 months on approved credit."
+      },
+      "refs": [
+        "edit_safety.anchors[key=financing-line].paths_now"
+      ],
+      "expected": [
+        {
+          "post": 90062,
+          "path": "5"
+        }
+      ],
+      "status": 200,
+      "route": "route:single-page",
+      "matched": true,
+      "ambiguous": false,
+      "message": null,
+      "ranked_from": "hits",
+      "top1": true,
+      "any_hit": true,
+      "found": 1,
+      "first_match": 1,
+      "ranked": [
+        {
+          "rank": 1,
+          "id": "pt:page",
+          "edit": "post.php?post=90062&action=edit",
+          "post": 90062,
+          "block_path": "5",
+          "snippet": "0% financing for 12 months on approved credit."
+        },
+        {
+          "rank": 2,
+          "id": "pat:financing-offer",
+          "edit": "post.php?post=90070&action=edit",
+          "post": null,
+          "block_path": "0.0",
+          "snippet": "0% financing for 12 months on approved credit."
+        }
+      ]
+    },
+    {
+      "question": "se-05",
+      "category": "stale_edit",
+      "find": {
+        "url": "/commercial/",
+        "text": "Ask about after-hours service."
+      },
+      "refs": [
+        "edit_safety.anchors[key=after-hours].paths_now"
+      ],
+      "expected": [
+        {
+          "post": 90060,
+          "path": "2"
+        },
+        {
+          "post": 90060,
+          "path": "4"
+        }
+      ],
+      "status": 200,
+      "route": "route:single-page",
+      "matched": true,
+      "ambiguous": true,
+      "message": null,
+      "ranked_from": "hits",
+      "top1": true,
+      "any_hit": true,
+      "found": 2,
+      "first_match": 1,
+      "ranked": [
+        {
+          "rank": 1,
+          "id": "pt:page",
+          "edit": "post.php?post=90060&action=edit",
+          "post": 90060,
+          "block_path": "2",
+          "snippet": "Ask about after-hours service."
+        },
+        {
+          "rank": 2,
+          "id": "pt:page",
+          "edit": "post.php?post=90060&action=edit",
+          "post": 90060,
+          "block_path": "4",
+          "snippet": "Ask about after-hours service."
+        }
+      ]
+    }
+  ],
+  "skipped": []
+}
