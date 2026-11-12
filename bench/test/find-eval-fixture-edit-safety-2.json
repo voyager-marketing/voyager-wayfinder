@@ -13,7 +13,7 @@
         "edit": "post.php?post=90071&action=edit"
       }
     },
-    "/wp-json/wayfinder/v1/find?url=%2Fcontact%2F&text=&class=": {
+    "/wp-json/wayfinder/v1/find?url=%2Fcontact%2F&text=&class=&detail=full": {
       "status": 200,
       "body": {
         "route": "route:page-contact",
@@ -73,7 +73,7 @@
         }
       }
     },
-    "/wp-json/wayfinder/v1/find?url=%2Femergencies%2F&text=&class=": {
+    "/wp-json/wayfinder/v1/find?url=%2Femergencies%2F&text=&class=&detail=full": {
       "status": 200,
       "body": {
         "route": "route:single-page",
@@ -133,7 +133,7 @@
         }
       }
     },
-    "/wp-json/wayfinder/v1/find?url=%2Femergencies%2F&text=Our%20main%20valve%20is%20in%20the%20crawl%20space.&class=": {
+    "/wp-json/wayfinder/v1/find?url=%2Femergencies%2F&text=Our%20main%20valve%20is%20in%20the%20crawl%20space.&class=&detail=full": {
       "status": 200,
       "body": {
         "route": "route:single-page",
@@ -176,7 +176,7 @@
         }
       }
     },
-    "/wp-json/wayfinder/v1/find?url=%2Femergencies%2F&text=Same-day%20service%20on%20calls%20booked%20before%20noon.&class=": {
+    "/wp-json/wayfinder/v1/find?url=%2Femergencies%2F&text=Same-day%20service%20on%20calls%20booked%20before%20noon.&class=&detail=full": {
       "status": 200,
       "body": {
         "route": "route:single-page",
@@ -231,7 +231,7 @@
         }
       }
     },
-    "/wp-json/wayfinder/v1/find?url=%2Fguarantee%2F&text=&class=": {
+    "/wp-json/wayfinder/v1/find?url=%2Fguarantee%2F&text=&class=&detail=full": {
       "status": 200,
       "body": {
         "route": "route:single-page",
@@ -296,7 +296,7 @@
         }
       }
     },
-    "/wp-json/wayfinder/v1/find?url=%2Fguarantee%2F&text=&class=notice-bar": {
+    "/wp-json/wayfinder/v1/find?url=%2Fguarantee%2F&text=&class=notice-bar&detail=full": {
       "status": 200,
       "body": {
         "route": "route:single-page",
@@ -344,7 +344,7 @@
         }
       }
     },
-    "/wp-json/wayfinder/v1/find?url=%2Fguarantee%2F&text=licensed%20in%20Virginia&class=": {
+    "/wp-json/wayfinder/v1/find?url=%2Fguarantee%2F&text=licensed%20in%20Virginia&class=&detail=full": {
       "status": 200,
       "body": {
         "route": "route:single-page",
@@ -411,7 +411,7 @@
         }
       }
     },
-    "/wp-json/wayfinder/v1/find?url=%2Fpricing%2F&text=&class=": {
+    "/wp-json/wayfinder/v1/find?url=%2Fpricing%2F&text=&class=&detail=full": {
       "status": 200,
       "body": {
         "route": "route:single-page",
@@ -476,7 +476,7 @@
         }
       }
     },
-    "/wp-json/wayfinder/v1/find?url=%2Fpricing%2F&text=&class=rate-card": {
+    "/wp-json/wayfinder/v1/find?url=%2Fpricing%2F&text=&class=rate-card&detail=full": {
       "status": 200,
       "body": {
         "route": "route:single-page",
@@ -519,7 +519,7 @@
         }
       }
     },
-    "/wp-json/wayfinder/v1/find?url=%2Fpricing%2F&text=Same-day%20service%20on%20calls%20booked%20before%20noon.&class=": {
+    "/wp-json/wayfinder/v1/find?url=%2Fpricing%2F&text=Same-day%20service%20on%20calls%20booked%20before%20noon.&class=&detail=full": {
       "status": 200,
       "body": {
         "route": "route:single-page",
@@ -579,7 +579,7 @@
         }
       }
     },
-    "/wp-json/wayfinder/v1/find?url=%2Fpricing%2F&text=The%20price%20we%20quote%20is%20the%20price%20you%20pay.&class=": {
+    "/wp-json/wayfinder/v1/find?url=%2Fpricing%2F&text=The%20price%20we%20quote%20is%20the%20price%20you%20pay.&class=&detail=full": {
       "status": 200,
       "body": {
         "route": "route:single-page",

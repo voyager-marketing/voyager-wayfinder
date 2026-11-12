@@ -9,7 +9,7 @@ export interface Site {
   url: string;
   /** `user:application-password`, from fixtures/.credentials. */
   credentials: string;
-  /** wayfinder/v1 route templates from config.json; `{id}`, `{url}`, `{text}` and `{class}` are filled in. */
+  /** wayfinder/v1 route templates from config.json; `{id}`, `{url}`, `{text}`, `{class}` and `{detail}` are filled in. */
   routes: { brief: string; index: string; section: string; find: string };
 }
 
@@ -46,12 +46,14 @@ export const TOOLS = {
   find_edit_location: tool(
     'find_edit_location',
     'Ask Wayfinder where something on a front-end page is edited. Give the page path or URL and, optionally, text visible on that page, a CSS class or block name, or both. '
-      + 'hits lists every place the match lives, on this page or elsewhere on the site, best first; when ambiguous is true the top two are equally good answers. '
-      + 'Each hit on a block carries an anchor (entity, post, path, fingerprint fp, expect_hash).',
+      + 'hits lists the places the match lives, on this page or elsewhere on the site, best first; when ambiguous is true the top two are equally good answers. '
+      + 'Each hit on a block carries an anchor (entity, post, path, fingerprint fp, expect_hash). '
+      + 'By default the answer keeps the first three hits and chain entries and counts the rest in hits_more and chain_more; detail full returns every one, with the class and lock lists of the page.',
     {
       url: 'Page path or URL',
       text: 'Visible text to locate',
       class: 'A CSS class a block carries, or a block name. With text, only blocks matching both',
+      detail: 'compact (the default) or full',
     },
     ['url'],
   ),
@@ -102,7 +104,7 @@ export function stripHtml(html: string): string {
 
 const PathInput = z.object({ path: z.string().min(1) });
 const IdInput = z.object({ id: z.string().min(1) });
-const FindInput = z.object({ url: z.string().min(1), text: z.string().optional(), class: z.string().optional() });
+const FindInput = z.object({ url: z.string().min(1), text: z.string().optional(), class: z.string().optional(), detail: z.string().optional() });
 
 /** Tools against a running site. Paths are resolved on the site's origin and nowhere else. */
 export function liveTools(site: Site, fetchImpl: typeof fetch = fetch): ToolExecutor {

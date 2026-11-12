@@ -12,7 +12,15 @@ import { expectedValues, resolveRef, type Json } from './truth.ts';
  * The find eval: each edit-location question's find inputs go to the find route, and the answer key's
  * location is checked against hit 1 and against every hit. No model is called, so the result has no sampling
  * noise and costs nothing, and it can run on every change to find.
+ *
+ * Every request asks for `detail: full`, so hits lists every home and the chain the whole page, as find answered
+ * before its compact default. The eval measures the ranking, and stays comparable with the reports written before
+ * that default. The default answer keeps the first FIND_DEFAULT_HITS of each, so a first match past that rank is
+ * not in it.
  */
+
+/** Hits and chain entries find's default answer keeps (FindPayload::LIMIT in src/Edit/FindPayload.php). */
+export const FIND_DEFAULT_HITS = 3;
 
 /**
  * An answer that names an edit screen or a block path is an edit location. The same rule decides which
@@ -263,7 +271,7 @@ export function renderFindEval(report: FindEvalReport): string {
   const lines = [
     `# Find eval: ${report.site}, ${report.date}`,
     '',
-    `\`${report.question_set.file}\` (sha256 \`${report.question_set.sha256.slice(0, 12)}\`), find inputs from ${report.question_set.find_inputs ? `\`${report.question_set.find_inputs}\` and the questions` : 'the questions'}, on the ${report.fixture} fixture${report.commit ? ` at \`${report.commit}\`` : ''}. No model is called: each edit-location question's find inputs go to the find route, and the answer key's location is checked against hit 1 and against every hit. ${report.snapshot ? `Find read the stored manifest \`${report.snapshot.slice(0, 12)}\`.` : 'No manifest was stored, so hits carry no route counts.'}`,
+    `\`${report.question_set.file}\` (sha256 \`${report.question_set.sha256.slice(0, 12)}\`), find inputs from ${report.question_set.find_inputs ? `\`${report.question_set.find_inputs}\` and the questions` : 'the questions'}, on the ${report.fixture} fixture${report.commit ? ` at \`${report.commit}\`` : ''}. No model is called: each edit-location question's find inputs go to the find route, and the answer key's location is checked against hit 1 and against every hit. ${report.snapshot ? `Find read the stored manifest \`${report.snapshot.slice(0, 12)}\`.` : 'No manifest was stored, so hits carry no route counts.'} The eval asks for every hit (\`detail: full\`); find's default answer keeps the first ${FIND_DEFAULT_HITS}, so a first match past ${FIND_DEFAULT_HITS} is not in it.`,
     '',
     '| | Questions | Top-1 | Any hit |',
     '|---|---|---|---|',
@@ -329,7 +337,7 @@ export async function runFindEval(opts: FindEvalOptions = {}): Promise<{ report:
     return { status: res.status, body: await res.text() };
   };
   const find = async (input: FindInput) => {
-    const { status, body } = await get(fill(config.manual_routes.find, { ...input }));
+    const { status, body } = await get(fill(config.manual_routes.find, { ...input, detail: 'full' }));
     return { status, result: status === 200 ? FindResult.parse(JSON.parse(body)) : undefined, body };
   };
   const routeChains = new Map<string, FindResult['chain']>();

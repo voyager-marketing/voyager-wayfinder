@@ -1,9 +1,11 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { z } from 'zod';
+import { FIND_TOOL } from './findSize.ts';
 import { computeIntervals, Intervals, renderIntervals } from './intervals.ts';
 import { Sensitivity, sensitivitySection } from './sensitivity.ts';
 import { addTallies, breaches, TOOL_ERROR_LIMIT, toolErrors } from './toolErrors.ts';
+import { CONDITION_TOOLS, MAX_CHARS, type Condition } from './tools.ts';
 import { inputTotal } from './usage.ts';
 
 // The report shape, documented in bench/README.md. Writing the report parses it through this schema.
@@ -12,11 +14,13 @@ const s = z.string();
 const Usage = z.object({ input_tokens: n, cache_creation_input_tokens: n, cache_read_input_tokens: n, output_tokens: n });
 /** Calls and error results per tool name, from run 6. Reports before it lack them. */
 const ToolTally = z.record(s, z.object({ calls: n, errors: n }));
+/** One question run's find_edit_location results: calls, characters together, and how many reached the cap (src/findSize.ts). */
+const FindSize = z.object({ calls: n, chars: n, at_cap: n });
 
 export const ResultSchema = z.object({
   question: s, category: s, condition: s, model: s, rep: n, correct: z.boolean(), reason: s, answer: s,
   usage: Usage, first_call_input_tokens: n, tool_calls: n,
-  tool_errors: n.optional(), tools: ToolTally.optional(),
+  tool_errors: n.optional(), tools: ToolTally.optional(), find: FindSize.optional(),
   turns: n, hit_turn_cap: z.boolean(), wall_ms: n, cost_usd: n, judge_cost_usd: n,
 });
 export type Result = z.infer<typeof ResultSchema>;
@@ -158,13 +162,18 @@ export const ReportSchema = z.object({
   sensitivity: Sensitivity.optional(),
   /** From run 5: 95% intervals per cell and per paired comparison, and McNemar. Reports before it lack them; `--intervals` prints them. */
   intervals: Intervals.optional(),
+  /**
+   * What find handed the model, per condition that offers it, pooled over models and repetitions: find calls, their
+   * mean characters, and how many reached the tool cap. Reports before run 6 lack it; their transcripts hold it.
+   */
+  find_size: z.array(z.object({ condition: s, calls: n, mean_chars: n, at_cap: n })).optional(),
 });
 export type Report = z.infer<typeof ReportSchema>;
-export type ReportMeta = Omit<Report, 'hypotheses' | 'metrics' | 'losses' | 'cache_by_cell' | 'caching' | 'most_missed' | 'runs' | 'by_category' | 'totals' | 'results' | 'corrected' | 'sensitivity' | 'intervals'>;
+export type ReportMeta = Omit<Report, 'hypotheses' | 'metrics' | 'losses' | 'cache_by_cell' | 'caching' | 'most_missed' | 'runs' | 'by_category' | 'totals' | 'results' | 'corrected' | 'sensitivity' | 'intervals' | 'find_size'>;
 
 /** A written report with everything buildReport computes taken off, ready to build again. */
 export function reportMeta(report: Report): ReportMeta {
-  const { hypotheses, metrics, losses, cache_by_cell, caching, most_missed, runs, by_category, totals, results, corrected, sensitivity, intervals, ...meta } = report;
+  const { hypotheses, metrics, losses, cache_by_cell, caching, most_missed, runs, by_category, totals, results, corrected, sensitivity, intervals, find_size, ...meta } = report;
   return meta;
 }
 
@@ -588,6 +597,19 @@ export function applyCorrections(results: Result[], file: CorrectionsFile): Resu
   return fixed;
 }
 
+/**
+ * Find's results per condition that offers the tool, pooled over models and repetitions. Absent unless every result
+ * carries its find count, as results from run 6 do.
+ */
+export function findSizeByCondition(results: Result[]): Report['find_size'] {
+  if (!results.length || !results.every((r) => r.find)) return undefined;
+  const offers = (c: string) => (CONDITION_TOOLS[c as Condition] ?? []).some((t) => t === FIND_TOOL);
+  return groupBy(results.filter((r) => offers(r.condition)), (r) => r.condition).map(([condition, rs]) => {
+    const calls = sum(rs.map((r) => r.find!.calls));
+    return { condition, calls, mean_chars: calls ? Math.round(sum(rs.map((r) => r.find!.chars)) / calls) : 0, at_cap: sum(rs.map((r) => r.find!.at_cap)) };
+  });
+}
+
 export function buildReport(results: Result[], meta: ReportMeta, rules: Rules, corrections?: CorrectionsFile): Report {
   // A space sorts before '-', so "manual" groups list ahead of "manual-preloaded".
   const runs = groupBy(results, runKey).map(([, rs]) => {
@@ -609,6 +631,7 @@ export function buildReport(results: Result[], meta: ReportMeta, rules: Rules, c
   const total = (key: 'cost_usd' | 'judge_cost_usd') => round(sum(results.map((r) => r[key])), 6);
   const totals = { question_runs: results.length, correct: tally(results).correct, cost_usd: total('cost_usd'), judge_cost_usd: total('judge_cost_usd') };
   const fixed = corrections && applyCorrections(results, corrections);
+  const find_size = findSizeByCondition(results);
   return ReportSchema.parse({
     ...meta,
     hypotheses: judge(results, meta, rules),
@@ -621,6 +644,7 @@ export function buildReport(results: Result[], meta: ReportMeta, rules: Rules, c
     most_missed: mostMissed(results),
     runs, by_category, totals, results,
     intervals: intervalsFor(results, meta.models.map((m) => m.id), rules),
+    ...(find_size && { find_size }),
     ...(fixed && {
       corrected: {
         ...corrections,
@@ -687,6 +711,15 @@ function toolErrorsSection(runs: Report['runs']): string[] {
     '## Tool errors',
     `Error results per cell, over every question run in it. A live run checks the cli container before each cli cell and after the last one, and stops on a cell whose tool calls error on more than ${cell_share * 100}% of at least ${min_calls}, or whose one tool errors on more than ${tool_share * 100}% of at least ${min_calls} of its calls.`,
     table(['Condition', 'Model', 'Rep', 'Tool calls', 'Tool errors', 'Worst tool', 'Limits'], rows),
+  ];
+}
+
+/** Find's result sizes per condition: the cost the compact answer is meant to cut. */
+function findSizeSection(rows: NonNullable<Report['find_size']>): string[] {
+  return [
+    '## Find results',
+    `What each find_edit_location call handed the model, per condition, over every model and repetition. A result at the cap was cut at ${int(MAX_CHARS)} characters, usually mid-JSON.`,
+    table(['Condition', 'Find calls', 'Mean characters', 'At the cap'], rows.map((f) => [f.condition, f.calls, f.calls ? int(f.mean_chars) : 'none', f.calls ? `${f.at_cap} (${pct(f.at_cap / f.calls)})` : 'none'])),
   ];
 }
 
@@ -762,6 +795,7 @@ export function renderMarkdown(r: Report): string {
       r.runs.map((s) => [s.condition, s.model, s.rep, s.input_tokens.median, s.input_tokens.p90, s.total_tokens.median, s.total_tokens.p90, s.tool_calls.median, s.tool_calls.p90, (s.wall_ms.median / 1000).toFixed(1)]),
     ),
     ...(r.runs.some((s) => s.tools) ? toolErrorsSection(r.runs) : []),
+    ...(r.find_size ? findSizeSection(r.find_size) : []),
     '## Cost',
     table(['Condition', 'Model', 'Rep', 'Per question', 'Total'], r.runs.map((s) => [s.condition, s.model, s.rep, usd(s.cost_per_question_usd), usd(s.cost_usd)])),
     `Agent total ${usd(r.totals.cost_usd)}. Judge total ${usd(r.totals.judge_cost_usd)}. ${r.totals.correct}/${r.totals.question_runs} correct.`,

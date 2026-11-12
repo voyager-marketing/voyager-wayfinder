@@ -14,6 +14,7 @@ import { loadPrivate, PRIVATE_DIR } from './private.ts';
 import { startSnapshot } from './snapshot.ts';
 import { checkReference, turnCapSensitivity } from './sensitivity.ts';
 import { cliTools, liveTools, toolsFor, usesContainer, type Condition, type ToolExecutor } from './tools.ts';
+import { findSize } from './findSize.ts';
 import { cellGuard, toolErrors, toolTally } from './toolErrors.ts';
 import type { Json } from './truth.ts';
 import { addUsage, costUsd, emptyUsage, inputTotal } from './usage.ts';
@@ -415,7 +416,8 @@ export async function runBench(opts: BenchOptions = {}): Promise<{ report: Repor
     return {
       question: question.id, category: question.category, condition, model, rep, correct: verdict.correct, reason: verdict.reason,
       answer: /^\s*ANSWER:/im.test(run.final_text) ? extractAnswer(run.final_text).trim() : '',
-      usage: run.usage, first_call_input_tokens: inputTotal(firstCall), tool_calls: run.tool_calls, tool_errors: toolErrors(tools), tools, turns: run.turns.length,
+      usage: run.usage, first_call_input_tokens: inputTotal(firstCall), tool_calls: run.tool_calls, tool_errors: toolErrors(tools), tools,
+      find: findSize(run.turns), turns: run.turns.length,
       hit_turn_cap: run.hit_turn_cap, wall_ms, cost_usd: costUsd(run.usage, pricing.models[model]), judge_cost_usd: judgeCost,
     };
   });
