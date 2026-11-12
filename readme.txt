@@ -36,7 +36,7 @@ The output is deterministic. The same site gives the same bytes every time, so a
 
 = Find where something is edited =
 
-Give Wayfinder a URL on the site, and optionally some text you can see on that page or a CSS class, and it answers where that thing is edited. The answer is the chain from the route to the template, the part, the pattern or block, and the content, ranked, with the admin path for each. It is flagged as ambiguous when two places tie.
+Give Wayfinder a URL on the site, and optionally some text you can see on that page or a CSS class, and it answers where that thing is edited. The answer is the chain from the route to the template, the part, the pattern or block, and the content, ranked, with the admin path for each. It is flagged as ambiguous when two places tie. The answer keeps the three best places and says how many more there are; ask for full detail to get every one.
 
 = Abilities and MCP =
 

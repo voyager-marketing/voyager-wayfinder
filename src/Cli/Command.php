@@ -11,6 +11,7 @@ use Voyager\Wayfinder\Blocks\Locks;
 use Voyager\Wayfinder\Drift\Refresher;
 use Voyager\Wayfinder\Edit\Anchors;
 use Voyager\Wayfinder\Edit\EditLocator;
+use Voyager\Wayfinder\Edit\FindPayload;
 use Voyager\Wayfinder\Manifest\CanonicalJson;
 use Voyager\Wayfinder\Manifest\Differ;
 use Voyager\Wayfinder\Manifest\Manifest;
@@ -96,6 +97,17 @@ final class Command
      * : A CSS class a block carries (a leading dot is fine), or a block's name
      * from the editor's List View. With --text, only blocks matching both.
      *
+     * [--detail=<detail>]
+     * : compact (three hits, three chain entries) or full (everything).
+     * The compact answer counts what it left out and drops the page's class
+     * and lock lists.
+     * ---
+     * default: compact
+     * options:
+     *   - compact
+     *   - full
+     * ---
+     *
      * [--format=<format>]
      * : Output format. `ids` prints the chain's ids, most specific first, then
      * one line per hit: rank, id, block path and snippet.
@@ -111,6 +123,7 @@ final class Command
      *     wp wayfinder find / --text="555-0142"
      *     wp wayfinder find /services/drain-cleaning/ --format=ids
      *     wp wayfinder find /about/ --class=hide-mobile
+     *     wp wayfinder find / --text="Services" --detail=full
      *
      * Each hit on a block carries an `anchor` and the result a `verify`
      * recipe; see `wp wayfinder anchor`.
@@ -126,31 +139,37 @@ final class Command
             WP_CLI::error((string) $result['message']);
         }
 
-        if ($result['matched'] === false) {
-            WP_CLI::warning((string) $result['message']);
+        $payload = FindPayload::shape($result, FindPayload::detail($assocArgs['detail'] ?? null) ?? FindPayload::COMPACT);
+
+        if ($payload['matched'] === false) {
+            WP_CLI::warning((string) $payload['message']);
         }
 
         if (($assocArgs['format'] ?? 'json') === 'ids') {
-            foreach ($result['chain'] as $entry) {
-                WP_CLI::line($entry['id']);
+            foreach ($payload['chain'] as $entry) {
+                WP_CLI::line((string) $entry['id']);
             }
 
-            foreach ($result['hits'] as $hit) {
+            foreach ($payload['hits'] as $hit) {
                 WP_CLI::line(sprintf('hit %d %s %s %s %s', $hit['rank'], $hit['id'], $hit['block_path'] ?? '-', $hit['anchor']['fp'] ?? '-', $hit['snippet']));
             }
 
-            if ($result['ambiguous']) {
+            if ($payload['ambiguous']) {
                 WP_CLI::line('ambiguous: the top two hits are equally good answers');
             }
 
-            if (isset($result['coverage'], $result['reason'])) {
-                WP_CLI::line(sprintf('coverage: %s (%s)', $result['coverage'], $result['reason']));
+            if (isset($payload['coverage'], $payload['reason'])) {
+                WP_CLI::line(sprintf('coverage: %s (%s)', $payload['coverage'], $payload['reason']));
+            }
+
+            if (isset($payload['hits_more']) || isset($payload['chain_more'])) {
+                WP_CLI::line(sprintf('more: %d hits, %d chain entries; --detail=full lists them', $payload['hits_more'] ?? 0, $payload['chain_more'] ?? 0));
             }
 
             return;
         }
 
-        WP_CLI::line((string) wp_json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+        WP_CLI::line((string) wp_json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
     }
 
     /**

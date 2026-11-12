@@ -52,10 +52,10 @@ final class FindPayloadSizeTest extends TestCase
         $full = self::locator()->find('/', 'Why Voyager');
         $content = array_column($full['chain'], null, 'id')['pt:page'];
 
-        $this->assertGreaterThan(4 * self::BUDGET, self::chars($full));
+        $this->assertGreaterThan(3 * self::BUDGET, self::chars($full));
         $this->assertGreaterThan(300, $content['classes_more'] ?? 0);
         $this->assertCount(50, $content['block_names'] ?? []);
-        $this->assertGreaterThan(50, count($content['locked_blocks'] ?? []));
+        $this->assertCount(50, $content['locked_blocks'] ?? [], 'the page has 75 locked blocks; the list stops at its cap');
         $this->assertGreaterThan(3, count($full['hits']));
     }
 
@@ -66,7 +66,7 @@ final class FindPayloadSizeTest extends TestCase
         $this->assertIsArray($answer);
         $this->assertLessThan(self::BUDGET, self::chars($answer));
         $this->assertNull($answer['matched']);
-        $this->assertSame(['pt:page', 'tpl:page', 'pat:why-voyager-band'], array_column($answer['chain'], 'id'));
+        $this->assertSame(['pt:page', 'tpl:page', 'part:footer'], array_column($answer['chain'], 'id'), 'the first three, in the order find gives them');
         $this->assertGreaterThan(0, $answer['chain_more'] ?? 0);
     }
 

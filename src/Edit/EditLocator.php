@@ -113,6 +113,9 @@ final class EditLocator
     /** How many usages a synced pattern's instruction names before "and N more". */
     private const USAGES_NAMED = 5;
 
+    /** How a miss's message ends: the chain is then the whole page. FindPayload rewords it when it cuts the chain. */
+    public const WHOLE_PAGE = 'The chain lists everything the page is built from.';
+
     private RouteSource $routes;
 
     private LayoutSource $layout;
@@ -872,7 +875,7 @@ final class EditLocator
             default                           => 'No block on this page contains that text.',
         };
 
-        return $what . ' It may come from PHP, a plugin or a dynamic block. The chain lists everything the page is built from.';
+        return $what . ' It may come from PHP, a plugin or a dynamic block. ' . self::WHOLE_PAGE;
     }
 
     /**

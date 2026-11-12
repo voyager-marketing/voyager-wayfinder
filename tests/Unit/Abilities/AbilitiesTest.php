@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use stdClass;
 use Voyager\Wayfinder\Abilities\Abilities;
 use Voyager\Wayfinder\Edit\EditLocator;
+use Voyager\Wayfinder\Edit\FindPayload;
 use Voyager\Wayfinder\Manifest\CanonicalJson;
 use Voyager\Wayfinder\Manifest\Item;
 use Voyager\Wayfinder\Render\Ai\Context;
@@ -184,8 +185,9 @@ final class AbilitiesTest extends TestCase
         $result = self::abilities()->find(['url' => '/', 'text' => '555-0142']);
 
         $this->assertIsArray($result);
-        $this->assertSame((new EditLocator(FakeRouteSource::fixture(), FakeRouteSource::layout()))->find('/', '555-0142'), $result);
+        $this->assertSame(FindPayload::shape((new EditLocator(FakeRouteSource::fixture(), FakeRouteSource::layout()))->find('/', '555-0142')), $result);
         $this->assertSame('bind:vwf-fixture/business-info.phone', $result['chain'][0]['id']);
+        $this->assertSame('compact', $result['detail']);
     }
 
     public function testFindWithoutTextAndAnUnknownUrl(): void
@@ -195,6 +197,12 @@ final class AbilitiesTest extends TestCase
         $this->assertIsArray($page);
         $this->assertNull($page['matched']);
         $this->assertSame('route:single-service', $page['route']);
+
+        $bad = self::abilities()->find(['url' => '/', 'detail' => 'everything']);
+
+        $this->assertInstanceOf(WP_Error::class, $bad);
+        $this->assertSame('vwf_bad_request', $bad->get_error_code());
+        $this->assertSame(['status' => 400], $bad->get_error_data());
 
         $error = self::abilities()->find(['url' => '/no-such-page/']);
 
