@@ -17,8 +17,9 @@ use WP_REST_Response;
 use WP_REST_Server;
 
 /**
- * `GET wayfinder/v1/context?tier=brief|index|section&id=` and
+ * `GET wayfinder/v1/context?tier=brief|index|section&id=&page=` and
  * `GET wayfinder/v1/changes?since=<hash>`, for users who can edit pages.
+ * `page` asks the section tier for one page of a section.
  *
  * The brief and the index go out as text/plain and the section as
  * application/json, byte for byte as the renderer made them: WordPress would
@@ -71,6 +72,10 @@ final class ContextController
                     'type'    => 'string',
                     'default' => '',
                 ],
+                'page' => [
+                    'type'    => 'integer',
+                    'minimum' => 1,
+                ],
             ],
         ]);
 
@@ -101,6 +106,8 @@ final class ContextController
         $context = $this->newContext();
         $tier = (string) $request->get_param('tier');
         $id = trim((string) $request->get_param('id'));
+        $page = $request->get_param('page');
+        $page = is_numeric($page) ? (int) $page : null;
         $etag = '"' . $context->etag() . '"';
 
         if (self::matches($request->get_header('if_none_match'), $etag)) {
@@ -112,7 +119,7 @@ final class ContextController
         }
 
         try {
-            $body = $context->render($tier, $id);
+            $body = $context->render($tier, $id, $page);
         } catch (InvalidArgumentException $e) {
             return new WP_Error('vwf_bad_request', $e->getMessage(), ['status' => 400]);
         }

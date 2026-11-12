@@ -158,6 +158,51 @@ final class AbilitiesTest extends TestCase
         $this->assertSame(self::context()->render('section', 'layout'), CanonicalJson::encode($section));
     }
 
+    public function testSectionTakesThePageTheIndexNames(): void
+    {
+        $page = self::abilities()->section(['id' => 'layout', 'page' => 1]);
+
+        $this->assertIsArray($page);
+        $this->assertSame(1, $page['page']);
+        $this->assertSame(1, $page['pages']);
+        $this->assertSame(self::context()->render('section', 'layout', 1), CanonicalJson::encode($page));
+
+        // A GET run before WordPress 7.1 hands the number over as a string.
+        $this->assertSame(CanonicalJson::encode($page), CanonicalJson::encode(self::abilities()->section(['id' => 'layout', 'page' => '1'])));
+
+        $past = self::abilities()->section(['id' => 'layout', 'page' => 2]);
+        $this->assertInstanceOf(WP_Error::class, $past);
+        $this->assertSame('vwf_bad_request', $past->get_error_code());
+        $this->assertSame(['status' => 400], $past->get_error_data());
+
+        $definition = (new Abilities())->definitions(false)['voyager-wayfinder/get-section'];
+        $this->assertSame(['type' => 'integer', 'minimum' => 1], array_intersect_key($definition['input_schema']['properties']['page'], ['type' => true, 'minimum' => true]));
+        $this->assertSame(['id'], $definition['input_schema']['required']);
+        $this->assertSame(['type' => 'integer'], $definition['output_schema']['oneOf'][0]['properties']['page']);
+        $this->assertSame(['type' => 'integer'], $definition['output_schema']['oneOf'][0]['properties']['pages']);
+    }
+
+    public function testAPageThatIsNotAWholeNumberFromOneIsABadRequestNotTheWholeSection(): void
+    {
+        // Before WordPress 7.1 a GET run hands these over untouched, so each must be refused, never read as no page.
+        foreach (['-2', '0', 'abc', '1.5', '', ' 1', '1e2', -2, 0, 1.5, true, ['1']] as $page) {
+            $error = self::abilities()->section(['id' => 'layout', 'page' => $page]);
+
+            $this->assertInstanceOf(WP_Error::class, $error, var_export($page, true));
+            $this->assertSame('vwf_bad_request', $error->get_error_code(), var_export($page, true));
+            $this->assertSame(['status' => 400], $error->get_error_data(), var_export($page, true));
+        }
+
+        // No page, or a null one, is the whole section.
+        $whole = self::context()->render('section', 'layout');
+        $this->assertSame($whole, CanonicalJson::encode(self::abilities()->section(['id' => 'layout'])));
+        $this->assertSame($whole, CanonicalJson::encode(self::abilities()->section(['id' => 'layout', 'page' => null])));
+
+        // A page on an item id is still ignored when it is a whole number, and refused when it is not.
+        $this->assertSame(self::context()->render('section', 'pt:service'), CanonicalJson::encode(self::abilities()->section(['id' => 'pt:service', 'page' => 3])));
+        $this->assertInstanceOf(WP_Error::class, self::abilities()->section(['id' => 'pt:service', 'page' => '-2']));
+    }
+
     public function testAnItemWithNoFactsKeepsAnObjectSoItEncodesAsBraces(): void
     {
         $manifest = FixtureManifest::manifest(['site' => [new Item('opt:blogdescription', 'option', 'Tagline', [], 'options-general.php')]]);
