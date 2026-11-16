@@ -35,7 +35,7 @@ use WP_CLI;
 final class Plugin
 {
     /** Keep in step with the Version header in voyager-wayfinder.php. */
-    public const VERSION = '0.11.0';
+    public const VERSION = '0.12.0';
 
     public const CLI_COMMAND = 'wayfinder';
 
