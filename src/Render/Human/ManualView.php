@@ -545,6 +545,8 @@ final class ManualView
                 if ($content !== []) {
                     $rows[] = [__('Used in content', 'voyager-wayfinder'), esc_html(implode(', ', $content))];
                 }
+            } elseif ($name === 'refreshes' && is_array($value)) {
+                $rows[] = [__('A change refreshes', 'voyager-wayfinder'), esc_html(self::refreshes($value))];
             } elseif ($name === 'example' && is_array($value)) {
                 $path = is_string($value['path'] ?? null) ? $value['path'] : '';
                 $source = is_string($value['content_source'] ?? null) ? $value['content_source'] : '';
@@ -555,6 +557,43 @@ final class ManualView
         }
 
         return $rows;
+    }
+
+    /**
+     * A binding's `refreshes` stat in words, with the pages it names:
+     * `7 pages: page:a, ..., page:f, the front page`. The front page is
+     * named when the plan counts a URL past its posts, which is the front
+     * page unless it is one of them. `Every page` when a template or part
+     * shows the value, or more pages do than the plan lists one by one.
+     *
+     * @param array<array-key, mixed> $refreshes
+     */
+    private static function refreshes(array $refreshes): string
+    {
+        $count = is_int($refreshes['count'] ?? null) ? $refreshes['count'] : 0;
+        $pages = is_array($refreshes['pages'] ?? null) ? array_values(array_map('strval', $refreshes['pages'])) : [];
+        $templates = is_array($refreshes['templates'] ?? null) ? array_values(array_map('strval', $refreshes['templates'])) : [];
+
+        if (($refreshes['all_pages'] ?? false) === true) {
+            $text = $templates !== []
+                /* translators: %s: the templates and template parts that show the value. */
+                ? sprintf(__('Every page, because a template or part shows it: %s', 'voyager-wayfinder'), implode(', ', $templates))
+                : __('Every page, because more than 50 pages show it', 'voyager-wayfinder');
+
+            /* translators: %s: the pages that show the value. */
+            return $pages === [] ? $text : $text . '. ' . sprintf(__('Pages that show it: %s', 'voyager-wayfinder'), implode(', ', $pages));
+        }
+
+        if ($count === 0) {
+            return __('No pages', 'voyager-wayfinder');
+        }
+
+        if ($count > count($pages)) {
+            $pages[] = __('the front page', 'voyager-wayfinder');
+        }
+
+        /* translators: 1: number of pages. 2: the pages. */
+        return sprintf(_n('%1$d page: %2$s', '%1$d pages: %2$s', $count, 'voyager-wayfinder'), $count, implode(', ', $pages));
     }
 
     private static function factLabel(string $name): string

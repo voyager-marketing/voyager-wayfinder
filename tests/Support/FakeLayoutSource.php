@@ -7,6 +7,7 @@ namespace Voyager\Wayfinder\Tests\Support;
 use RuntimeException;
 use Voyager\Wayfinder\Scanners\LayoutSource;
 use Voyager\Wayfinder\Scanners\OptionScreens;
+use Voyager\Wayfinder\Scanners\RefreshPlan;
 
 /**
  * In-memory LayoutSource. fixture() fills it from the fixture theme's block
@@ -81,6 +82,12 @@ final class FakeLayoutSource implements LayoutSource
 
     /** @var array<string, string|null> Option => its value as text. An option not here is unset (''). */
     public array $options = [];
+
+    /** What Open Blocks says a Site Data change refreshes. Null: the pack is not active. */
+    public ?RefreshPlan $refreshPlan = null;
+
+    /** @var list<string> Every key siteDataRefreshes() was asked about, in order. */
+    public array $refreshCalls = [];
 
     /** @var list<MenuLocationRow> Classic themes only. */
     public array $menuLocations = [];
@@ -278,6 +285,13 @@ final class FakeLayoutSource implements LayoutSource
     public function siteDataScreen(): ?string
     {
         return $this->siteDataScreen;
+    }
+
+    public function siteDataRefreshes(string $key): ?array
+    {
+        $this->refreshCalls[] = $key;
+
+        return $this->refreshPlan?->refreshes($key);
     }
 
     public function optionText(string $option): ?string

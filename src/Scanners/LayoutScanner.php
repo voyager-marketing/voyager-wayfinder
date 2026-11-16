@@ -58,6 +58,9 @@ use Voyager\Wayfinder\Manifest\Section;
  * option registered with register_setting(), the other options in that
  * settings group that no binding and no theme file reads are listed on it
  * as `unread_settings`: set up beside it and shown nowhere Wayfinder looks.
+ * A `voyager/site-data` binding carries the `refreshes` stat when the
+ * voyager-open-blocks pack is active: the pages a change to its value
+ * refreshes, which reach past its direct `used_in` (see refreshes()).
  *
  * A classic theme's templates and parts are PHP files (see ClassicTheme).
  * Their refs are the parts they include, they have no Site Editor path, and
@@ -102,6 +105,9 @@ final class LayoutScanner implements Scanner
     /** @var array<string, array<string, mixed>> Container id => its lock and class facts, filled as each block container is walked. */
     private array $containerFacts = [];
 
+    /** @var array<string, string> `<theme>//<slug>` => the `tpl:` or `part:` id of that block template or part, for this scan. */
+    private array $templateIds = [];
+
     public function __construct(?LayoutSource $source = null, ?Locks $locks = null, ?ClientAccess $access = null)
     {
         $this->source = $source ?? new WordPressLayoutSource();
@@ -142,6 +148,7 @@ final class LayoutScanner implements Scanner
 
         $items = [];
         $this->containerFacts = [];
+        $this->templateIds = self::templateIds($templates, $parts);
 
         foreach ($templates as $row) {
             $refs['tpl:' . self::key($row)] = $this->containerRefs('tpl:' . self::key($row), $row, $bindings, Locks::unlocked());
@@ -810,8 +817,67 @@ final class LayoutScanner implements Scanner
             ],
             $this->source->bindingEditPath($source, $key),
             $refs,
-            self::usage($usedIn)
+            self::usage($usedIn) + $this->refreshes($source, $key)
         );
+    }
+
+    /**
+     * `refreshes`, a stat on a `voyager/site-data` binding: what a change to
+     * its key refreshes, as the voyager-open-blocks pack would purge it (see
+     * RefreshPlan). A stat, outside the hash, like `used_in`: publishing a
+     * page that shows the key moves it. Its templates and parts are named by
+     * their `tpl:` and `part:` ids where this scan has them. Absent when the
+     * pack is not active or its plan cannot be read.
+     *
+     * @return array{refreshes?: array{all_pages: bool, count: int, pages: list<string>, templates: list<string>}}
+     */
+    private function refreshes(string $source, ?string $key): array
+    {
+        if ($source !== OptionScreens::SITE_DATA_SOURCE || $key === null) {
+            return [];
+        }
+
+        $plan = $this->source->siteDataRefreshes($key);
+
+        if ($plan === null) {
+            return [];
+        }
+
+        $templates = array_values(array_unique(array_map(
+            fn (string $template): string => $this->templateIds[$template] ?? $template,
+            $plan['templates']
+        )));
+        sort($templates, SORT_STRING);
+
+        return ['refreshes' => [
+            'all_pages' => $plan['all_pages'],
+            'count'     => $plan['count'],
+            'pages'     => $plan['pages'],
+            'templates' => $templates,
+        ]];
+    }
+
+    /**
+     * Each block template's and part's WordPress id, `<theme>//<slug>`,
+     * mapped to its item id. A classic PHP file has no such id.
+     *
+     * @param list<TemplateRow> $templates
+     * @param list<TemplateRow> $parts
+     * @return array<string, string>
+     */
+    private static function templateIds(array $templates, array $parts): array
+    {
+        $ids = [];
+
+        foreach (['tpl:' => $templates, 'part:' => $parts] as $prefix => $rows) {
+            foreach ($rows as $row) {
+                if (!isset($row['includes'])) {
+                    $ids[$row['theme'] . '//' . $row['slug']] = $prefix . self::key($row);
+                }
+            }
+        }
+
+        return $ids;
     }
 
     /**

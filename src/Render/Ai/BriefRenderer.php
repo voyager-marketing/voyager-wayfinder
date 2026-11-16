@@ -572,7 +572,7 @@ final class BriefRenderer
             'post_type'     => Band::of(Facts::postCount($item)) . ' published',
             'template_part' => 'area ' . (string) ($item->facts['area'] ?? ''),
             'pattern'       => 'synced, used ' . Band::of(Facts::usageCount($item)) . ' times, one edit changes all',
-            'binding'       => implode('; ', array_filter([Facts::readsPart($item), self::usedInHint($item)])),
+            'binding'       => implode('; ', array_filter([Facts::readsPart($item), self::usedInHint($item), Facts::refreshesPart($item)])),
             'options_page', 'menu_location' => Facts::describe($item, false),
             default         => self::usedInHint($item),
         };

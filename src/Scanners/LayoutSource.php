@@ -148,6 +148,17 @@ interface LayoutSource
     public function siteDataScreen(): ?string;
 
     /**
+     * What a change to one Site Data key refreshes, read from the
+     * voyager-open-blocks pack's plan (see RefreshPlan): the distinct URLs
+     * it lists, the posts as `<post_type>:<slug>`, the templates and parts
+     * as `<theme>//<slug>`, and whether every page is refreshed. Null when
+     * the pack is not active or its plan cannot be read, never a 0.
+     *
+     * @return array{all_pages: bool, count: int, pages: list<string>, templates: list<string>}|null
+     */
+    public function siteDataRefreshes(string $key): ?array;
+
+    /**
      * An option's stored value as text, trimmed, to test for empty or to
      * compare with a query. It never leaves Wayfinder. '' when the option is
      * unset or empty, null when it holds an array or object.

@@ -601,8 +601,30 @@ final class Facts
             self::cannotOpen($item),
             self::definedIn($item->facts),
             self::usedIn($item, $listed),
+            self::refreshesPart($item),
             $unread ? self::unreadPart($item) : '',
         ];
+    }
+
+    /**
+     * `a change refreshes 6-20 pages`, or `every page`, or `no pages`, from
+     * a binding's `refreshes` stat, which the voyager-open-blocks pack's plan
+     * gives a `voyager/site-data` binding. The count is content, so it prints
+     * as a band. Empty without the stat.
+     */
+    public static function refreshesPart(Item $item): string
+    {
+        $refreshes = $item->stats['refreshes'] ?? null;
+
+        if (!is_array($refreshes) || !is_int($refreshes['count'] ?? null)) {
+            return '';
+        }
+
+        if (($refreshes['all_pages'] ?? false) === true) {
+            return 'a change refreshes every page';
+        }
+
+        return 'a change refreshes ' . ($refreshes['count'] === 0 ? 'no' : Band::of($refreshes['count'])) . ' pages';
     }
 
     /**

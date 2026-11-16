@@ -309,6 +309,9 @@ final class WordPressLayoutSource implements LayoutSource
     /** @var array<string, string|null>|null */
     private static ?array $siteData = null;
 
+    /** Made on the first siteDataRefreshes() call, so the pack is looked for when the scan runs. */
+    private ?RefreshPlan $refreshPlan = null;
+
     /**
      * @return array{file: string|null, reads: list<string>|null}|null
      */
@@ -361,6 +364,11 @@ final class WordPressLayoutSource implements LayoutSource
     public function siteDataScreen(): ?string
     {
         return OptionScreens::siteDataScreen();
+    }
+
+    public function siteDataRefreshes(string $key): ?array
+    {
+        return ($this->refreshPlan ??= RefreshPlan::forSite())->refreshes($key);
     }
 
     public function optionText(string $option): ?string
