@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Voyager Wayfinder
  * Description: Scans the site and keeps a living manual of how it is built and where each thing is edited.
- * Version: 0.11.0
+ * Version: 0.12.0
  * Requires at least: 6.9
  * Requires PHP: 8.1
  * Author: Voyager Marketing

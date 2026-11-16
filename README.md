@@ -36,6 +36,8 @@ Wayfinder scans what WordPress already knows: post types, taxonomies and their f
 
 **The manual in wp-admin.** The Wayfinder page lists everything the scan found in five sections: Site, Content, Layout, Routes and Integrations. Each item says what it is, what it uses, what uses it, whether a client in the editor role can change it, and links straight to its edit screen. Administrators pin notes to items, and a note is flagged for review when its item changes, so the manual does not quietly go stale.
 
+With [Voyager Open Blocks](https://github.com/voyager-marketing/voyager-open-blocks) active, each Site Data binding also names the pages a change to its value refreshes, such as every page that shows the phone number, read from Open Blocks' own usage index.
+
 **Where is this edited?** Give it a page and some text you can see on it, and it answers with the places that make up that part of the page, best match first, each with its edit screen. It keeps the first three and says how many more there are; `--detail=full` lists every one. Ask from WP-CLI, REST or an ability. On the demo site, this is the chain for the banner text on the home page:
 
 ```console

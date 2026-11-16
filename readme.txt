@@ -4,7 +4,7 @@ Tags: ai, mcp, documentation, site editor, abilities
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 0.11.0
+Stable tag: 0.12.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -96,6 +96,9 @@ Deleting Wayfinder from the Plugins screen removes its notes table and every set
 3. The Settings panel, with MCP exposure off.
 
 == Changelog ==
+
+= 0.12.0 =
+* With the Voyager Open Blocks plugin active, a Site Data binding names the pages a change to its value refreshes, read from Open Blocks' own usage index: the index and brief say how many pages (or every page), and the Wayfinder page lists them. Without Open Blocks the scan reads as before.
 
 = 0.11.0 =
 * A Site Data field is traced to the plugin that owns it: voyager-blocks, else the voyager-open-blocks pack with its own Settings > Site Data screen. A site running only the pack no longer reads as having no screen for its `voyager_site_*` options.
