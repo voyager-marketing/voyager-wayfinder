@@ -8,6 +8,7 @@ use Closure;
 use InvalidArgumentException;
 use Voyager\Wayfinder\Manifest\CanonicalJson;
 use Voyager\Wayfinder\Manifest\Manifest;
+use Voyager\Wayfinder\Manifest\ManifestCache;
 use Voyager\Wayfinder\Plugin;
 use Voyager\Wayfinder\Scanners\ScannerRegistry;
 
@@ -123,6 +124,17 @@ final class Context
         }
 
         return $rows;
+    }
+
+    /**
+     * The Context agents read through: REST, abilities and MCP resources.
+     * The manifest comes from ManifestCache, which scans only when the site
+     * moved since the last scan. The manual page and WP-CLI keep `new
+     * Context()`, which scans every time.
+     */
+    public static function cached(): self
+    {
+        return new self(static fn (): Manifest => ManifestCache::forSite()->remember(self::scanSite(...)));
     }
 
     private static function scanSite(): Manifest

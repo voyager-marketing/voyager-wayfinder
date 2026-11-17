@@ -13,8 +13,8 @@ use WP_Post;
  *
  * On `admin_init`, at most once per five minutes, the fingerprint is compared
  * with the one stored at the last refresh, and a change triggers a rescan.
- * Theme switches, plugin (de)activation, layout post saves and ACF field
- * group saves mark the manifest stale instead of scanning on the spot: in the
+ * Theme switches, plugin (de)activation, layout post saves, ACF field
+ * group saves and classic menu saves mark the manifest stale instead of scanning on the spot: in the
  * request that activates a plugin or switches a theme, the new code has not
  * registered anything yet, so a scan there would store the old site. The
  * next admin request (often the redirect that follows) rescans.
@@ -41,6 +41,8 @@ final class Watcher
         add_action('deactivated_plugin', [$this, 'markStale']);
         add_action('save_post', [$this, 'onSavePost'], 10, 2);
         add_action('acf/update_field_group', [$this, 'markStale']);
+        // Classic menus are not layout posts, so the fingerprint cannot see them.
+        add_action('wp_update_nav_menu', [$this, 'markStale']);
     }
 
     public function check(): void

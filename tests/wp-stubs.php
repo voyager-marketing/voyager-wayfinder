@@ -242,6 +242,15 @@ if (!function_exists('get_option')) {
     }
 }
 
+if (!function_exists('update_option')) {
+    function update_option(string $option, mixed $value, mixed $autoload = null): bool
+    {
+        WpCalls::$options[$option] = $value;
+
+        return true;
+    }
+}
+
 if (!function_exists('delete_option')) {
     function delete_option(string $option): bool
     {

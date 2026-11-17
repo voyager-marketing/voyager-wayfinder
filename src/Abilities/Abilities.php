@@ -62,7 +62,7 @@ final class Abilities
     private $history;
 
     /**
-     * @param (callable(): Context)|null     $contextFactory Defaults to a fresh Context per call.
+     * @param (callable(): Context)|null     $contextFactory Defaults to Context::cached(), which scans only when the site moved.
      * @param (callable(): EditLocator)|null $locatorFactory Defaults to a fresh EditLocator per call.
      * @param (callable(): mixed)|null       $history        Defaults to the stored `vwf_manifest_history`.
      */
@@ -412,7 +412,7 @@ final class Abilities
 
     private function newContext(): Context
     {
-        return $this->contextFactory !== null ? ($this->contextFactory)() : new Context();
+        return $this->contextFactory !== null ? ($this->contextFactory)() : Context::cached();
     }
 
     private function newLocator(): EditLocator
