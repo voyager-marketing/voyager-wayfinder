@@ -13,6 +13,7 @@ use Voyager\Wayfinder\Cli\ExportCommand;
 use Voyager\Wayfinder\Cli\NotesCommand;
 use Voyager\Wayfinder\Drift\Watcher;
 use Voyager\Wayfinder\Inspector\Inspector;
+use Voyager\Wayfinder\Manifest\ManifestCache;
 use Voyager\Wayfinder\Notes\Schema;
 use Voyager\Wayfinder\Rest\ContextController;
 use Voyager\Wayfinder\Rest\FindController;
@@ -87,6 +88,7 @@ final class Plugin
 
         $this->manualPage->register();
         $this->watcher->register();
+        ManifestCache::register();
         $this->notesController->register();
         $this->contextController->register();
         $this->findController->register();

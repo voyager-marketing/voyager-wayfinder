@@ -38,7 +38,7 @@ final class ContextController
     private $contextFactory;
 
     /**
-     * @param (callable(): Context)|null $contextFactory Defaults to a fresh Context per request.
+     * @param (callable(): Context)|null $contextFactory Defaults to Context::cached(), which scans only when the site moved.
      */
     public function __construct(?callable $contextFactory = null)
     {
@@ -201,6 +201,6 @@ final class ContextController
 
     private function newContext(): Context
     {
-        return $this->contextFactory !== null ? ($this->contextFactory)() : new Context();
+        return $this->contextFactory !== null ? ($this->contextFactory)() : Context::cached();
     }
 }

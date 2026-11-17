@@ -9,6 +9,7 @@ use Voyager\Wayfinder\Drift\Fingerprint;
 use Voyager\Wayfinder\Drift\Refresher;
 use Voyager\Wayfinder\Drift\Watcher;
 use Voyager\Wayfinder\Edit\ClientAccess;
+use Voyager\Wayfinder\Manifest\ManifestCache;
 use Voyager\Wayfinder\Manifest\SnapshotStore;
 use Voyager\Wayfinder\Notes\Schema;
 
@@ -28,6 +29,8 @@ final class Uninstaller
         Abilities::MCP_OPTION,
         ClientAccess::OPTION,
         Fingerprint::OPTION,
+        ManifestCache::GENERATION_OPTION,
+        ManifestCache::OPTION,
         Refresher::LAST_SCAN_OPTION,
         Schema::VERSION_OPTION,
         SnapshotStore::HISTORY_OPTION,
